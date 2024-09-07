@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DBA02F3C2C8BEC33001C7661 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA02F3B2C8BEC33001C7661 /* Launch Screen.storyboard */; };
+		DBA02F3E2C8CCCF1001C7661 /* WorkoutPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F3D2C8CCCF1001C7661 /* WorkoutPhase.swift */; };
 		DBADCEDD2C82C81F00E2AD15 /* Interval_TrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */; };
-		DBADCEDF2C82C81F00E2AD15 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEDE2C82C81F00E2AD15 /* ContentView.swift */; };
 		DBADCEE12C82C82100E2AD15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBADCEE02C82C82100E2AD15 /* Assets.xcassets */; };
 		DBADCEE42C82C82100E2AD15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBADCEE32C82C82100E2AD15 /* Preview Assets.xcassets */; };
 		DBADCEEF2C82C82100E2AD15 /* Interval_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEEE2C82C82100E2AD15 /* Interval_TrainerTests.swift */; };
 		DBADCEF92C82C82100E2AD15 /* Interval_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */; };
 		DBADCEFB2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */; };
+		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
+		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
+		DBD0BE802C8750F60058FF39 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7F2C8750F60058FF39 /* Login.swift */; };
+		DBD0BE822C87511E0058FF39 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE812C87511E0058FF39 /* Home.swift */; };
+		DBD0BE842C87515A0058FF39 /* WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WorkoutSummary.swift */; };
+		DBD0BE862C8751940058FF39 /* CompletedWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE852C8751940058FF39 /* CompletedWorkouts.swift */; };
+		DBD0BE882C8752440058FF39 /* WorkoutPlans.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE872C8752440058FF39 /* WorkoutPlans.swift */; };
+		DBD0BE8A2C8752630058FF39 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE892C8752630058FF39 /* Utilities.swift */; };
+		DBD0BE8C2C8810D90058FF39 /* WorkoutCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE8B2C8810D90058FF39 /* WorkoutCreation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DBA02F3B2C8BEC33001C7661 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		DBA02F3D2C8CCCF1001C7661 /* WorkoutPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPhase.swift; sourceTree = "<group>"; };
 		DBADCED92C82C81F00E2AD15 /* Interval Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Interval Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerApp.swift; sourceTree = "<group>"; };
-		DBADCEDE2C82C81F00E2AD15 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DBADCEE02C82C82100E2AD15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBADCEE32C82C82100E2AD15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DBADCEE52C82C82100E2AD15 /* Interval_Trainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Interval_Trainer.entitlements; sourceTree = "<group>"; };
@@ -45,6 +56,14 @@
 		DBADCEF42C82C82100E2AD15 /* Interval TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interval TrainerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITests.swift; sourceTree = "<group>"; };
 		DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
+		DBD0BE7F2C8750F60058FF39 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		DBD0BE812C87511E0058FF39 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		DBD0BE832C87515A0058FF39 /* WorkoutSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSummary.swift; sourceTree = "<group>"; };
+		DBD0BE852C8751940058FF39 /* CompletedWorkouts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedWorkouts.swift; sourceTree = "<group>"; };
+		DBD0BE872C8752440058FF39 /* WorkoutPlans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutPlans.swift; sourceTree = "<group>"; };
+		DBD0BE892C8752630058FF39 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		DBD0BE8B2C8810D90058FF39 /* WorkoutCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCreation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,10 +116,19 @@
 			isa = PBXGroup;
 			children = (
 				DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */,
-				DBADCEDE2C82C81F00E2AD15 /* ContentView.swift */,
+				DBD0BE7F2C8750F60058FF39 /* Login.swift */,
+				DBD0BE832C87515A0058FF39 /* WorkoutSummary.swift */,
+				DBD0BE852C8751940058FF39 /* CompletedWorkouts.swift */,
+				DBD0BE872C8752440058FF39 /* WorkoutPlans.swift */,
+				DBD0BE8B2C8810D90058FF39 /* WorkoutCreation.swift */,
+				DBA02F3D2C8CCCF1001C7661 /* WorkoutPhase.swift */,
+				DBD0BE812C87511E0058FF39 /* Home.swift */,
+				DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */,
+				DBD0BE892C8752630058FF39 /* Utilities.swift */,
 				DBADCEE02C82C82100E2AD15 /* Assets.xcassets */,
 				DBADCEE52C82C82100E2AD15 /* Interval_Trainer.entitlements */,
 				DBADCEE22C82C82100E2AD15 /* Preview Content */,
+				DBA02F3B2C8BEC33001C7661 /* Launch Screen.storyboard */,
 			);
 			path = "Interval Trainer";
 			sourceTree = "<group>";
@@ -145,6 +174,9 @@
 			dependencies = (
 			);
 			name = "Interval Trainer";
+			packageProductDependencies = (
+				DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */,
+			);
 			productName = "Interval Trainer";
 			productReference = DBADCED92C82C81F00E2AD15 /* Interval Trainer.app */;
 			productType = "com.apple.product-type.application";
@@ -193,7 +225,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					DBADCED82C82C81F00E2AD15 = {
 						CreatedOnToolsVersion = 14.2;
@@ -217,6 +249,9 @@
 				Base,
 			);
 			mainGroup = DBADCED02C82C81F00E2AD15;
+			packageReferences = (
+				DBD0BE7A2C851D780058FF39 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = DBADCEDA2C82C81F00E2AD15 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -233,6 +268,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBA02F3C2C8BEC33001C7661 /* Launch Screen.storyboard in Resources */,
 				DBADCEE42C82C82100E2AD15 /* Preview Assets.xcassets in Resources */,
 				DBADCEE12C82C82100E2AD15 /* Assets.xcassets in Resources */,
 			);
@@ -259,7 +295,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBADCEDF2C82C81F00E2AD15 /* ContentView.swift in Sources */,
+				DBD0BE8C2C8810D90058FF39 /* WorkoutCreation.swift in Sources */,
+				DBA02F3E2C8CCCF1001C7661 /* WorkoutPhase.swift in Sources */,
+				DBD0BE802C8750F60058FF39 /* Login.swift in Sources */,
+				DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */,
+				DBD0BE822C87511E0058FF39 /* Home.swift in Sources */,
+				DBD0BE862C8751940058FF39 /* CompletedWorkouts.swift in Sources */,
+				DBD0BE842C87515A0058FF39 /* WorkoutSummary.swift in Sources */,
+				DBD0BE882C8752440058FF39 /* WorkoutPlans.swift in Sources */,
+				DBD0BE8A2C8752630058FF39 /* Utilities.swift in Sources */,
 				DBADCEDD2C82C81F00E2AD15 /* Interval_TrainerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,9 +374,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -390,9 +436,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -419,12 +467,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Interval Trainer/Preview Content\"";
 				DEVELOPMENT_TEAM = F367FQQ7Q2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -432,8 +486,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -446,12 +503,18 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Interval Trainer/Preview Content\"";
 				DEVELOPMENT_TEAM = F367FQQ7Q2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -459,8 +522,11 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -471,14 +537,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F367FQQ7Q2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-TrainerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Interval Trainer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Interval Trainer";
 			};
 			name = Debug;
@@ -490,14 +560,18 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F367FQQ7Q2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-TrainerTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Interval Trainer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Interval Trainer";
 			};
 			name = Release;
@@ -508,6 +582,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F367FQQ7Q2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -525,6 +600,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = F367FQQ7Q2;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -576,6 +652,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DBD0BE7A2C851D780058FF39 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = exactVersion;
+				version = 1.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DBD0BE7A2C851D780058FF39 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DBADCED12C82C81F00E2AD15 /* Project object */;
 }

@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Interval_Trainer
+//@testable import Interval_Trainer
 
 final class Interval_TrainerTests: XCTestCase {
 
