@@ -38,21 +38,37 @@ struct WorkoutPlansFeature {
                     // Simulating async load
                     try await Task.sleep(for: .seconds(1))
                     let plans = [
-                        WorkoutPlan(id: UUID(), name: "HIIT Cardio", intervals: [
-                            Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
-                            Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30),
-                            Interval(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 60),
-                            Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30),
-                            Interval(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 60),
-                            Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                        WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
+                            ])),
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
+                            ])),
+                            .rest(RestPhase(id: UUID(), duration: 60)),
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
+                            ])),
+                            .rest(RestPhase(id: UUID(), duration: 60)),
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                            ]))
                         ]),
-                        WorkoutPlan(id: UUID(), name: "Strength Training", intervals: [
-                            Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
-                            Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
-                            Interval(id: UUID(), name: "Rest", type: .rest, duration: 90),
-                            Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
-                            Interval(id: UUID(), name: "Rest", type: .rest, duration: 90),
-                            Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                        WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
+                            ])),
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
+                            ])),
+                            .rest(RestPhase(id: UUID(), duration: 90)),
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
+                            ])),
+                            .rest(RestPhase(id: UUID(), duration: 90)),
+                            .active(ActivePhase(id: UUID(), intervals: [
+                                Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                            ]))
                         ])
                     ]
                     await send(.workoutPlansLoaded(plans))
@@ -63,7 +79,18 @@ struct WorkoutPlansFeature {
                 return .none
                 
             case .createNewWorkoutPlan:
-                state.workoutCreation = WorkoutCreationFeature.State()
+                var workoutCreation = WorkoutCreationFeature.State()
+                workoutCreation.phases = .init(
+                    arrayLiteral: .active(
+                        ActivePhase(
+                            id: UUID(),
+                            intervals: [
+                                .init(id: UUID(), name: "Warmup", type: .warmup, duration: 10.0),
+                                .init(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 40.0),
+                                .init(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 20.0),
+                                .init(id: UUID(), name: "Cooldown", type: .coolDown, duration: 30.0)
+                            ])))
+                state.workoutCreation = workoutCreation
                 return .none
                 
             case .workoutCreation(.presented(.dismiss(let newPlan))):
@@ -90,7 +117,7 @@ extension WorkoutCreationFeature.State {
         WorkoutPlan(
             id: UUID(),
             name: self.workoutName,
-            intervals: Array(self.intervals)
+            phases: Array(self.phases)
         )
     }
 }
@@ -206,17 +233,37 @@ struct WorkoutPlanCard: View {
                 store: Store(
                     initialState: WorkoutPlansFeature.State(
                         workoutPlans: [
-                            WorkoutPlan(id: UUID(), name: "HIIT Cardio", intervals: [
-                                Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
-                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 60),
-                                Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                            WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
+                                ])),
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
+                                ])),
+                                .rest(RestPhase(id: UUID(), duration: 60)),
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
+                                ])),
+                                .rest(RestPhase(id: UUID(), duration: 60)),
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                                ]))
                             ]),
-                            WorkoutPlan(id: UUID(), name: "Strength Training", intervals: [
-                                Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
-                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
-                                Interval(id: UUID(), name: "Rest", type: .rest, duration: 90),
-                                Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                            WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
+                                ])),
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
+                                ])),
+                                .rest(RestPhase(id: UUID(), duration: 90)),
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
+                                ])),
+                                .rest(RestPhase(id: UUID(), duration: 90)),
+                                .active(ActivePhase(id: UUID(), intervals: [
+                                    Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                                ]))
                             ])
                         ],
                         isExpanded: true
@@ -229,28 +276,45 @@ struct WorkoutPlanCard: View {
     }
 }
 
-// Assuming you have these structures defined elsewhere
 struct WorkoutPlan: Identifiable, Equatable {
     let id: UUID
-    let name: String
-    let intervals: [Interval]
+    var name: String
+    var phases: [WorkoutPhase]
+    
+    var totalDuration: TimeInterval {
+        phases.reduce(0) { $0 + $1.duration }
+    }
+}
+
+enum WorkoutPhase: Identifiable, Equatable {
+    case active(ActivePhase)
+    case rest(RestPhase)
+    
+    var id: UUID {
+        switch self {
+        case .active(let phase): return phase.id
+        case .rest(let phase): return phase.id
+        }
+    }
+    
+    var duration: TimeInterval {
+        switch self {
+        case .active(let phase): return phase.totalDuration
+        case .rest(let phase): return phase.duration
+        }
+    }
+}
+
+struct ActivePhase: Identifiable, Equatable {
+    let id: UUID
+    var intervals: [Interval]
     
     var totalDuration: TimeInterval {
         intervals.reduce(0) { $0 + $1.duration }
     }
 }
 
-struct Interval: Identifiable, Equatable {
+struct RestPhase: Identifiable, Equatable {
     let id: UUID
-    var name: String
-    var type: IntervalType
     var duration: TimeInterval
-    
-    enum IntervalType: String, CaseIterable {
-        case warmup = "Warm Up"
-        case highIntensity = "High Intensity"
-        case lowIntensity = "Low Intensity"
-        case rest = "Rest"
-        case coolDown = "Cool Down"
-    }
 }

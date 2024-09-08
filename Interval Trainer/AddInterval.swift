@@ -1,5 +1,5 @@
 //
-//  WorkoutPhase.swift
+//  AddInterval.swift
 //  Interval Trainer
 //
 //  Created by Blake Osonduagwueki on 9/7/24.
@@ -8,38 +8,6 @@
 import Foundation
 import SwiftUI
 import ComposableArchitecture
-
-struct IntervalRow: View {
-    let interval: Interval
-    let isSelected: Bool
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(interval.name)
-                    .font(.headline)
-                Text(interval.type.rawValue)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            Spacer()
-            Text(formatDuration(interval.duration))
-                .font(.subheadline)
-            if isSelected {
-                Image(systemName: "checkmark")
-                    .foregroundColor(.blue)
-            }
-        }
-    }
-    
-    private func formatDuration(_ duration: TimeInterval) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.minute, .second]
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: duration) ?? ""
-    }
-}
 
 @Reducer
 struct AddIntervalFeature {

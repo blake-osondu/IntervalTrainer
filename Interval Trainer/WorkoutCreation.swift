@@ -14,11 +14,9 @@ struct WorkoutCreationFeature {
     @ObservableState
     struct State: Equatable {
         var workoutName: String = ""
-        var intervals: IdentifiedArrayOf<Interval> = []
-        @Presents var addInterval: AddIntervalFeature.State?
-        @Presents var duplicateInterval: DuplicateIntervalFeature.State?
-        var isMultiSelectMode: Bool = false
-        var selectedIntervals: Set<Interval.ID> = []
+        var phases: IdentifiedArrayOf<WorkoutPhase> = []
+        @Presents var addPhase: AddPhaseFeature.State?
+        @Presents var editPhase: EditPhaseFeature.State?
     }
     
     @CasePathable
@@ -26,15 +24,12 @@ struct WorkoutCreationFeature {
         case cancel
         case dismiss(WorkoutPlan)
         case setWorkoutName(String)
-        case addIntervalTapped
-        case addInterval(PresentationAction<AddIntervalFeature.Action>)
-        case deleteIntervals(IndexSet)
-        case moveIntervals(IndexSet, Int)
-        case toggleMultiSelectMode
-        case toggleIntervalSelection(Interval.ID)
-        case deleteSelectedIntervals
-        case duplicateSelectedIntervalsTapped
-        case duplicateInterval(PresentationAction<DuplicateIntervalFeature.Action>)
+        case addPhaseTapped
+        case workoutPhaseSelected(WorkoutPhase)
+        case addPhase(PresentationAction<AddPhaseFeature.Action>)
+        case editPhase(PresentationAction<EditPhaseFeature.Action>)
+        case deletePhases(IndexSet)
+        case movePhases(IndexSet, Int)
         case saveWorkoutPlan
     }
     
@@ -45,101 +40,91 @@ struct WorkoutCreationFeature {
                 state.workoutName = name
                 return .none
                 
-            case .addIntervalTapped:
-                state.addInterval = AddIntervalFeature.State()
+            case .addPhaseTapped:
+                state.addPhase = AddPhaseFeature.State()
                 return .none
                 
-            case .addInterval(.presented(.save)):
-                guard let addIntervalState = state.addInterval else { return .none }
-                state.intervals.append(Interval(
-                    id: UUID(),
-                    name: addIntervalState.name,
-                    type: addIntervalState.type,
-                    duration: addIntervalState.duration))
-                state.addInterval = nil
-                return .none
-                
-            case .addInterval(.dismiss):
-                state.addInterval = nil
-                return .none
-                
-            case let .deleteIntervals(indexSet):
-                state.intervals.remove(atOffsets: indexSet)
-                return .none
-                
-            case let .moveIntervals(source, destination):
-                state.intervals.move(fromOffsets: source, toOffset: destination)
-                return .none
-                
-            case .toggleMultiSelectMode:
-                state.isMultiSelectMode.toggle()
-                state.selectedIntervals.removeAll()
-                return .none
-                
-            case let .toggleIntervalSelection(id):
-                if state.selectedIntervals.contains(id) {
-                    state.selectedIntervals.remove(id)
-                } else {
-                    state.selectedIntervals.insert(id)
+            case .addPhase(.presented(.save)):
+                guard let addPhase = state.addPhase else { return .none }
+                switch addPhase.phaseType {
+                case .active:
+                    let phase = WorkoutPhase.active(ActivePhase(id: UUID(), intervals: addPhase.intervals.elements))
+                    state.phases.append(phase)
+                case .rest:
+                    let phase = WorkoutPhase.rest(RestPhase(id: UUID(), duration: addPhase.restPhaseDuration))
+                    state.phases.append(phase)
                 }
+                state.addPhase = nil
                 return .none
                 
-            case .deleteSelectedIntervals:
-                let selectedIntervals = state.selectedIntervals
-                state.intervals.removeAll { selectedIntervals.contains($0.id) }
-                state.selectedIntervals.removeAll()
-                state.isMultiSelectMode = false
+            case .addPhase(.dismiss):
+                state.addPhase = nil
                 return .none
                 
-            case .duplicateSelectedIntervalsTapped:
-                let selectedIntervals = state.intervals.filter { state.selectedIntervals.contains($0.id) }.map { $0 }
-                state.duplicateInterval = DuplicateIntervalFeature.State(intervals: selectedIntervals)
+                
+            case let .workoutPhaseSelected(phase):
+                state.editPhase = EditPhaseFeature.State(phase: phase)
                 return .none
                 
-            case .duplicateInterval(.presented(.confirm)):
-                let newIntervals = state.selectedIntervals.flatMap { id in
-                    Array(repeating: state.intervals[id: id]!, count: 1)
+            case .editPhase(.presented(.save)):
+                guard let editPhase = state.editPhase else { return .none }
+                if let index = state.phases.firstIndex(where: { $0.id == editPhase.phase.id }) {
+                    switch editPhase.phase {
+                    case .active:
+                        state.phases[index] = .active(ActivePhase(
+                            id: editPhase.phase.id,
+                            intervals: Array(editPhase.intervals)
+                        ))
+                    case .rest:
+                        state.phases[index] = .rest(RestPhase(
+                            id: editPhase.phase.id,
+                            duration: editPhase.restPhaseDuration
+                        ))
+                    }
                 }
-                state.intervals.append(contentsOf: newIntervals)
-                state.selectedIntervals.removeAll()
-                state.isMultiSelectMode = false
-                state.duplicateInterval = nil
+                state.editPhase = nil
                 return .none
                 
-            case .duplicateInterval(.dismiss):
-                state.duplicateInterval = nil
+            case .editPhase(.dismiss):
+                state.editPhase = nil
                 return .none
                 
+            case let .deletePhases(indexSet):
+                state.phases.remove(atOffsets: indexSet)
+                return .none
             case .cancel:
                 return .none
                 
-            case .dismiss:
+            case .dismiss:    
+                return .none
+            case let .movePhases(source, destination):
+                state.phases.move(fromOffsets: source, toOffset: destination)
                 return .none
                 
             case .saveWorkoutPlan:
                 let newPlan = WorkoutPlan(
                     id: UUID(),
                     name: state.workoutName,
-                    intervals: Array(state.intervals)
+                    phases: Array(state.phases)
                 )
-               
                 return .send(.dismiss(newPlan))
-            case .addInterval, .duplicateInterval:
+                
+            case .addPhase, .editPhase:
                 return .none
             }
         }
-        .ifLet(\.$addInterval, action: \.addInterval) {
-            AddIntervalFeature()
+        .ifLet(\.$addPhase, action: \.addPhase) {
+            AddPhaseFeature()
         }
-        .ifLet(\.$duplicateInterval, action: \.duplicateInterval) {
-            DuplicateIntervalFeature()
+        .ifLet(\.$editPhase, action: \.editPhase) {
+            EditPhaseFeature()
         }
     }
 }
 
 struct WorkoutCreationView: View {
     let store: StoreOf<WorkoutCreationFeature>
-
+    
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
@@ -151,63 +136,82 @@ struct WorkoutCreationView: View {
                         ))
                     }
                     
-                    Section(header: Text("Intervals")) {
-                        ForEach(viewStore.intervals) { interval in
-                            IntervalRow(interval: interval, isSelected: viewStore.selectedIntervals.contains(interval.id))
+                    Section(header: Text("Phases")) {
+                        ForEach(viewStore.phases) { phase in
+                            PhaseRow(phase: phase)
                                 .onTapGesture {
-                                    if viewStore.isMultiSelectMode {
-                                        viewStore.send(.toggleIntervalSelection(interval.id))
-                                    }
+                                    viewStore.send(.workoutPhaseSelected(phase))
                                 }
                         }
-                        .onDelete { viewStore.send(.deleteIntervals($0)) }
-                        .onMove { viewStore.send(.moveIntervals($0, $1)) }
+                        .onDelete { viewStore.send(.deletePhases($0)) }
+                        .onMove { viewStore.send(.movePhases($0, $1)) }
                     }
+                    Button(action: {
+                        viewStore.send(.addPhaseTapped)
+                    }) {
+                        Text("Add Workout Phase")
+                            .font(.system(.headline, design: .rounded))
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 8)
                 }
                 .navigationTitle("Create Workout")
                 .navigationBarItems(
                     leading: Button("Cancel") { viewStore.send(.cancel) },
                     trailing: Button("Save") { viewStore.send(.saveWorkoutPlan) }
                 )
-                .toolbar {
-                    ToolbarItem(placement: .bottomBar) {
-                        Button(action: { viewStore.send(.addIntervalTapped) }) {
-                            Label("Add Interval", systemImage: "plus")
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: { viewStore.send(.toggleMultiSelectMode) }) {
-                            Text(viewStore.isMultiSelectMode ? "Done" : "Select")
-                        }
-                    }
-                }
-                .overlay(
-                    Group {
-                        if viewStore.isMultiSelectMode {
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Button("Delete") { viewStore.send(.deleteSelectedIntervals) }
-                                    Spacer()
-                                    Button("Duplicate") { viewStore.send(.duplicateSelectedIntervalsTapped) }
-                                }
-                                .padding()
-                                .background(Color(.systemBackground))
-                            }
-                        }
-                    }
-                )
             }
             .sheet(
-                store: store.scope(state: \.$addInterval, action: \.addInterval)
-            ) { addIntervalStore in
-                AddIntervalView(store: addIntervalStore)
+                store: store.scope(state: \.$addPhase, action: \.addPhase)
+            ) { addPhaseStore in
+                AddPhaseView(store: addPhaseStore)
             }
             .sheet(
-                store: store.scope(state: \.$duplicateInterval, action: \.duplicateInterval)
-            ) { duplicateIntervalStore in
-                DuplicateIntervalView(store: duplicateIntervalStore)
+                store: store.scope(state: \.$editPhase, action: \.editPhase)
+            ) { editPhaseStore in
+                EditPhaseView(store: editPhaseStore)
             }
         }
     }
 }
+
+struct PhaseRow: View {
+    let phase: WorkoutPhase
+    
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading) {
+                Text(phaseDetails)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+            Spacer()
+            Text(formatDuration(phase.duration))
+                .font(.subheadline)
+        }
+    }
+    
+    private var phaseDetails: String {
+        switch phase {
+        case .active(let activePhase):
+            return "\(activePhase.intervals.count) intervals"
+        case .rest:
+            return "Rest phase"
+        }
+    }
+    
+    private func formatDuration(_ duration: TimeInterval) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        formatter.zeroFormattingBehavior = .pad
+        return formatter.string(from: duration) ?? ""
+    }
+}
+
+// Implement AddPhaseFeature, EditPhaseFeature, AddPhaseView, and EditPhaseView
