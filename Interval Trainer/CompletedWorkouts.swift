@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import ComposableArchitecture
 
-struct CompletedWorkouts: View {
+struct CompletedWorkoutsView: View {
     let store: StoreOf<CompletedWorkoutsFeature>
     
     var body: some View {
@@ -95,14 +95,16 @@ struct AddCompletedWorkoutButton: View {
     
     var body: some View {
         Button(action: action) {
-            HStack {
-                Text("Add Workout")
-                    .font(.system(.headline, design: .rounded))
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(12)
-            }
+            Text("Add Workout")
+                .font(.system(.headline, design: .rounded))
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.blue)
+                .cornerRadius(12)
         }
+        .padding(.horizontal)
+        .padding(.top, 8)
     }
 }
 
@@ -192,4 +194,31 @@ struct CompletedWorkoutsFeature {
             WeeklyWorkout(weekStart: weekStart, workouts: workouts.sorted(by: { $0.date > $1.date }))
         }.sorted(by: { $0.weekStart > $1.weekStart })
     }
+}
+
+#Preview("Completed Workouts") {
+    VStack {
+        Spacer()
+        CompletedWorkoutsView(
+            store: Store(
+                initialState: CompletedWorkoutsFeature.State(),
+                reducer: {
+                    CompletedWorkoutsFeature()
+                }
+            )
+        )
+        .frame(height: 400)
+    }
+}
+
+#Preview("Weekly Workout Card") {
+    let sampleWorkouts = [
+        CompletedWorkout(id: UUID(), name: "Morning Run", date: Date(), duration: 1800),
+        CompletedWorkout(id: UUID(), name: "Evening Yoga", date: Date().addingTimeInterval(-86400), duration: 3600),
+        CompletedWorkout(id: UUID(), name: "HIIT Session", date: Date().addingTimeInterval(-172800), duration: 2700)
+    ]
+    let weeklyWorkout = WeeklyWorkout(weekStart: Date().addingTimeInterval(-518400), workouts: sampleWorkouts)
+    
+    return WeeklyWorkoutSection(weeklyWorkout: weeklyWorkout)
+        .padding()
 }

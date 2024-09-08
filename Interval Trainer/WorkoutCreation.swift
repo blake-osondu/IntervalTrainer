@@ -128,37 +128,42 @@ struct WorkoutCreationView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
-                List {
-                    Section(header: Text("Workout Name")) {
-                        TextField("Enter workout name", text: viewStore.binding(
-                            get: \.workoutName,
-                            send: { .setWorkoutName($0) }
-                        ))
-                    }
-                    
-                    Section(header: Text("Phases")) {
-                        ForEach(viewStore.phases) { phase in
-                            PhaseRow(phase: phase)
-                                .onTapGesture {
-                                    viewStore.send(.workoutPhaseSelected(phase))
-                                }
+                ZStack {
+                    List {
+                        Section(header: Text("Workout Name")) {
+                            TextField("Enter workout name", text: viewStore.binding(
+                                get: \.workoutName,
+                                send: { .setWorkoutName($0) }
+                            ))
                         }
-                        .onDelete { viewStore.send(.deletePhases($0)) }
-                        .onMove { viewStore.send(.movePhases($0, $1)) }
+                        
+                        Section(header: Text("Phases")) {
+                            ForEach(viewStore.phases) { phase in
+                                PhaseRow(phase: phase)
+                                    .onTapGesture {
+                                        viewStore.send(.workoutPhaseSelected(phase))
+                                    }
+                            }
+                            .onDelete { viewStore.send(.deletePhases($0)) }
+                            .onMove { viewStore.send(.movePhases($0, $1)) }
+                        }
                     }
-                    Button(action: {
-                        viewStore.send(.addPhaseTapped)
-                    }) {
-                        Text("Add Workout Phase")
-                            .font(.system(.headline, design: .rounded))
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.blue)
-                            .cornerRadius(12)
+                    VStack {
+                        Spacer()
+                        Button(action: {
+                            viewStore.send(.addPhaseTapped)
+                        }) {
+                            Text("Add Workout Phase")
+                                .font(.system(.headline, design: .rounded))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(12)
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                     }
-                    .padding(.horizontal)
-                    .padding(.top, 8)
                 }
                 .navigationTitle("Create Workout")
                 .navigationBarItems(
@@ -215,3 +220,52 @@ struct PhaseRow: View {
 }
 
 // Implement AddPhaseFeature, EditPhaseFeature, AddPhaseView, and EditPhaseView
+
+// Preview providers
+#Preview("Empty Workout") {
+    WorkoutCreationView(
+        store: Store(
+            initialState: WorkoutCreationFeature.State(),
+            reducer: {
+                WorkoutCreationFeature()
+            }
+        )
+    )
+}
+
+#Preview("Workout with Phases") {
+    let samplePhases: IdentifiedArrayOf<WorkoutPhase> = [
+        .active(ActivePhase(
+            id: UUID(),
+            intervals: [
+                Interval(id: UUID(), name: "Light Jog", type: .warmup, duration: 300)
+            ]
+        )),
+        .active(ActivePhase(
+            id: UUID(),
+            intervals: [
+                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
+                Interval(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 120)
+            ]
+        )),
+        .rest(RestPhase(id: UUID(), duration: 60)),
+        .active(ActivePhase(
+            id: UUID(),
+            intervals: [
+                Interval(id: UUID(), name: "Stretching", type: .coolDown, duration: 300)
+            ]
+        ))
+    ]
+    
+    return WorkoutCreationView(
+        store: Store(
+            initialState: WorkoutCreationFeature.State(
+                workoutName: "Sample HIIT Workout",
+                phases: samplePhases
+            ),
+            reducer: {
+                WorkoutCreationFeature()
+            }
+        )
+    )
+}

@@ -70,7 +70,7 @@ struct HomeView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.horizontal)
                         
-                        CompletedWorkouts(
+                        CompletedWorkoutsView(
                             store: store.scope(
                                 state: \.completedWorkouts,
                                 action: \.completedWorkouts
@@ -93,4 +93,11 @@ struct HomeView: View {
             }
         }
     }
+}
+
+
+#Preview {
+    HomeView(store: .init(initialState: Home.State(), reducer: {
+        Home()
+    }))
 }

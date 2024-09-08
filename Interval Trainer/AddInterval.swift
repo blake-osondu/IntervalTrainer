@@ -87,57 +87,32 @@ struct AddIntervalView: View {
     }
 }
 
-@Reducer
-struct DuplicateIntervalFeature {
-    @ObservableState
-    struct State: Equatable {
-        var intervals: [Interval]
-        var count: Int = 1
-    }
-    
-    @CasePathable
-    enum Action {
-        case setCount(Int)
-        case confirm
-    }
-    
-    var body: some Reducer<State, Action> {
-        Reduce { state, action in
-            switch action {
-            case let .setCount(count):
-                state.count = count
-                return .none
-            case .confirm:
-                return .none
+// Preview providers
+#Preview("Add New Interval") {
+    AddIntervalView(
+        store: Store(
+            initialState: AddIntervalFeature.State(),
+            reducer: {
+                AddIntervalFeature()
             }
-        }
-    }
+        )
+    )
 }
 
-struct DuplicateIntervalView: View {
-    let store: StoreOf<DuplicateIntervalFeature>
+#Preview("Edit Existing Interval") {
+    let existingInterval = Interval(
+        id: UUID(),
+        name: "High Intensity Sprint",
+        type: .highIntensity,
+        duration: 45
+    )
     
-    var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationView {
-                Form {
-                    Stepper(
-                        "Duplicate \(viewStore.count) time(s)",
-                        value: viewStore.binding(
-                            get: \.count,
-                            send: { .setCount($0) }
-                        ),
-                        in: 1...10
-                    )
-                }
-                .navigationTitle("Duplicate Intervals")
-                .navigationBarItems(
-                    leading: Button("Cancel") { /* Dismiss view */ },
-                    trailing: Button("Confirm") {
-                        store.send(.confirm)
-                    }
-                )
+    return AddIntervalView(
+        store: Store(
+            initialState: AddIntervalFeature.State(name: existingInterval.name, type: existingInterval.type, duration: existingInterval.duration),
+            reducer: {
+                AddIntervalFeature()
             }
-        }
-    }
+        )
+    )
 }

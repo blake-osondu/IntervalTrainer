@@ -12,6 +12,7 @@
 		DBA02F402C8CD2B2001C7661 /* AddPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F3F2C8CD2B2001C7661 /* AddPhase.swift */; };
 		DBA02F422C8CD2B7001C7661 /* EditPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F412C8CD2B7001C7661 /* EditPhase.swift */; };
 		DBA02F442C8D20FB001C7661 /* EditInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F432C8D20FB001C7661 /* EditInterval.swift */; };
+		DBA02F462C8D670C001C7661 /* DuplicateInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F452C8D670C001C7661 /* DuplicateInterval.swift */; };
 		DBADCEDD2C82C81F00E2AD15 /* Interval_TrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */; };
 		DBADCEE12C82C82100E2AD15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBADCEE02C82C82100E2AD15 /* Assets.xcassets */; };
 		DBADCEE42C82C82100E2AD15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBADCEE32C82C82100E2AD15 /* Preview Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		DBA02F3F2C8CD2B2001C7661 /* AddPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPhase.swift; sourceTree = "<group>"; };
 		DBA02F412C8CD2B7001C7661 /* EditPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhase.swift; sourceTree = "<group>"; };
 		DBA02F432C8D20FB001C7661 /* EditInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInterval.swift; sourceTree = "<group>"; };
+		DBA02F452C8D670C001C7661 /* DuplicateInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateInterval.swift; sourceTree = "<group>"; };
 		DBADCED92C82C81F00E2AD15 /* Interval Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Interval Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerApp.swift; sourceTree = "<group>"; };
 		DBADCEE02C82C82100E2AD15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				DBD0BE872C8752440058FF39 /* WorkoutPlans.swift */,
 				DBD0BE8B2C8810D90058FF39 /* WorkoutCreation.swift */,
 				DBA02F3D2C8CCCF1001C7661 /* AddInterval.swift */,
+				DBA02F452C8D670C001C7661 /* DuplicateInterval.swift */,
 				DBD0BE812C87511E0058FF39 /* Home.swift */,
 				DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */,
 				DBA02F432C8D20FB001C7661 /* EditInterval.swift */,
@@ -314,6 +317,7 @@
 				DBD0BE842C87515A0058FF39 /* WorkoutSummary.swift in Sources */,
 				DBA02F442C8D20FB001C7661 /* EditInterval.swift in Sources */,
 				DBD0BE882C8752440058FF39 /* WorkoutPlans.swift in Sources */,
+				DBA02F462C8D670C001C7661 /* DuplicateInterval.swift in Sources */,
 				DBA02F422C8CD2B7001C7661 /* EditPhase.swift in Sources */,
 				DBD0BE8A2C8752630058FF39 /* Utilities.swift in Sources */,
 				DBADCEDD2C82C81F00E2AD15 /* Interval_TrainerApp.swift in Sources */,
