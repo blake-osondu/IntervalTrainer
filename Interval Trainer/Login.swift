@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @Reducer
-struct Login {
+struct LoginFeature {
     @ObservableState
     struct State: Equatable {
         var email = ""
@@ -81,7 +81,7 @@ struct Login {
 }
 
 struct LoginView: View {
-    @Bindable var store: StoreOf<Login>
+    @Bindable var store: StoreOf<LoginFeature>
     
     var body: some View {
         NavigationView {
@@ -166,5 +166,38 @@ extension AuthClient: DependencyKey {
             // For demo purposes, always return true
             return true
         }
+    )
+}
+
+#Preview("Default State") {
+    LoginView(
+        store: Store(
+            initialState: LoginFeature.State(),
+            reducer: {
+                LoginFeature()
+            }
+        )
+    )
+}
+
+#Preview("Loading State") {
+    LoginView(
+        store: Store(
+            initialState: LoginFeature.State(isLoading: true),
+            reducer: {
+                LoginFeature()
+            }
+        )
+    )
+}
+
+#Preview("Error State") {
+    LoginView(
+        store: Store(
+            initialState: LoginFeature.State(errorMessage: "Invalid username or password"),
+            reducer: {
+                LoginFeature()
+            }
+        )
     )
 }

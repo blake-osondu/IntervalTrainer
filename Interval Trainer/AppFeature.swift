@@ -13,20 +13,20 @@ import ComposableArchitecture
 struct AppFeature {
     @ObservableState
     struct State: Equatable {
-        var login = Login.State()
+        var login = LoginFeature.State()
         var home = Home.State()
         var isAuthenticated = false
     }
     
     enum Action {
-        case login(Login.Action)
+        case login(LoginFeature.Action)
         case home(Home.Action)
         case setAuthenticated(Bool)
     }
     
     var body: some Reducer<State, Action> {
         Scope(state: \.login, action: \.login) {
-            Login()
+            LoginFeature()
         }
         Scope(state: \.home, action: \.home) {
             Home()
