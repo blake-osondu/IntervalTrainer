@@ -188,3 +188,46 @@ struct DurationPicker: View {
 }
 
 // You'll need to implement AddIntervalFeature and AddIntervalView
+// Preview providers
+#Preview("Add Active Phase") {
+    AddPhaseView(
+        store: Store(
+            initialState: AddPhaseFeature.State(
+                phaseType: .active,
+                intervals: [
+                    Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
+                    Interval(id: UUID(), name: "Jog", type: .lowIntensity, duration: 60)
+                ]
+            ),
+            reducer: {
+                AddPhaseFeature()
+            }
+        )
+    )
+}
+
+#Preview("Add Rest Phase") {
+    AddPhaseView(
+        store: Store(
+            initialState: AddPhaseFeature.State(
+                phaseType: .rest,
+                restPhaseDuration: 120 // 2 minutes
+            ),
+            reducer: {
+                AddPhaseFeature()
+            }
+        )
+    )
+}
+
+
+#Preview("Empty Active Phase") {
+    AddPhaseView(
+        store: Store(
+            initialState: AddPhaseFeature.State(phaseType: .active),
+            reducer: {
+                AddPhaseFeature()
+            }
+        )
+    )
+}

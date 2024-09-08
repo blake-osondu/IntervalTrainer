@@ -103,3 +103,36 @@ struct SummaryCard: View {
         )
     }
 }
+
+// Preview providers
+#Preview("Workout Summary - Loaded") {
+    WorkoutSummaryView(
+        store: Store(
+            initialState: WorkoutSummaryFeature.State(
+                lastWorkoutDate: Date().addingTimeInterval(-86400),
+                workoutsThisMonth: 12,
+                currentStreak: 3,
+                caloriesBurnedThisWeek: 1250,
+                caloriesBurnedThisMonth: 5430
+            ),
+            reducer: {
+                WorkoutSummaryFeature()
+            }
+        )
+    )
+    .padding()
+    .background(Color.gray.opacity(0.1))
+}
+
+#Preview("Workout Summary - Loading") {
+    WorkoutSummaryView(
+        store: Store(
+            initialState: WorkoutSummaryFeature.State(),
+            reducer: {
+                WorkoutSummaryFeature()
+            }
+        )
+    )
+    .padding()
+    .background(Color.gray.opacity(0.1))
+}

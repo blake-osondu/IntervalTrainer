@@ -146,3 +146,49 @@ struct EditPhaseView: View {
 // Reuse IntervalRow and DurationPicker from AddPhase.swift
 
 // You'll need to implement EditIntervalFeature and EditIntervalView
+
+// Preview providers
+#Preview("Edit Active Phase") {
+    EditPhaseView(
+        store: Store(
+            initialState: EditPhaseFeature.State(
+                phase: .active(ActivePhase(
+                    id: UUID(),
+                    intervals: [
+                        Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
+                        Interval(id: UUID(), name: "Jog", type: .lowIntensity, duration: 60)
+                    ]
+                ))
+            ),
+            reducer: {
+                EditPhaseFeature()
+            }
+        )
+    )
+}
+
+#Preview("Edit Rest Phase") {
+    EditPhaseView(
+        store: Store(
+            initialState: EditPhaseFeature.State(
+                phase: .rest(RestPhase(id: UUID(), duration: 120)) // 2 minutes
+            ),
+            reducer: {
+                EditPhaseFeature()
+            }
+        )
+    )
+}
+
+#Preview("Edit Empty Active Phase") {
+    EditPhaseView(
+        store: Store(
+            initialState: EditPhaseFeature.State(
+                phase: .active(ActivePhase(id: UUID(), intervals: []))
+            ),
+            reducer: {
+                EditPhaseFeature()
+            }
+        )
+    )
+}

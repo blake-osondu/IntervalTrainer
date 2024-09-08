@@ -106,3 +106,58 @@ struct Interval: Identifiable, Equatable {
         case coolDown = "Cool Down"
     }
 }
+
+// Preview providers
+#Preview("Edit Warm Up Interval") {
+    EditIntervalView(
+        store: Store(
+            initialState: EditIntervalFeature.State(
+                interval: Interval(
+                    id: UUID(),
+                    name: "Light Jog",
+                    type: .warmup,
+                    duration: 300 // 5 minutes
+                )
+            ),
+            reducer: {
+                EditIntervalFeature()
+            }
+        )
+    )
+}
+
+#Preview("Edit High Intensity Interval") {
+    EditIntervalView(
+        store: Store(
+            initialState: EditIntervalFeature.State(
+                interval: Interval(
+                    id: UUID(),
+                    name: "Sprint",
+                    type: .highIntensity,
+                    duration: 60 // 1 minute
+                )
+            ),
+            reducer: {
+                EditIntervalFeature()
+            }
+        )
+    )
+}
+
+#Preview("Edit Cool Down Interval") {
+    EditIntervalView(
+        store: Store(
+            initialState: EditIntervalFeature.State(
+                interval: Interval(
+                    id: UUID(),
+                    name: "Stretching",
+                    type: .coolDown,
+                    duration: 180 // 3 minutes
+                )
+            ),
+            reducer: {
+                EditIntervalFeature()
+            }
+        )
+    )
+}
