@@ -76,7 +76,7 @@ struct HomeView: View {
                                 action: \.completedWorkouts
                             )
                         )
-                        Spacer().frame(height: 50)
+                        Spacer().frame(height: 70)
                     }
                     .padding(.top)
                 }

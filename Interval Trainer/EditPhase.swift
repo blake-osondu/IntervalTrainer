@@ -99,33 +99,51 @@ struct EditPhaseView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
-                Form {
+                ZStack {
+                    Form {
+                        switch viewStore.phase {
+                        case .active:
+                            Section(header: Text("Active Phase Details")) {
+                                ForEach(viewStore.intervals) { interval in
+                                    IntervalRow(interval: interval)
+                                        .onTapGesture {
+                                            viewStore.send(.intervalSelected(interval))
+                                        }
+                                }
+                                .onDelete { viewStore.send(.deleteInterval($0)) }
+                                .onMove { viewStore.send(.moveInterval($0, $1)) }
+                            }
+                        case .rest:
+                            Section(header: Text("Rest Phase Details")) {
+                                DurationPicker(
+                                    duration: viewStore.binding(
+                                        get: \.restPhaseDuration,
+                                        send: { .setRestPhaseDuration($0) }
+                                    )
+                                )
+                            }
+                        }
+                    }
                     switch viewStore.phase {
                     case .active:
-                        Section(header: Text("Active Phase Details")) {
-                           Button("Add Interval") {
+                        VStack {
+                            Spacer()
+                            Button(action: {
                                 viewStore.send(.addIntervalTapped)
+                            }) {
+                                Text("Add Interval")
+                                    .font(.system(.headline, design: .rounded))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(12)
                             }
-                            
-                            ForEach(viewStore.intervals) { interval in
-                                IntervalRow(interval: interval)
-                                    .onTapGesture {
-                                        viewStore.send(.intervalSelected(interval))
-                                    }
-                            }
-                            .onDelete { viewStore.send(.deleteInterval($0)) }
-                            .onMove { viewStore.send(.moveInterval($0, $1)) }
+                            .padding(.horizontal)
+                            .padding(.top, 8)
                         }
-                        
-                    case .rest:
-                        Section(header: Text("Rest Phase Details")) {
-                            DurationPicker(
-                                duration: viewStore.binding(
-                                    get: \.restPhaseDuration,
-                                    send: { .setRestPhaseDuration($0) }
-                                )
-                            )
-                        }
+                    default:
+                        EmptyView()
                     }
                 }
                 .navigationTitle("Edit Phase")

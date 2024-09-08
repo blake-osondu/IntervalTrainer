@@ -91,7 +91,7 @@ struct AddPhaseView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             NavigationView {
-                Form {
+                ZStack {
                     Picker("Phase Type", selection: viewStore.binding(
                         get: \.phaseType,
                         send: { .setPhaseType($0) }
@@ -100,28 +100,44 @@ struct AddPhaseView: View {
                         Text("Rest").tag(AddPhaseFeature.PhaseType.rest)
                     }
                     .pickerStyle(SegmentedPickerStyle())
-                    
-                    if viewStore.phaseType == .active {
-                        Section(header: Text("Active Phase Details")) {
-                            
-                            Button("Add Interval") {
-                                viewStore.send(.addIntervalTapped)
+                    Form {
+                        
+                        if viewStore.phaseType == .active {
+                            Section(header: Text("Active Phase Details")) {
+                                
+                                ForEach(viewStore.intervals) { interval in
+                                    IntervalRow(interval: interval)
+                                }
+                                .onDelete { viewStore.send(.deleteInterval($0)) }
+                                .onMove { viewStore.send(.moveInterval($0, $1)) }
                             }
-                            
-                            ForEach(viewStore.intervals) { interval in
-                                IntervalRow(interval: interval)
-                            }
-                            .onDelete { viewStore.send(.deleteInterval($0)) }
-                            .onMove { viewStore.send(.moveInterval($0, $1)) }
-                        }
-                    } else {
-                        Section(header: Text("Rest Phase Details")) {
-                            DurationPicker(
-                                duration: viewStore.binding(
-                                    get: \.restPhaseDuration,
-                                    send: { .setRestPhaseDuration($0) }
+                        } else {
+                            Section(header: Text("Rest Phase Details")) {
+                                DurationPicker(
+                                    duration: viewStore.binding(
+                                        get: \.restPhaseDuration,
+                                        send: { .setRestPhaseDuration($0) }
+                                    )
                                 )
-                            )
+                            }
+                        }
+                    }
+                    if viewStore.phaseType == .active {
+                        VStack {
+                            Spacer()
+                            Button(action: {
+                                viewStore.send(.addIntervalTapped)
+                            }) {
+                                Text("Add Interval")
+                                    .font(.system(.headline, design: .rounded))
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.blue)
+                                    .cornerRadius(12)
+                            }
+                            .padding(.horizontal)
+                            .padding(.top, 8)
                         }
                     }
                 }
