@@ -13,6 +13,7 @@
 		DBA02F422C8CD2B7001C7661 /* EditPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F412C8CD2B7001C7661 /* EditPhase.swift */; };
 		DBA02F442C8D20FB001C7661 /* EditInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F432C8D20FB001C7661 /* EditInterval.swift */; };
 		DBA02F462C8D670C001C7661 /* DuplicateInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F452C8D670C001C7661 /* DuplicateInterval.swift */; };
+		DBA02F482C8DDE73001C7661 /* PerformWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F472C8DDE73001C7661 /* PerformWorkout.swift */; };
 		DBADCEDD2C82C81F00E2AD15 /* Interval_TrainerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */; };
 		DBADCEE12C82C82100E2AD15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBADCEE02C82C82100E2AD15 /* Assets.xcassets */; };
 		DBADCEE42C82C82100E2AD15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBADCEE32C82C82100E2AD15 /* Preview Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		DBA02F412C8CD2B7001C7661 /* EditPhase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhase.swift; sourceTree = "<group>"; };
 		DBA02F432C8D20FB001C7661 /* EditInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInterval.swift; sourceTree = "<group>"; };
 		DBA02F452C8D670C001C7661 /* DuplicateInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuplicateInterval.swift; sourceTree = "<group>"; };
+		DBA02F472C8DDE73001C7661 /* PerformWorkout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformWorkout.swift; sourceTree = "<group>"; };
 		DBADCED92C82C81F00E2AD15 /* Interval Trainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Interval Trainer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerApp.swift; sourceTree = "<group>"; };
 		DBADCEE02C82C82100E2AD15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				DBA02F432C8D20FB001C7661 /* EditInterval.swift */,
 				DBA02F412C8CD2B7001C7661 /* EditPhase.swift */,
 				DBA02F3F2C8CD2B2001C7661 /* AddPhase.swift */,
+				DBA02F472C8DDE73001C7661 /* PerformWorkout.swift */,
 				DBD0BE892C8752630058FF39 /* Utilities.swift */,
 				DBADCEE02C82C82100E2AD15 /* Assets.xcassets */,
 				DBADCEE52C82C82100E2AD15 /* Interval_Trainer.entitlements */,
@@ -311,6 +314,7 @@
 				DBA02F3E2C8CCCF1001C7661 /* AddInterval.swift in Sources */,
 				DBA02F402C8CD2B2001C7661 /* AddPhase.swift in Sources */,
 				DBD0BE802C8750F60058FF39 /* Login.swift in Sources */,
+				DBA02F482C8DDE73001C7661 /* PerformWorkout.swift in Sources */,
 				DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */,
 				DBD0BE822C87511E0058FF39 /* Home.swift in Sources */,
 				DBD0BE862C8751940058FF39 /* CompletedWorkouts.swift in Sources */,

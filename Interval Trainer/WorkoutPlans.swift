@@ -16,14 +16,18 @@ struct WorkoutPlansFeature {
         var workoutPlans: [WorkoutPlan] = []
         var isExpanded = false
         @Presents var workoutCreation: WorkoutCreationFeature.State?
+        @Presents var performWorkout: PerformWorkoutFeature.State?
     }
     
+    @CasePathable
     enum Action {
         case toggleExpanded
         case loadWorkoutPlans
         case workoutPlansLoaded([WorkoutPlan])
         case createNewWorkoutPlan
         case workoutCreation(PresentationAction<WorkoutCreationFeature.Action>)
+        case workoutPlanSelected(WorkoutPlan)
+        case performWorkout(PresentationAction<PerformWorkoutFeature.Action>)
     }
     
     var body: some Reducer<State, Action> {
@@ -32,7 +36,7 @@ struct WorkoutPlansFeature {
             case .toggleExpanded:
                 state.isExpanded.toggle()
                 return .none
-                
+            
             case .loadWorkoutPlans:
                 return .run { send in
                     // Simulating async load
@@ -93,6 +97,10 @@ struct WorkoutPlansFeature {
                 state.workoutCreation = workoutCreation
                 return .none
                 
+            case let .workoutPlanSelected(workoutPlan):
+                state.performWorkout = PerformWorkoutFeature.State(workoutPlan: workoutPlan)
+                return .none
+                
             case .workoutCreation(.presented(.dismiss(let newPlan))):
                 state.workoutPlans.append(newPlan)
                 state.workoutCreation = nil
@@ -104,10 +112,21 @@ struct WorkoutPlansFeature {
                 
             case .workoutCreation:
                 return .none
+                
+            case .performWorkout(.presented(.dismiss)):
+                state.performWorkout = nil
+                return .none
+                
+            case .performWorkout:
+                return .none
+            
             }
         }
         .ifLet(\.$workoutCreation, action: \.workoutCreation) {
             WorkoutCreationFeature()
+        }
+        .ifLet(\.$performWorkout, action: \.performWorkout) {
+           PerformWorkoutFeature()
         }
     }
 }
@@ -149,7 +168,9 @@ struct WorkoutPlansOverlay: View {
                     ScrollView {
                         LazyVStack(spacing: 12) {
                             ForEach(viewStore.workoutPlans) { plan in
-                                WorkoutPlanCard(plan: plan)
+                                WorkoutPlanCard(plan: plan).onTapGesture {
+                                    viewStore.send(.workoutPlanSelected(plan))
+                                }
                             }
                             
                             Button(action: {
@@ -185,6 +206,11 @@ struct WorkoutPlansOverlay: View {
                 )
             ) { workoutCreationStore in
                 WorkoutCreationView(store: workoutCreationStore)
+            }.fullScreenCover(
+                store: store.scope(
+                    state: \.$performWorkout,
+                    action: \.performWorkout)) { performWorkoutStore in
+                PerformWorkoutView(store: performWorkoutStore)
             }
         }
     }
