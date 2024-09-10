@@ -37,13 +37,6 @@ struct Home {
     }
 }
 
-struct CompletedWorkout: Identifiable, Equatable {
-    let id: UUID
-    let name: String
-    let date: Date
-    let duration: TimeInterval // Duration in seconds
-}
-
 struct HomeView: View {
     let store: StoreOf<Home>
     

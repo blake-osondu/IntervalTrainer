@@ -59,7 +59,9 @@ struct CompletedWorkoutsFeature {
                     id: UUID(),
                     name: randomWorkoutName(),
                     date: workoutDate,
-                    duration: TimeInterval(Int.random(in: 15...120) * 60)  // 15 to 120 minutes
+                    // 15 to 120 minutes
+                    duration: TimeInterval(Int.random(in: 15...120) * 60),
+                    rating: 5
                 )
                 workouts.append(workout)
             }
@@ -191,6 +193,14 @@ struct AddCompletedWorkoutButton: View {
     }
 }
 
+struct CompletedWorkout: Identifiable, Equatable {
+    let id: UUID
+    let name: String
+    let date: Date
+    let duration: TimeInterval //Duration in seconds
+    let rating: Int
+}
+
 struct WeeklyWorkout: Equatable {
     let weekStart: Date
     let workouts: [CompletedWorkout]
@@ -213,9 +223,9 @@ struct WeeklyWorkout: Equatable {
 
 #Preview("Weekly Workout Card") {
     let sampleWorkouts = [
-        CompletedWorkout(id: UUID(), name: "Morning Run", date: Date(), duration: 1800),
-        CompletedWorkout(id: UUID(), name: "Evening Yoga", date: Date().addingTimeInterval(-86400), duration: 3600),
-        CompletedWorkout(id: UUID(), name: "HIIT Session", date: Date().addingTimeInterval(-172800), duration: 2700)
+        CompletedWorkout(id: UUID(), name: "Morning Run", date: Date(), duration: 1800, rating: 3),
+        CompletedWorkout(id: UUID(), name: "Evening Yoga", date: Date().addingTimeInterval(-86400), duration: 3600, rating: 1),
+        CompletedWorkout(id: UUID(), name: "HIIT Session", date: Date().addingTimeInterval(-172800), duration: 2700, rating: 5)
     ]
     let weeklyWorkout = WeeklyWorkout(weekStart: Date().addingTimeInterval(-518400), workouts: sampleWorkouts)
     

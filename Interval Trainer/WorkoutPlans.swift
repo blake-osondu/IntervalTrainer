@@ -28,6 +28,7 @@ struct WorkoutPlansFeature {
         case workoutCreation(PresentationAction<WorkoutCreationFeature.Action>)
         case workoutPlanSelected(WorkoutPlan)
         case performWorkout(PresentationAction<PerformWorkoutFeature.Action>)
+        case addNewWorkoutPlan(WorkoutPlan)
     }
     
     var body: some Reducer<State, Action> {
@@ -116,6 +117,14 @@ struct WorkoutPlansFeature {
             case .performWorkout(.presented(.dismiss)):
                 state.performWorkout = nil
                 return .none
+                
+            case let .addNewWorkoutPlan(newPlan):
+                state.workoutPlans.append(newPlan)
+                return .none
+                
+            case .performWorkout(.presented(.alert(.presented(.createNewRoutine)))):
+                guard let updatedPlan = state.performWorkout?.editWorkout?.workoutPlan else { return .none }
+                return .send(.addNewWorkoutPlan(updatedPlan))
                 
             case .performWorkout:
                 return .none
