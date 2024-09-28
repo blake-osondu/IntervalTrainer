@@ -92,21 +92,6 @@ struct EditIntervalView: View {
     }
 }
 
-// Ensure this struct is defined in your project
-struct Interval: Identifiable, Equatable {
-    var id: UUID
-    var name: String
-    var type: IntervalType
-    var duration: TimeInterval
-    
-    enum IntervalType: String, CaseIterable {
-        case warmup = "Warm Up"
-        case highIntensity = "High Intensity"
-        case lowIntensity = "Low Intensity"
-        case coolDown = "Cool Down"
-    }
-}
-
 // Preview providers
 #Preview("Edit Warm Up Interval") {
     EditIntervalView(

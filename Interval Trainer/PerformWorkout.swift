@@ -182,15 +182,16 @@ struct PerformWorkoutFeature {
                     rating: state.workoutComplete?.workoutRating ?? 0
                 )
                 state.workoutComplete = nil
+//                Update local database with completedworkout
+//                return .run { send in
+//                    // Simulating async upload completed workout
+//                    try await Task.sleep(for: .seconds(1))
+//
+//                    await send(.none)
+//                }
+                
                 return .none
-                //Update local database with completedworkout
-                //                return .run { send in
-                //                    // Simulating async upload completed workout
-                //                    try await Task.sleep(for: .seconds(1))
-                //
-                //                    await send(.none)
-                //                }
-                //
+
             case .workoutComplete(.presented(.selectedDiscardWorkout)):
                 // Reset the workout state or navigate back to the workout plans
                 state.workoutComplete = nil
