@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @Reducer
-struct PerformWorkoutFeature {
+struct Watch_PerformWorkoutFeature {
     @ObservableState
     struct State: Equatable {
         var workoutPlan: WorkoutPlan
@@ -129,7 +129,7 @@ extension Array {
 }
 
 struct PerformWorkoutView: View {
-    let store: StoreOf<PerformWorkoutFeature>
+    let store: StoreOf<Watch_PerformWorkoutFeature>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -141,7 +141,7 @@ struct PerformWorkoutView: View {
         }
     }
     
-    private func activeWorkoutView(viewStore: ViewStore<PerformWorkoutFeature.State, PerformWorkoutFeature.Action>) -> some View {
+    private func activeWorkoutView(viewStore: ViewStore<Watch_PerformWorkoutFeature.State, Watch_PerformWorkoutFeature.Action>) -> some View {
         VStack {
             Text(viewStore.workoutPlan.name)
                 .font(.headline)
@@ -169,7 +169,7 @@ struct PerformWorkoutView: View {
         }
     }
     
-    private func workoutCompleteView(viewStore: ViewStore<PerformWorkoutFeature.State, PerformWorkoutFeature.Action>) -> some View {
+    private func workoutCompleteView(viewStore: ViewStore<Watch_PerformWorkoutFeature.State, Watch_PerformWorkoutFeature.Action>) -> some View {
         VStack {
             Text("Workout Complete!")
                 .font(.headline)
@@ -193,7 +193,7 @@ struct PerformWorkoutView: View {
 #Preview {
     PerformWorkoutView(
         store: Store(
-            initialState: PerformWorkoutFeature.State(
+            initialState: Watch_PerformWorkoutFeature.State(
                 workoutPlan: WorkoutPlan(
                     id: UUID(),
                     name: "HIIT Workout",
@@ -221,7 +221,7 @@ struct PerformWorkoutView: View {
                     ]
                 )
             ),
-            reducer: { PerformWorkoutFeature() }
+            reducer: { Watch_PerformWorkoutFeature() }
         )
     )
 }

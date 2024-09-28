@@ -10,7 +10,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @Reducer
-struct WorkoutSummaryFeature {
+struct Watch_WorkoutSummaryFeature {
     @ObservableState
     struct State: Equatable {
         var lastWorkoutDate: Date?
@@ -73,7 +73,7 @@ extension DependencyValues {
 }
 
 struct WorkoutSummaryView: View {
-    let store: StoreOf<WorkoutSummaryFeature>
+    let store: StoreOf<Watch_WorkoutSummaryFeature>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -101,13 +101,13 @@ struct WorkoutSummaryView: View {
 #Preview {
     WorkoutSummaryView(
         store: Store(
-            initialState: WorkoutSummaryFeature.State(
+            initialState: Watch_WorkoutSummaryFeature.State(
                 lastWorkoutDate: Date(),
                 workoutsThisMonth: 12,
                 currentStreak: 3
             ),
             reducer: {
-                WorkoutSummaryFeature()
+                Watch_WorkoutSummaryFeature()
             }
         )
     )

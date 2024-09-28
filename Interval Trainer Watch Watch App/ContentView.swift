@@ -7,31 +7,26 @@
 
 import SwiftUI
 import ComposableArchitecture
-import Foundation
-import ComposableArchitecture
-
-import Foundation
-import ComposableArchitecture
 
 @Reducer
 struct WatchAppFeature {
     @ObservableState
     struct State: Equatable {
-        var workoutPlans = WorkoutPlansFeature.State()
-        var workoutSummary = WorkoutSummaryFeature.State()
+        var workoutPlans = Watch_WorkoutPlansFeature.State()
+        var workoutSummary = Watch_WorkoutSummaryFeature.State()
     }
     
     enum Action {
-        case workoutPlans(WorkoutPlansFeature.Action)
-        case workoutSummary(WorkoutSummaryFeature.Action)
+        case workoutPlans(Watch_WorkoutPlansFeature.Action)
+        case workoutSummary(Watch_WorkoutSummaryFeature.Action)
     }
     
     var body: some Reducer<State, Action> {
         Scope(state: \.workoutPlans, action: \.workoutPlans) {
-            WorkoutPlansFeature()
+            Watch_WorkoutPlansFeature()
         }
         Scope(state: \.workoutSummary, action: \.workoutSummary) {
-            WorkoutSummaryFeature()
+            Watch_WorkoutSummaryFeature()
         }
     }
 }

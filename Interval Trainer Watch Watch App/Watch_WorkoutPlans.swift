@@ -10,18 +10,18 @@ import SwiftUI
 import ComposableArchitecture
 
 @Reducer
-struct WorkoutPlansFeature {
+struct Watch_WorkoutPlansFeature {
     @ObservableState
     struct State: Equatable {
         var workoutPlans: [WorkoutPlan] = []
-        @Presents var performWorkout: PerformWorkoutFeature.State?
+        @Presents var performWorkout: Watch_PerformWorkoutFeature.State?
     }
     
     enum Action {
         case loadWorkoutPlans
         case workoutPlansLoaded([WorkoutPlan])
         case selectWorkoutPlan(WorkoutPlan)
-        case performWorkout(PresentationAction<PerformWorkoutFeature.Action>)
+        case performWorkout(PresentationAction<Watch_PerformWorkoutFeature.Action>)
     }
     
     @Dependency(\.workoutPlanClient) var workoutPlanClient
@@ -40,7 +40,7 @@ struct WorkoutPlansFeature {
                 return .none
                 
             case let .selectWorkoutPlan(plan):
-                state.performWorkout = PerformWorkoutFeature.State(workoutPlan: plan)
+                state.performWorkout = Watch_PerformWorkoutFeature.State(workoutPlan: plan)
                 return .none
                 
             case .performWorkout(.presented( let action)):
@@ -53,7 +53,7 @@ struct WorkoutPlansFeature {
             }
         }
         .ifLet(\.$performWorkout, action: \.performWorkout) {
-            PerformWorkoutFeature()
+            Watch_PerformWorkoutFeature()
         }
     }
 }
@@ -153,7 +153,7 @@ extension DependencyValues {
 }
 
 struct WorkoutPlansView: View {
-    let store: StoreOf<WorkoutPlansFeature>
+    let store: StoreOf<Watch_WorkoutPlansFeature>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -183,7 +183,7 @@ struct WorkoutPlansView: View {
 #Preview {
     WorkoutPlansView(
         store: Store(
-            initialState: WorkoutPlansFeature.State(
+            initialState: Watch_WorkoutPlansFeature.State(
                 workoutPlans: [
                     WorkoutPlan(id: UUID(), name: "HIIT Workout", phases: []),
                     WorkoutPlan(id: UUID(), name: "Strength Training", phases: []),
@@ -191,7 +191,7 @@ struct WorkoutPlansView: View {
                 ]
             ),
             reducer: {
-                WorkoutPlansFeature()
+                Watch_WorkoutPlansFeature()
                     .dependency(\.workoutPlanClient, .testValue)
             }
         )

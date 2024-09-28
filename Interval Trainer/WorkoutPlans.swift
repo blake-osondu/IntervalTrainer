@@ -310,4 +310,3 @@ struct WorkoutPlanCard: View {
         }.edgesIgnoringSafeArea(.bottom)
     }
 }
-
