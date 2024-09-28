@@ -25,6 +25,7 @@ struct PerformWorkoutFeature {
         @Presents var editWorkout: EditWorkoutFeature.State?
         @Presents var alert: AlertState<Action.Alert>?
         @Presents var workoutComplete: WorkoutCompleteFeature.State?
+        var musicPlayer: MusicPlayerFeature.State = .init()
         
         init(workoutPlan: WorkoutPlan) {
             self.workoutPlan = workoutPlan
@@ -61,6 +62,7 @@ struct PerformWorkoutFeature {
         case alert(PresentationAction<Alert>)
         case workoutCompleted
         case workoutComplete(PresentationAction<WorkoutCompleteFeature.Action>)
+        case musicPlayer(MusicPlayerFeature.Action)
         
         
         @CasePathable
@@ -199,6 +201,8 @@ struct PerformWorkoutFeature {
                 
             case .editWorkout, .alert:
                 return .none
+            case .musicPlayer(_):
+                return .none
             }
         }
         .ifLet(\.$editWorkout, action: \.editWorkout) {
@@ -207,6 +211,10 @@ struct PerformWorkoutFeature {
         .ifLet(\.$alert, action: \.alert)
         .ifLet(\.$workoutComplete, action: \.workoutComplete) {
             WorkoutCompleteFeature()
+        }
+        
+        Scope(state: \.musicPlayer, action: /Action.musicPlayer) {
+            MusicPlayerFeature()
         }
     }
     
@@ -324,6 +332,13 @@ struct PerformWorkoutView: View {
                     .background(Color.red)
                     .foregroundColor(.white)
                     .cornerRadius(10)
+                    
+                    MusicPlayerView(
+                        store: store.scope(
+                            state: \.musicPlayer,
+                            action: { .musicPlayer($0) }
+                        )
+                    )
                 }
                 .navigationBarItems(
                     leading: Button("Cancel") { viewStore.send(.dismiss) },
