@@ -26,6 +26,7 @@ struct PerformWorkoutFeature {
         @Presents var alert: AlertState<Action.Alert>?
         @Presents var workoutComplete: WorkoutCompleteFeature.State?
         var musicPlayer: MusicPlayerFeature.State = .init()
+        var isSyncedWithCompanionDevice: Bool = false
         
         init(workoutPlan: WorkoutPlan) {
             self.workoutPlan = workoutPlan
@@ -63,6 +64,8 @@ struct PerformWorkoutFeature {
         case workoutCompleted
         case workoutComplete(PresentationAction<WorkoutCompleteFeature.Action>)
         case musicPlayer(MusicPlayerFeature.Action)
+        case syncWorkoutState
+        case receivedWorkoutState(WorkoutState)
         
         
         @CasePathable
@@ -74,6 +77,7 @@ struct PerformWorkoutFeature {
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.date) var date
+    @Dependency(\.watchConnectivity) var watchConnectivity
     
     var body: some Reducer<State, Action> {
         Reduce { state, action in
@@ -203,6 +207,26 @@ struct PerformWorkoutFeature {
             case .editWorkout, .alert:
                 return .none
             case .musicPlayer(_):
+                return .none
+            case .syncWorkoutState:
+                let workoutState = WorkoutState(
+                    isRunning: state.isRunning,
+                    currentPhaseIndex: state.currentPhaseIndex,
+                    currentIntervalIndex: state.currentIntervalIndex,
+                    timeRemaining: state.timeRemaining,
+                    totalElapsedTime: state.totalElapsedTime
+                )
+                return .run { _ in
+                    self.watchConnectivity.send(workoutState.asDictionary())
+                }
+                
+            case let .receivedWorkoutState(workoutState):
+                state.isRunning = workoutState.isRunning
+                state.currentPhaseIndex = workoutState.currentPhaseIndex
+                state.currentIntervalIndex = workoutState.currentIntervalIndex
+                state.timeRemaining = workoutState.timeRemaining
+                state.totalElapsedTime = workoutState.totalElapsedTime
+                state.isSyncedWithCompanionDevice = true
                 return .none
             }
         }

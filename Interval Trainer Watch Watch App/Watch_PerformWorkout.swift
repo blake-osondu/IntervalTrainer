@@ -20,7 +20,8 @@ struct Watch_PerformWorkoutFeature {
         var isRunning: Bool = false
         var totalElapsedTime: TimeInterval = 0
         var isWorkoutComplete: Bool = false
-        
+        var isSyncedWithCompanionDevice: Bool = false
+
         init(workoutPlan: WorkoutPlan) {
             self.workoutPlan = workoutPlan
             self.timeRemaining = currentInterval?.duration ?? 0
@@ -48,11 +49,14 @@ struct Watch_PerformWorkoutFeature {
         case skipInterval
         case stopWorkout
         case workoutCompleted
+        case syncWorkoutState
+        case receivedWorkoutState(WorkoutState)
         case dismiss
     }
     
     @Dependency(\.continuousClock) var clock
-    
+    @Dependency(\.watchConnectivity) var watchConnectivity
+
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
@@ -88,7 +92,26 @@ struct Watch_PerformWorkoutFeature {
                 state.isWorkoutComplete = true
                 state.isRunning = false
                 return .none
+            case .syncWorkoutState:
+                let workoutState = WorkoutState(
+                    isRunning: state.isRunning,
+                    currentPhaseIndex: state.currentPhaseIndex,
+                    currentIntervalIndex: state.currentIntervalIndex,
+                    timeRemaining: state.timeRemaining,
+                    totalElapsedTime: state.totalElapsedTime
+                )
+                return .run { _ in
+                    self.watchConnectivity.send(workoutState.asDictionary())
+                }
                 
+            case let .receivedWorkoutState(workoutState):
+                state.isRunning = workoutState.isRunning
+                state.currentPhaseIndex = workoutState.currentPhaseIndex
+                state.currentIntervalIndex = workoutState.currentIntervalIndex
+                state.timeRemaining = workoutState.timeRemaining
+                state.totalElapsedTime = workoutState.totalElapsedTime
+                state.isSyncedWithCompanionDevice = true
+                return .none    
             case .dismiss:
                 // We don't need to do anything here, as the parent feature will handle the dismissal
                 return .none

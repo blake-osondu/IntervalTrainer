@@ -64,3 +64,23 @@ public struct Interval: Identifiable, Equatable {
         case coolDown = "Cool Down"
     }
 }
+
+public struct WorkoutState: Codable, Equatable {
+    public var isRunning: Bool
+    public var currentPhaseIndex: Int
+    public var currentIntervalIndex: Int
+    public var timeRemaining: TimeInterval
+    public var totalElapsedTime: TimeInterval
+    
+    public func asDictionary() -> [String: Any] {
+        (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
+    }
+    
+    public static func fromDictionary(_ dict: [String: Any]) -> WorkoutState? {
+        guard let data = try? JSONSerialization.data(withJSONObject: dict),
+              let workoutState = try? JSONDecoder().decode(WorkoutState.self, from: data) else {
+            return nil
+        }
+        return workoutState
+    }
+}

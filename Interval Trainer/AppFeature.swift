@@ -25,12 +25,6 @@ struct AppFeature {
     }
     
     var body: some Reducer<State, Action> {
-        Scope(state: \.login, action: \.login) {
-            LoginFeature()
-        }
-        Scope(state: \.home, action: \.home) {
-            Home()
-        }
         Reduce { state, action in
             switch action {
             case .login(.loginResponse(.success)):
@@ -41,6 +35,33 @@ struct AppFeature {
                 return .none
             default:
                 return .none
+            }
+        }
+        Scope(state: \.login, action: \.login) {
+            LoginFeature()
+        }
+        Scope(state: \.home, action: \.home) {
+            Home()
+        }
+        .onChange(of: \.home.workoutPlans.performWorkout) { oldValue, newValue in
+            Reduce { state, _ in
+                if newValue != nil {
+                    return .send(.home(.workoutPlans(.performWorkout(.presented(.syncWorkoutState)))))
+                }
+                return .none
+            }
+        }
+        ._printChanges()
+    }
+    
+    @Dependency(\.watchConnectivity) var watchConnectivity
+    
+    func listenForWorkoutUpdates() -> Effect<Action> {
+        .run { send in
+            for await message in watchConnectivity.receive() {
+                if let workoutState = WorkoutState.fromDictionary(message) {
+                    await send(.home(.workoutPlans(.performWorkout(.presented(.receivedWorkoutState(workoutState))))))
+                }
             }
         }
     }

@@ -21,12 +21,31 @@ struct WatchAppFeature {
         case workoutSummary(Watch_WorkoutSummaryFeature.Action)
     }
     
+    @Dependency(\.watchConnectivity) var watchConnectivity
+        
+    func listenForWorkoutUpdates() -> Effect<Action> {
+        .run { send in
+            for await message in watchConnectivity.receive() {
+                if let workoutState = WorkoutState.fromDictionary(message) {
+                    await send(.workoutPlans(.performWorkout(.presented(.receivedWorkoutState(workoutState)))))
+                }
+            }
+        }
+    }
     var body: some Reducer<State, Action> {
         Scope(state: \.workoutPlans, action: \.workoutPlans) {
             Watch_WorkoutPlansFeature()
         }
         Scope(state: \.workoutSummary, action: \.workoutSummary) {
             Watch_WorkoutSummaryFeature()
+        }
+        .onChange(of: \.workoutPlans.performWorkout) { oldValue, newValue in
+            Reduce { state, _ in
+                if newValue != nil {
+                    return .send(.workoutPlans(.performWorkout(.presented(.syncWorkoutState))))
+                }
+                return .none
+            }
         }
     }
 }

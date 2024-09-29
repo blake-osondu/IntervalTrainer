@@ -10,6 +10,8 @@
 		DB3CAB6D2CA7B71000300322 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DB3CAB6C2CA7B71000300322 /* ComposableArchitecture */; };
 		DB3CAB6F2CA7B8D900300322 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB6E2CA7B8D900300322 /* Models.swift */; };
 		DB3CAB702CA7B8EB00300322 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB6E2CA7B8D900300322 /* Models.swift */; };
+		DB3CAB742CA8C5CB00300322 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */; };
+		DB3CAB752CA8CD2100300322 /* WatchConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */; };
 		DB9E73012CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E73002CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift */; };
 		DB9E73032CA7AFBA00B2981F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E73022CA7AFBA00B2981F /* ContentView.swift */; };
 		DB9E73052CA7AFBA00B2981F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB9E73042CA7AFBA00B2981F /* Assets.xcassets */; };
@@ -103,6 +105,7 @@
 /* Begin PBXFileReference section */
 		DB25810C2CA4CED60073CB6E /* Interval-Trainer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Interval-Trainer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		DB3CAB6E2CA7B8D900300322 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivity.swift; sourceTree = "<group>"; };
 		DB9E72FE2CA7AFBA00B2981F /* Interval Trainer Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Interval Trainer Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB9E73002CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_Trainer_WatchApp.swift; sourceTree = "<group>"; };
 		DB9E73022CA7AFBA00B2981F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -289,6 +292,7 @@
 				DBA02F4D2C908B21001C7661 /* WorkoutComplete.swift */,
 				DBD0BE892C8752630058FF39 /* Utilities.swift */,
 				DBA02F4B2C8FD7C2001C7661 /* EditWorkout.swift */,
+				DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */,
 				DB3CAB6E2CA7B8D900300322 /* Models.swift */,
 				DBADCEE02C82C82100E2AD15 /* Assets.xcassets */,
 				DBADCEE52C82C82100E2AD15 /* Interval_Trainer.entitlements */,
@@ -559,6 +563,7 @@
 				DB9E73302CA7B04600B2981F /* Watch_PerformWorkout.swift in Sources */,
 				DB9E732F2CA7B04600B2981F /* Watch_WorkoutPlans.swift in Sources */,
 				DB3CAB702CA7B8EB00300322 /* Models.swift in Sources */,
+				DB3CAB752CA8CD2100300322 /* WatchConnectivity.swift in Sources */,
 				DB9E73312CA7B04600B2981F /* Watch_WorkoutSummary.swift in Sources */,
 				DB9E73012CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift in Sources */,
 			);
@@ -585,6 +590,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB3CAB742CA8C5CB00300322 /* WatchConnectivity.swift in Sources */,
 				DBD0BE8C2C8810D90058FF39 /* WorkoutCreation.swift in Sources */,
 				DBA02F3E2C8CCCF1001C7661 /* AddInterval.swift in Sources */,
 				DBA02F502C913723001C7661 /* MusicPlayer.swift in Sources */,
