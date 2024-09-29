@@ -17,11 +17,15 @@ struct Watch_WorkoutSummaryFeature {
         var workoutsThisMonth: Int = 0
         var currentStreak: Int = 0
         var isLoading: Bool = false
+        var caloriesBurned: Double = 0
+
     }
     
     enum Action {
         case loadSummary
         case summaryLoaded(lastWorkout: Date?, monthlyCount: Int, streak: Int)
+        case updateCalories(Double)
+
     }
     
     @Dependency(\.workoutSummaryClient) var workoutSummaryClient
@@ -46,6 +50,10 @@ struct Watch_WorkoutSummaryFeature {
                 state.workoutsThisMonth = monthlyCount
                 state.currentStreak = streak
                 return .none
+            case let .updateCalories(calories):
+                state.caloriesBurned = calories
+                return .none
+                // ... handle other actions ...
             }
         }
     }
@@ -88,6 +96,8 @@ struct WorkoutSummaryView: View {
                     }
                     Text("This Month: \(viewStore.workoutsThisMonth)")
                     Text("Current Streak: \(viewStore.currentStreak) days")
+                    Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
+
                 }
             }
             .navigationTitle("Summary")

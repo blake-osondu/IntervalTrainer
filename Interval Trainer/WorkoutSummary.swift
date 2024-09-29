@@ -23,6 +23,8 @@ struct WorkoutSummaryFeature {
     enum Action {
         case loadSummary
         case summaryLoaded(State)
+        case updateCalories(Double)
+
     }
     
     var body: some Reducer<State, Action> {
@@ -45,6 +47,11 @@ struct WorkoutSummaryFeature {
             case let .summaryLoaded(summary):
                 state = summary
                 return .none
+            case let .updateCalories(calories):
+                state.caloriesBurnedThisWeek += calories
+                state.caloriesBurnedThisMonth += calories
+                return .none
+                // ... handle other actions ...
             }
         }
     }

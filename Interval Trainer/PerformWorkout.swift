@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import ComposableArchitecture
+import HealthKit
 
 @Reducer
 struct PerformWorkoutFeature {
@@ -27,6 +28,12 @@ struct PerformWorkoutFeature {
         @Presents var workoutComplete: WorkoutCompleteFeature.State?
         var musicPlayer: MusicPlayerFeature.State = .init()
         var isSyncedWithCompanionDevice: Bool = false
+        var isWorkoutComplete: Bool = false
+        var caloriesBurned: Double = 0
+        var workoutStartTime: Date?
+        #if os(watchOS)
+        var workoutSession: HKWorkoutSession?
+        #endif
         
         init(workoutPlan: WorkoutPlan) {
             self.workoutPlan = workoutPlan
@@ -66,6 +73,9 @@ struct PerformWorkoutFeature {
         case musicPlayer(MusicPlayerFeature.Action)
         case syncWorkoutState
         case receivedWorkoutState(WorkoutState)
+        case startWorkout
+        case endWorkout
+        case updateCalories(Double)
         
         
         @CasePathable
@@ -78,6 +88,7 @@ struct PerformWorkoutFeature {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.date) var date
     @Dependency(\.watchConnectivity) var watchConnectivity
+    @Dependency(\.healthKitManager) var healthKitManager
     
     var body: some Reducer<State, Action> {
         Reduce { state, action in
@@ -228,6 +239,33 @@ struct PerformWorkoutFeature {
                 state.totalElapsedTime = workoutState.totalElapsedTime
                 state.isSyncedWithCompanionDevice = true
                 return .none
+            case .startWorkout:
+                state.workoutStartTime = Date()
+                #if os(watchOS)
+                state.workoutSession = healthKitManager.startWorkout()
+                #endif
+                return .none
+                
+            case .endWorkout:
+                guard let startTime = state.workoutStartTime else { return .none }
+                #if os(watchOS)
+                guard let session = state.workoutSession else { return .none }
+                return .run { send in
+                    await healthKitManager.endWorkout(session) { calories in
+                        await send(.updateCalories(calories))
+                    }
+                }
+                #else
+                return .run { send in
+                    healthKitManager.getActiveEnergyBurned(start: startTime, end: Date()) { calories in
+                        await send(.updateCalories(calories))
+                    }
+                }
+                #endif
+                
+            case let .updateCalories(calories):
+                state.caloriesBurned = calories
+                return .none
             }
         }
         .ifLet(\.$editWorkout, action: \.editWorkout) {
@@ -364,6 +402,7 @@ struct PerformWorkoutView: View {
                             action: { .musicPlayer($0) }
                         )
                     )
+                    Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
                 }
                 .navigationBarItems(
                     leading: Button("Cancel") { viewStore.send(.dismiss) },
@@ -383,6 +422,12 @@ struct PerformWorkoutView: View {
                     }
             }
             .padding()
+            .onAppear {
+                viewStore.send(.startWorkout)
+            }
+            .onDisappear {
+                viewStore.send(.endWorkout)
+            }
         }
     }
 }

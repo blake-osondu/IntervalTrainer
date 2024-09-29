@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import ComposableArchitecture
+import HealthKit
 
 @Reducer
 struct Watch_PerformWorkoutFeature {
@@ -41,6 +42,8 @@ struct Watch_PerformWorkoutFeature {
                 return nil
             }
         }
+        var caloriesBurned: Double = 0
+        var workoutSession: HKWorkoutSession?
     }
     
     enum Action {
@@ -52,10 +55,14 @@ struct Watch_PerformWorkoutFeature {
         case syncWorkoutState
         case receivedWorkoutState(WorkoutState)
         case dismiss
+        case startWorkout
+        case endWorkout
+        case updateCalories(Double)
     }
     
     @Dependency(\.continuousClock) var clock
     @Dependency(\.watchConnectivity) var watchConnectivity
+    @Dependency(\.healthKitManager) var healthKitManager
 
     var body: some Reducer<State, Action> {
         Reduce { state, action in
@@ -114,6 +121,21 @@ struct Watch_PerformWorkoutFeature {
                 return .none    
             case .dismiss:
                 // We don't need to do anything here, as the parent feature will handle the dismissal
+                return .none
+            case .startWorkout:
+                state.workoutSession = healthKitManager.startWorkout()
+                return .none
+                
+            case .endWorkout:
+                guard let session = state.workoutSession else { return .none }
+                return .run { send in
+                    healthKitManager.endWorkout(session) { calories in
+                        await send(.updateCalories(calories))
+                    }
+                }
+                
+            case let .updateCalories(calories):
+                state.caloriesBurned = calories
                 return .none
             }
         }
@@ -175,6 +197,8 @@ struct PerformWorkoutView: View {
             Text(formatTime(viewStore.timeRemaining))
                 .font(.system(size: 40, weight: .bold, design: .monospaced))
             
+            Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
+
             HStack {
                 Button(action: { viewStore.send(.toggleRunning) }) {
                     Image(systemName: viewStore.isRunning ? "pause.fill" : "play.fill")
@@ -189,6 +213,12 @@ struct PerformWorkoutView: View {
                 viewStore.send(.stopWorkout)
             }
             .foregroundColor(.red)
+        }
+        .onAppear {
+            viewStore.send(.startWorkout)
+        }
+        .onDisappear {
+            viewStore.send(.endWorkout)
         }
     }
     

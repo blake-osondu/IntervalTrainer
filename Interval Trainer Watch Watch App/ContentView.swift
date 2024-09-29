@@ -22,7 +22,8 @@ struct WatchAppFeature {
     }
     
     @Dependency(\.watchConnectivity) var watchConnectivity
-        
+    @Dependency(\.healthKitManager) var healthKitManager
+
     func listenForWorkoutUpdates() -> Effect<Action> {
         .run { send in
             for await message in watchConnectivity.receive() {
