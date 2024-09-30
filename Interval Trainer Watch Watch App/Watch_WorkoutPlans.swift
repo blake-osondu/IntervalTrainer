@@ -15,9 +15,13 @@ struct Watch_WorkoutPlansView: View {
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
             List {
-                ForEach(viewStore.workoutPlans) { plan in
-                    Button(plan.name) {
-                        viewStore.send(.selectWorkoutPlan(plan))
+                if viewStore.workoutPlans.isEmpty {
+                    Text("No Workout Plans Available")
+                } else {
+                    ForEach(viewStore.workoutPlans) { plan in
+                        Button(plan.name) {
+                            viewStore.send(.workoutPlanSelected(plan))
+                        }
                     }
                 }
             }

@@ -11,9 +11,10 @@ import ComposableArchitecture
 
 @Reducer
 struct WorkoutSummaryFeature {
+    
     @ObservableState
     struct State: Equatable {
-        var completedWorkouts: [CompletedWorkout] = []
+        var completedWorkouts: [WeeklyWorkout] = []
         var lastWorkoutDate: Date?
         var workoutsThisMonth: Int = 0
         var currentStreak: Int = 0
@@ -36,18 +37,18 @@ struct WorkoutSummaryFeature {
             switch action {
             case .loadCompletedWorkouts:
                 state.isLoading = true
-                return .run { send in
-                    do {
-                        let workouts = try await cloudKitClient.fetchCompletedWorkouts().get()
-                        await send(.completedWorkoutsLoaded(workouts))
-                    } catch {
-                        await send(.failedToLoadCompletedWorkouts(error))
-                     }
-                }
-                
+//                return .run { send in
+//                    do {
+//                        let workouts = try await cloudKitClient.fetchCompletedWorkouts().get()
+//                        await send(.completedWorkoutsLoaded(workouts))
+//                    } catch {
+//                        await send(.failedToLoadCompletedWorkouts(error))
+//                     }
+//                }
+                return .none
             case let .completedWorkoutsLoaded(workouts):
                 state.isLoading = false
-                state.completedWorkouts = workouts
+         
                 // Simulating async load
                 let summary = State(
                     lastWorkoutDate: Date().addingTimeInterval(-86400), // Yesterday

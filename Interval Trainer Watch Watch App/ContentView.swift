@@ -13,12 +13,10 @@ struct WatchAppFeature {
     @ObservableState
     struct State: Equatable {
         var workoutPlans = WorkoutPlansFeature.State()
-        var workoutSummary = WorkoutSummaryFeature.State()
     }
     
     enum Action {
         case workoutPlans(WorkoutPlansFeature.Action)
-        case workoutSummary(WorkoutSummaryFeature.Action)
     }
     
     @Dependency(\.watchConnectivity) var watchConnectivity
@@ -35,9 +33,6 @@ struct WatchAppFeature {
     var body: some Reducer<State, Action> {
         Scope(state: \.workoutPlans, action: \.workoutPlans) {
             WorkoutPlansFeature()
-        }
-        Scope(state: \.workoutSummary, action: \.workoutSummary) {
-            WorkoutSummaryFeature()
         }
         .onChange(of: \.workoutPlans.performWorkout) { oldValue, newValue in
             Reduce { state, _ in
@@ -66,12 +61,6 @@ struct ContentView: View {
                         Watch_WorkoutPlansView(store: store.scope(state: \.workoutPlans, action: \.workoutPlans))
                     } label: {
                         Text("Workout Plans")
-                    }
-                    
-                    NavigationLink {
-                        Watch_WorkoutSummaryView(store: store.scope(state: \.workoutSummary, action: \.workoutSummary))
-                    } label: {
-                        Text("Workout Summary")
                     }
                 }
                 .navigationTitle("Interval Trainer")

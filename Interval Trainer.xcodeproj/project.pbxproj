@@ -38,7 +38,6 @@
 		DB3CAB7C2CA9EB3D00300322 /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB7A2CA9EB3D00300322 /* CloudKit.swift */; };
 		DB3CAB7D2CA9ECEF00300322 /* PW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F472C8DDE73001C7661 /* PW_Feature.swift */; };
 		DB3CAB7E2CA9ED0B00300322 /* WP_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE872C8752440058FF39 /* WP_Feature.swift */; };
-		DB3CAB7F2CA9ED2800300322 /* WS_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WS_Feature.swift */; };
 		DB3CAB812CA9F10300300322 /* MusicKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB802CA9F10300300322 /* MusicKit.swift */; };
 		DB3CAB892CA9F25B00300322 /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F4F2C913723001C7661 /* MusicPlayer.swift */; };
 		DB3CAB8B2CA9F26300300322 /* MusicKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3CAB802CA9F10300300322 /* MusicKit.swift */; };
@@ -55,7 +54,6 @@
 		DB9E73222CA7AFBB00B2981F /* Interval Trainer Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = DB9E72FE2CA7AFBA00B2981F /* Interval Trainer Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DB9E732F2CA7B04600B2981F /* Watch_WorkoutPlans.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E732C2CA7B04600B2981F /* Watch_WorkoutPlans.swift */; };
 		DB9E73302CA7B04600B2981F /* Watch_PerformWorkout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E732D2CA7B04600B2981F /* Watch_PerformWorkout.swift */; };
-		DB9E73312CA7B04600B2981F /* Watch_WorkoutSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9E732E2CA7B04600B2981F /* Watch_WorkoutSummary.swift */; };
 		DBA02F3C2C8BEC33001C7661 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA02F3B2C8BEC33001C7661 /* Launch Screen.storyboard */; };
 		DBA02F3E2C8CCCF1001C7661 /* AI_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F3D2C8CCCF1001C7661 /* AI_Feature.swift */; };
 		DBA02F402C8CD2B2001C7661 /* AP_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA02F3F2C8CD2B2001C7661 /* AP_Feature.swift */; };
@@ -72,6 +70,7 @@
 		DBADCEEF2C82C82100E2AD15 /* Interval_TrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEEE2C82C82100E2AD15 /* Interval_TrainerTests.swift */; };
 		DBADCEF92C82C82100E2AD15 /* Interval_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */; };
 		DBADCEFB2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */; };
+		DBC240262CAB51A400E62E5F /* WS_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WS_Feature.swift */; };
 		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
 		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
 		DBD0BE802C8750F60058FF39 /* L_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7F2C8750F60058FF39 /* L_Feature.swift */; };
@@ -169,7 +168,6 @@
 		DB9E731D2CA7AFBB00B2981F /* Interval_Trainer_Watch_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_Trainer_Watch_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DB9E732C2CA7B04600B2981F /* Watch_WorkoutPlans.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Watch_WorkoutPlans.swift; sourceTree = "<group>"; };
 		DB9E732D2CA7B04600B2981F /* Watch_PerformWorkout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Watch_PerformWorkout.swift; sourceTree = "<group>"; };
-		DB9E732E2CA7B04600B2981F /* Watch_WorkoutSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Watch_WorkoutSummary.swift; sourceTree = "<group>"; };
 		DBA02F3B2C8BEC33001C7661 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		DBA02F3D2C8CCCF1001C7661 /* AI_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI_Feature.swift; sourceTree = "<group>"; };
 		DBA02F3F2C8CD2B2001C7661 /* AP_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AP_Feature.swift; sourceTree = "<group>"; };
@@ -389,7 +387,6 @@
 				DB9E73022CA7AFBA00B2981F /* ContentView.swift */,
 				DB9E732D2CA7B04600B2981F /* Watch_PerformWorkout.swift */,
 				DB9E732C2CA7B04600B2981F /* Watch_WorkoutPlans.swift */,
-				DB9E732E2CA7B04600B2981F /* Watch_WorkoutSummary.swift */,
 				DB9E73042CA7AFBA00B2981F /* Assets.xcassets */,
 				DB9E73062CA7AFBA00B2981F /* Preview Content */,
 			);
@@ -740,7 +737,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB3CAB7F2CA9ED2800300322 /* WS_Feature.swift in Sources */,
 				DB3CAB7C2CA9EB3D00300322 /* CloudKit.swift in Sources */,
 				DB3CAB892CA9F25B00300322 /* MusicPlayer.swift in Sources */,
 				DB019AE52CAAB88D00C02FA9 /* DI_Feature.swift in Sources */,
@@ -752,12 +748,12 @@
 				DB019AE32CAAB87600C02FA9 /* WCr_Feature.swift in Sources */,
 				DB9E732F2CA7B04600B2981F /* Watch_WorkoutPlans.swift in Sources */,
 				DB3CAB8E2CA9F26F00300322 /* Utilities.swift in Sources */,
+				DBC240262CAB51A400E62E5F /* WS_Feature.swift in Sources */,
 				DB019AE82CAAB89900C02FA9 /* AP_Feature.swift in Sources */,
 				DB3CAB8D2CA9F26A00300322 /* WC_Feature.swift in Sources */,
 				DB019AE72CAAB89600C02FA9 /* EP_Feature.swift in Sources */,
 				DB3CAB752CA8CD2100300322 /* WatchConnectivity.swift in Sources */,
 				DB3CAB782CA8E79700300322 /* HeathKit.swift in Sources */,
-				DB9E73312CA7B04600B2981F /* Watch_WorkoutSummary.swift in Sources */,
 				DB9E73012CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift in Sources */,
 				DB019AB52CAA08D500C02FA9 /* CW_Feature.swift in Sources */,
 				DB3CAB8F2CA9F27400300322 /* EW_Feature.swift in Sources */,
@@ -891,14 +887,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer Watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.kinnectus.Interval-Trainer";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kinnectus.intervaltrainer;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -926,14 +922,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer Watch";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.kinnectus.Interval-Trainer";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kinnectus.intervaltrainer;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer.watchkitapp";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1167,12 +1163,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Interval Trainer/Interval_Trainer.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Blake Rogers (943Q6N9M95)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Blake Rogers (943Q6N9M95)";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Interval Trainer/Preview Content\"";
-				DEVELOPMENT_TEAM = F367FQQ7Q2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 49S85J55Z4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1189,8 +1188,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.kinnectus.intervaltrainer;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1206,12 +1207,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Interval Trainer/Interval_Trainer.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Blake Rogers (943Q6N9M95)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Blake Rogers (943Q6N9M95)";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Interval Trainer/Preview Content\"";
-				DEVELOPMENT_TEAM = F367FQQ7Q2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 49S85J55Z4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1228,8 +1232,10 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.kinnectus.intervaltrainer;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;

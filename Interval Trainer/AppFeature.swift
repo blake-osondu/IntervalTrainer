@@ -71,10 +71,6 @@ struct ContentView: View {
     @Bindable var store: StoreOf<AppFeature>
     
     var body: some View {
-        if store.isAuthenticated {
-            HomeView(store: store.scope(state: \.home, action: \.home))
-        } else {
-            LoginView(store: store.scope(state: \.login, action: \.login))
-        }
+        HomeView(store: store.scope(state: \.home, action: \.home))
     }
 }

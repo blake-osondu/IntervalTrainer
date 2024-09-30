@@ -197,6 +197,7 @@ struct PerformWorkoutFeature {
                     name: state.workoutPlan.name,
                     date: self.date.now,
                     duration: state.totalElapsedTime,
+                    caloriesBurned: 0,
                     rating: state.workoutComplete?.workoutRating ?? 0
                 )
                 state.workoutComplete = nil
@@ -210,22 +211,22 @@ struct PerformWorkoutFeature {
                 return .none
 
             case let .saveCompletedWorkout(workout):
-                return .run { send in
-                    do {
-                        try await cloudKitClient.saveCompletedWorkout(workout).get()
-                        await send(.completedWorkoutSaved(workout))
-                    } catch {
-                        await send(.failedToSaveCompletedWorkout(error))
-                    }
-                }
-                
+                return .none
+//                return .run { send in
+//                    do {
+//                        try await cloudKitClient.saveCompletedWorkout(workout).get()
+//                        await send(.completedWorkoutSaved(workout))
+//                    } catch {
+//                        await send(.failedToSaveCompletedWorkout(error))
+//                    }
+//                }
+//                
             case let .completedWorkoutSaved(workout):
-                state.completedWorkouts.insert(workout, at: 0)
                 return .none
                 
             case .failedToSaveCompletedWorkout:
                 // Handle errors (e.g., show an alert)
-                state.isLoading = false
+//                state.isLoading = false
                 return .none
                 
             case .workoutComplete(.presented(.selectedDiscardWorkout)):
@@ -266,29 +267,37 @@ struct PerformWorkoutFeature {
             case .startWorkout:
                 state.workoutStartTime = Date()
                 #if os(watchOS)
-                state.workoutSession = healthKitClient.startWorkout()
+                    return .run { send in
+    //                    if let session = try? await healthKitClient.startWorkout() {
+    //                        state.workoutSession = session
+    //                    }
+    //                    await send(.endWorkout)
+                    }
                 #endif
                 return .none
-                
+//                
             case .endWorkout:
                 guard let startTime = state.workoutStartTime else { return .none }
+                
                 #if os(watchOS)
-                guard let session = state.workoutSession else { return .none }
-                return .run { send in
-                    await healthKitClient.endWorkout(session) { calories in
-                        await send(.updateCalories(calories))
+                    guard let session = state.workoutSession else { return .none }
+                    return .run { send in
+                        await healthKitClient.endWorkout(session) { calories in
+                            await send(.updateCalories(calories))
+                        }
                     }
-                }
-                #else
-                return .run { send in
-                    healthKitClient.getActiveEnergyBurned(start: startTime, end: Date()) { calories in
-                        await send(.updateCalories(calories))
-                    }
-                }
                 #endif
                 
+                return .run { send in
+                    healthKitClient.getActiveEnergyBurned(startTime, Date(),  { calories in
+                        await send(.updateCalories(calories))
+                    })
+                }
+            
             case let .updateCalories(calories):
                 state.caloriesBurned = calories
+                return .none
+            default:
                 return .none
             }
         }

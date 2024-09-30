@@ -12,7 +12,7 @@ import Dependencies
 
 public struct HealthKitClient {
     var startWorkout: @Sendable () async throws ->  HKWorkoutSession?
-    var endWorkout: @Sendable (HKWorkoutSession, (Double) async -> Void) async ->  Void
+    var endWorkout: @Sendable (HKWorkoutSession, @escaping (Double) async -> Void) async ->  Void
     var getActiveEnergyBurned: @Sendable (Date, Date, @escaping (Double) async -> Void) ->  Void
 }
 
@@ -25,7 +25,7 @@ extension HealthKitClient: DependencyKey {
                 return nil
         }, endWorkout: { session, completion in
             #if os(watchOS)
-                await HealthKitManager.shared.endWorkout(session, completion)
+            await HealthKitManager.shared.endWorkout(session, completion: completion)
             #endif
         }, getActiveEnergyBurned: {start, end, completion in
             return HealthKitManager.shared.getActiveEnergyBurned(start: start, end: end, completion: completion)
