@@ -24,3 +24,11 @@ struct RoundedCorner: Shape {
         return Path(path.cgPath)
     }
 }
+
+// Helper extension for safe array access
+extension Array {
+    subscript(safe index: Index) -> Element? {
+        indices.contains(index) ? self[index] : nil
+    }
+}
+

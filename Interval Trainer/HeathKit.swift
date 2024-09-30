@@ -9,6 +9,50 @@ import Foundation
 import HealthKit
 import Dependencies
 
+
+public struct HealthKitClient {
+    var startWorkout: @Sendable () async throws ->  HKWorkoutSession?
+    var endWorkout: @Sendable (HKWorkoutSession, (Double) async -> Void) async ->  Void
+    var getActiveEnergyBurned: @Sendable (Date, Date, @escaping (Double) async -> Void) ->  Void
+}
+
+extension HealthKitClient: DependencyKey {
+    static public let liveValue: HealthKitClient = Self(
+        startWorkout: {
+            #if os(watchOS)
+                return try? await HealthKitManager.shared.startWorkout()
+            #endif
+                return nil
+        }, endWorkout: { session, completion in
+            #if os(watchOS)
+                await HealthKitManager.shared.endWorkout(session, completion)
+            #endif
+        }, getActiveEnergyBurned: {start, end, completion in
+            return HealthKitManager.shared.getActiveEnergyBurned(start: start, end: end, completion: completion)
+        }
+    )
+    
+}
+
+extension HealthKitClient: TestDependencyKey {
+    static public let testValue: HealthKitClient = Self(
+        startWorkout: {
+            return nil
+        }, endWorkout: { session, completion in
+            
+        }, getActiveEnergyBurned: {start, end, completion in
+            
+        }
+    )
+}
+
+extension DependencyValues {
+    public var healthKitClient: HealthKitClient {
+        get { self[HealthKitClient.self] }
+        set { self[HealthKitClient.self] = newValue }
+    }
+}
+
 public class HealthKitManager {
     static let shared = HealthKitManager()
     
@@ -79,11 +123,5 @@ public class HealthKitManager {
             }
         }
         healthStore.execute(query)
-    }
-}
-
-extension DependencyValues {
-    public var healthKitManager: HealthKitManager {
-        HealthKitManager.shared
     }
 }

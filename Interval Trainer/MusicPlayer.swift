@@ -152,69 +152,6 @@ struct MusicPlayerView: View {
     }
 }
 
-import MusicKit
-import Dependencies
-
-struct MusicKitClient {
-    var requestAuthorization: @Sendable () async -> MusicAuthorization.Status
-    var fetchRecentPlaylist: @Sendable () async -> Playlist?
-    var play: @Sendable () async -> Void
-    var pause: @Sendable () async -> Void
-    var skipToNextItem: @Sendable () async -> Void
-    var skipToPreviousItem: @Sendable () async -> Void
-}
-
-extension MusicKitClient: DependencyKey {
-    static let liveValue = Self(
-        requestAuthorization: {
-            await MusicAuthorization.request()
-        },
-        fetchRecentPlaylist: {
-            do {
-                let request = MusicLibraryRequest<Playlist>()
-                let response = try await request.response()
-                return response.items.first
-            } catch {
-                print("Error fetching recent playlist: \(error)")
-                return nil
-            }
-        },
-        play: {
-            try? await ApplicationMusicPlayer.shared.play()
-        },
-        pause: {
-           ApplicationMusicPlayer.shared.pause()
-        },
-        skipToNextItem: {
-            try? await ApplicationMusicPlayer.shared.skipToNextEntry()
-        },
-        skipToPreviousItem: {
-            try? await ApplicationMusicPlayer.shared.skipToPreviousEntry()
-        }
-    )
-}
-
-extension DependencyValues {
-    var musicKitClient: MusicKitClient {
-        get { self[MusicKitClient.self] }
-        set { self[MusicKitClient.self] = newValue }
-    }
-}
-
-// For testing and previews
-extension MusicKitClient: TestDependencyKey {
-    static let testValue = Self(
-        requestAuthorization: { .authorized },
-        fetchRecentPlaylist: { 
-            return nil
-        },
-        play: {},
-        pause: {},
-        skipToNextItem: {},
-        skipToPreviousItem: {}
-    )
-}
-
 // Preview providers
 #Preview("Music Player - Authorized") {
     MusicPlayerView(

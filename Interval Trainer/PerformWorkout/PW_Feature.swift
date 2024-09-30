@@ -76,8 +76,10 @@ struct PerformWorkoutFeature {
         case startWorkout
         case endWorkout
         case updateCalories(Double)
-        
-        
+        case saveCompletedWorkout(CompletedWorkout)
+        case completedWorkoutSaved(CompletedWorkout)
+        case failedToSaveCompletedWorkout(Error)
+
         @CasePathable
         enum Alert: Equatable {
             case updateCurrentRoutine
@@ -88,8 +90,9 @@ struct PerformWorkoutFeature {
     @Dependency(\.continuousClock) var clock
     @Dependency(\.date) var date
     @Dependency(\.watchConnectivity) var watchConnectivity
-    @Dependency(\.healthKitManager) var healthKitManager
-    
+    @Dependency(\.healthKitClient) var healthKitClient
+    @Dependency(\.cloudKitClient) var cloudKitClient
+
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
@@ -197,16 +200,34 @@ struct PerformWorkoutFeature {
                     rating: state.workoutComplete?.workoutRating ?? 0
                 )
                 state.workoutComplete = nil
-//                Update local database with completedworkout
-//                return .run { send in
-//                    // Simulating async upload completed workout
-//                    try await Task.sleep(for: .seconds(1))
-//
-//                    await send(.none)
-//                }
-                
+                return .run { send in
+                    do {
+                        try await cloudKitClient.saveCompletedWorkout(completedWorkout).get()
+                    } catch {
+                        await send(.failedToSaveCompletedWorkout(error))
+                    }
+                }
                 return .none
 
+            case let .saveCompletedWorkout(workout):
+                return .run { send in
+                    do {
+                        try await cloudKitClient.saveCompletedWorkout(workout).get()
+                        await send(.completedWorkoutSaved(workout))
+                    } catch {
+                        await send(.failedToSaveCompletedWorkout(error))
+                    }
+                }
+                
+            case let .completedWorkoutSaved(workout):
+                state.completedWorkouts.insert(workout, at: 0)
+                return .none
+                
+            case .failedToSaveCompletedWorkout:
+                // Handle errors (e.g., show an alert)
+                state.isLoading = false
+                return .none
+                
             case .workoutComplete(.presented(.selectedDiscardWorkout)):
                 // Reset the workout state or navigate back to the workout plans
                 state.workoutComplete = nil
@@ -217,8 +238,10 @@ struct PerformWorkoutFeature {
                 
             case .editWorkout, .alert:
                 return .none
+            
             case .musicPlayer(_):
                 return .none
+            
             case .syncWorkoutState:
                 let workoutState = WorkoutState(
                     isRunning: state.isRunning,
@@ -239,10 +262,11 @@ struct PerformWorkoutFeature {
                 state.totalElapsedTime = workoutState.totalElapsedTime
                 state.isSyncedWithCompanionDevice = true
                 return .none
+            
             case .startWorkout:
                 state.workoutStartTime = Date()
                 #if os(watchOS)
-                state.workoutSession = healthKitManager.startWorkout()
+                state.workoutSession = healthKitClient.startWorkout()
                 #endif
                 return .none
                 
@@ -251,13 +275,13 @@ struct PerformWorkoutFeature {
                 #if os(watchOS)
                 guard let session = state.workoutSession else { return .none }
                 return .run { send in
-                    await healthKitManager.endWorkout(session) { calories in
+                    await healthKitClient.endWorkout(session) { calories in
                         await send(.updateCalories(calories))
                     }
                 }
                 #else
                 return .run { send in
-                    healthKitManager.getActiveEnergyBurned(start: startTime, end: Date()) { calories in
+                    healthKitClient.getActiveEnergyBurned(start: startTime, end: Date()) { calories in
                         await send(.updateCalories(calories))
                     }
                 }
@@ -330,158 +354,26 @@ struct PerformWorkoutFeature {
         }
         
         state.timeRemaining = state.currentInterval?.duration ?? 0
-        
-
         return .none
     }
 }
 
-struct PerformWorkoutView: View {
-    let store: StoreOf<PerformWorkoutFeature>
+public struct WorkoutState: Codable, Equatable {
+    public var isRunning: Bool
+    public var currentPhaseIndex: Int
+    public var currentIntervalIndex: Int
+    public var timeRemaining: TimeInterval
+    public var totalElapsedTime: TimeInterval
     
-    var body: some View {
-        WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationView {
-                VStack(spacing: 20) {
-                    Text(viewStore.workoutPlan.name)
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                    
-                    Text(viewStore.currentInterval?.name ?? "")
-                        .font(.title2)
-                    
-                    Spacer()
-                    
-                    Text(formatTime(viewStore.timeRemaining))
-                        .font(.system(size: 100, weight: .bold, design: .monospaced))
-                    
-                    HStack {
-                        Text(formatTime(viewStore.totalElapsedTime))
-                            .font(.system(size: 20))
-                        Text("/")
-                        Text(formatTime(viewStore.totalTimeRemaining))
-                            .font(.system(size: 20))
-                        
-                    }
-                    Spacer()
-                    
-                    HStack(spacing: 70) {
-                        Button(action: { viewStore.send(.rewindInterval) }) {
-                            Image(systemName: "backward.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .font(.title)
-                        }
-                        
-                        Button(action: { viewStore.send(.toggleRunning) }) {
-                            Image(systemName: viewStore.isRunning ? "pause.fill" : "play.fill")
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .font(.largeTitle)
-                        }
-                        
-                        Button(action: { viewStore.send(.skipInterval) }) {
-                            Image(systemName: "forward.fill")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .font(.title)
-                        }
-                    }
-                    
-                    Button("Stop Workout") {
-                        viewStore.send(.stopWorkout)
-                    }
-                    .padding()
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                    
-                    MusicPlayerView(
-                        store: store.scope(
-                            state: \.musicPlayer,
-                            action: { .musicPlayer($0) }
-                        )
-                    )
-                    Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
-                }
-                .navigationBarItems(
-                    leading: Button("Cancel") { viewStore.send(.dismiss) },
-                    trailing: Button("Edit") { viewStore.send(.editWorkoutTapped) }
-                )
-                .sheet(
-                    store: store.scope(state: \.$editWorkout, action: \.editWorkout)
-                ) { editWorkoutStore in
-                    EditWorkoutView(store: editWorkoutStore)
-                }
-                .alert(
-                    store: store.scope(state: \.$alert, action: \.alert)
-                )
-                .sheet(
-                    store: store.scope(state: \.$workoutComplete, action: \.workoutComplete)) { store in
-                        WorkoutCompleteView(store: store)
-                    }
-            }
-            .padding()
-            .onAppear {
-                viewStore.send(.startWorkout)
-            }
-            .onDisappear {
-                viewStore.send(.endWorkout)
-            }
+    public func asDictionary() -> [String: Any] {
+        (try? JSONSerialization.jsonObject(with: JSONEncoder().encode(self))) as? [String: Any] ?? [:]
+    }
+    
+    public static func fromDictionary(_ dict: [String: Any]) -> WorkoutState? {
+        guard let data = try? JSONSerialization.data(withJSONObject: dict),
+              let workoutState = try? JSONDecoder().decode(WorkoutState.self, from: data) else {
+            return nil
         }
-    }
-}
-
-extension PerformWorkoutView {
-    
-    private func formatTime(_ timeInterval: TimeInterval) -> String {
-        let minutes = Int(timeInterval) / 60
-        let seconds = Int(timeInterval) % 60
-        return String(format: "%02d:%02d", minutes, seconds)
-    }
-}
-// Preview providers
-#Preview("Perform Workout") {
-    PerformWorkoutView(
-        store: Store(
-            initialState: PerformWorkoutFeature.State(
-                workoutPlan: WorkoutPlan(
-                    id: UUID(),
-                    name: "HIIT Workout",
-                    phases: [
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
-                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
-                                Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
-                                Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
-                                Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
-                                Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300)
-                            ]
-                        )),
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
-                                Interval(id: UUID(), name: "Stretching", type: .coolDown, duration: 300)
-                            ]
-                        ))
-                    ]
-                )
-            ),
-            reducer: {
-                PerformWorkoutFeature()
-            }
-        )
-    )
-}
-
-// Helper extension for safe array access
-extension Array {
-    subscript(safe index: Index) -> Element? {
-        indices.contains(index) ? self[index] : nil
+        return workoutState
     }
 }

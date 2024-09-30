@@ -12,17 +12,16 @@ import ComposableArchitecture
 struct WatchAppFeature {
     @ObservableState
     struct State: Equatable {
-        var workoutPlans = Watch_WorkoutPlansFeature.State()
-        var workoutSummary = Watch_WorkoutSummaryFeature.State()
+        var workoutPlans = WorkoutPlansFeature.State()
+        var workoutSummary = WorkoutSummaryFeature.State()
     }
     
     enum Action {
-        case workoutPlans(Watch_WorkoutPlansFeature.Action)
-        case workoutSummary(Watch_WorkoutSummaryFeature.Action)
+        case workoutPlans(WorkoutPlansFeature.Action)
+        case workoutSummary(WorkoutSummaryFeature.Action)
     }
     
     @Dependency(\.watchConnectivity) var watchConnectivity
-    @Dependency(\.healthKitManager) var healthKitManager
 
     func listenForWorkoutUpdates() -> Effect<Action> {
         .run { send in
@@ -35,10 +34,10 @@ struct WatchAppFeature {
     }
     var body: some Reducer<State, Action> {
         Scope(state: \.workoutPlans, action: \.workoutPlans) {
-            Watch_WorkoutPlansFeature()
+            WorkoutPlansFeature()
         }
         Scope(state: \.workoutSummary, action: \.workoutSummary) {
-            Watch_WorkoutSummaryFeature()
+            WorkoutSummaryFeature()
         }
         .onChange(of: \.workoutPlans.performWorkout) { oldValue, newValue in
             Reduce { state, _ in
@@ -64,13 +63,13 @@ struct ContentView: View {
             NavigationStack {
                 List {
                     NavigationLink {
-                        WorkoutPlansView(store: store.scope(state: \.workoutPlans, action: \.workoutPlans))
+                        Watch_WorkoutPlansView(store: store.scope(state: \.workoutPlans, action: \.workoutPlans))
                     } label: {
                         Text("Workout Plans")
                     }
                     
                     NavigationLink {
-                        WorkoutSummaryView(store: store.scope(state: \.workoutSummary, action: \.workoutSummary))
+                        Watch_WorkoutSummaryView(store: store.scope(state: \.workoutSummary, action: \.workoutSummary))
                     } label: {
                         Text("Workout Summary")
                     }

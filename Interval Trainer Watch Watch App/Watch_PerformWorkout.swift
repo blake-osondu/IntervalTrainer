@@ -10,171 +10,8 @@ import SwiftUI
 import ComposableArchitecture
 import HealthKit
 
-@Reducer
-struct Watch_PerformWorkoutFeature {
-    @ObservableState
-    struct State: Equatable {
-        var workoutPlan: WorkoutPlan
-        var currentPhaseIndex: Int = 0
-        var currentIntervalIndex: Int = 0
-        var timeRemaining: TimeInterval = 0
-        var isRunning: Bool = false
-        var totalElapsedTime: TimeInterval = 0
-        var isWorkoutComplete: Bool = false
-        var isSyncedWithCompanionDevice: Bool = false
-
-        init(workoutPlan: WorkoutPlan) {
-            self.workoutPlan = workoutPlan
-            self.timeRemaining = currentInterval?.duration ?? 0
-        }
-        
-        var currentPhase: WorkoutPhase? {
-            workoutPlan.phases[safe: currentPhaseIndex]
-        }
-        
-        var currentInterval: Interval? {
-            switch currentPhase {
-            case .active(let activePhase):
-                return activePhase.intervals[safe: currentIntervalIndex]
-            case .rest(let restPhase):
-                return Interval(id: UUID(), name: "Rest", type: .lowIntensity, duration: restPhase.duration)
-            case .none:
-                return nil
-            }
-        }
-        var caloriesBurned: Double = 0
-        var workoutSession: HKWorkoutSession?
-    }
-    
-    enum Action {
-        case timerTick
-        case toggleRunning
-        case skipInterval
-        case stopWorkout
-        case workoutCompleted
-        case syncWorkoutState
-        case receivedWorkoutState(WorkoutState)
-        case dismiss
-        case startWorkout
-        case endWorkout
-        case updateCalories(Double)
-    }
-    
-    @Dependency(\.continuousClock) var clock
-    @Dependency(\.watchConnectivity) var watchConnectivity
-    @Dependency(\.healthKitManager) var healthKitManager
-
-    var body: some Reducer<State, Action> {
-        Reduce { state, action in
-            switch action {
-            case .timerTick:
-                guard state.isRunning else { return .none }
-                state.timeRemaining -= 1
-                state.totalElapsedTime += 1
-                if state.timeRemaining <= 0 {
-                    return .send(.skipInterval)
-                }
-                return .none
-                
-            case .toggleRunning:
-                state.isRunning.toggle()
-                if state.isRunning {
-                    return .run { send in
-                        for await _ in self.clock.timer(interval: .seconds(1)) {
-                            await send(.timerTick)
-                        }
-                    }
-                }
-                return .none
-                
-            case .skipInterval:
-                return advanceToNextInterval(&state)
-                
-            case .stopWorkout:
-                state.isRunning = false
-                state.isWorkoutComplete = true
-                return .none
-                
-            case .workoutCompleted:
-                state.isWorkoutComplete = true
-                state.isRunning = false
-                return .none
-            case .syncWorkoutState:
-                let workoutState = WorkoutState(
-                    isRunning: state.isRunning,
-                    currentPhaseIndex: state.currentPhaseIndex,
-                    currentIntervalIndex: state.currentIntervalIndex,
-                    timeRemaining: state.timeRemaining,
-                    totalElapsedTime: state.totalElapsedTime
-                )
-                return .run { _ in
-                    self.watchConnectivity.send(workoutState.asDictionary())
-                }
-                
-            case let .receivedWorkoutState(workoutState):
-                state.isRunning = workoutState.isRunning
-                state.currentPhaseIndex = workoutState.currentPhaseIndex
-                state.currentIntervalIndex = workoutState.currentIntervalIndex
-                state.timeRemaining = workoutState.timeRemaining
-                state.totalElapsedTime = workoutState.totalElapsedTime
-                state.isSyncedWithCompanionDevice = true
-                return .none    
-            case .dismiss:
-                // We don't need to do anything here, as the parent feature will handle the dismissal
-                return .none
-            case .startWorkout:
-                state.workoutSession = healthKitManager.startWorkout()
-                return .none
-                
-            case .endWorkout:
-                guard let session = state.workoutSession else { return .none }
-                return .run { send in
-                    healthKitManager.endWorkout(session) { calories in
-                        await send(.updateCalories(calories))
-                    }
-                }
-                
-            case let .updateCalories(calories):
-                state.caloriesBurned = calories
-                return .none
-            }
-        }
-    }
-    
-    private func advanceToNextInterval(_ state: inout State) -> Effect<Action> {
-        switch state.currentPhase {
-        case .active(let activePhase):
-            if state.currentIntervalIndex < activePhase.intervals.count - 1 {
-                state.currentIntervalIndex += 1
-            } else {
-                state.currentPhaseIndex += 1
-                state.currentIntervalIndex = 0
-            }
-        case .rest:
-            state.currentPhaseIndex += 1
-            state.currentIntervalIndex = 0
-        case .none:
-            return .send(.workoutCompleted)
-        }
-        
-        if state.currentPhaseIndex >= state.workoutPlan.phases.count {
-            return .send(.workoutCompleted)
-        }
-        
-        state.timeRemaining = state.currentInterval?.duration ?? 0
-        return .none
-    }
-}
-
-// Helper extension for safe array access
-extension Array {
-    subscript(safe index: Index) -> Element? {
-        indices.contains(index) ? self[index] : nil
-    }
-}
-
-struct PerformWorkoutView: View {
-    let store: StoreOf<Watch_PerformWorkoutFeature>
+struct Watch_PerformWorkoutView: View {
+    let store: StoreOf<PerformWorkoutFeature>
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
@@ -186,7 +23,7 @@ struct PerformWorkoutView: View {
         }
     }
     
-    private func activeWorkoutView(viewStore: ViewStore<Watch_PerformWorkoutFeature.State, Watch_PerformWorkoutFeature.Action>) -> some View {
+    private func activeWorkoutView(viewStore: ViewStore<PerformWorkoutFeature.State, PerformWorkoutFeature.Action>) -> some View {
         VStack {
             Text(viewStore.workoutPlan.name)
                 .font(.headline)
@@ -222,7 +59,7 @@ struct PerformWorkoutView: View {
         }
     }
     
-    private func workoutCompleteView(viewStore: ViewStore<Watch_PerformWorkoutFeature.State, Watch_PerformWorkoutFeature.Action>) -> some View {
+    private func workoutCompleteView(viewStore: ViewStore<PerformWorkoutFeature.State, PerformWorkoutFeature.Action>) -> some View {
         VStack {
             Text("Workout Complete!")
                 .font(.headline)
@@ -244,9 +81,9 @@ struct PerformWorkoutView: View {
 }
 
 #Preview {
-    PerformWorkoutView(
+    Watch_PerformWorkoutView(
         store: Store(
-            initialState: Watch_PerformWorkoutFeature.State(
+            initialState: PerformWorkoutFeature.State(
                 workoutPlan: WorkoutPlan(
                     id: UUID(),
                     name: "HIIT Workout",
@@ -274,7 +111,7 @@ struct PerformWorkoutView: View {
                     ]
                 )
             ),
-            reducer: { Watch_PerformWorkoutFeature() }
+            reducer: { PerformWorkoutFeature() }
         )
     )
 }

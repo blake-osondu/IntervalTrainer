@@ -1,154 +1,13 @@
 //
-//  WorkoutPlans.swift
+//  View.swift
 //  Interval Trainer
 //
-//  Created by Blake Osonduagwueki on 9/3/24.
+//  Created by Blake Osonduagwueki on 9/29/24.
 //
 
 import Foundation
 import SwiftUI
 import ComposableArchitecture
-
-@Reducer
-struct WorkoutPlansFeature {
-    @ObservableState
-    struct State: Equatable {
-        var workoutPlans: [WorkoutPlan] = []
-        var isExpanded = false
-        @Presents var workoutCreation: WorkoutCreationFeature.State?
-        @Presents var performWorkout: PerformWorkoutFeature.State?
-    }
-    
-    @CasePathable
-    enum Action {
-        case toggleExpanded
-        case loadWorkoutPlans
-        case workoutPlansLoaded([WorkoutPlan])
-        case createNewWorkoutPlan
-        case workoutCreation(PresentationAction<WorkoutCreationFeature.Action>)
-        case workoutPlanSelected(WorkoutPlan)
-        case performWorkout(PresentationAction<PerformWorkoutFeature.Action>)
-        case addNewWorkoutPlan(WorkoutPlan)
-    }
-    
-    var body: some Reducer<State, Action> {
-        Reduce { state, action in
-            switch action {
-            case .toggleExpanded:
-                state.isExpanded.toggle()
-                return .none
-            
-            case .loadWorkoutPlans:
-                return .run { send in
-                    // Simulating async load
-                    try await Task.sleep(for: .seconds(1))
-                    let plans = [
-                        WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
-                            ])),
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
-                            ])),
-                            .rest(RestPhase(id: UUID(), duration: 60)),
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
-                            ])),
-                            .rest(RestPhase(id: UUID(), duration: 60)),
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                            ]))
-                        ]),
-                        WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
-                            ])),
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
-                            ])),
-                            .rest(RestPhase(id: UUID(), duration: 90)),
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
-                            ])),
-                            .rest(RestPhase(id: UUID(), duration: 90)),
-                            .active(ActivePhase(id: UUID(), intervals: [
-                                Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                            ]))
-                        ])
-                    ]
-                    await send(.workoutPlansLoaded(plans))
-                }
-                
-            case let .workoutPlansLoaded(plans):
-                state.workoutPlans = plans
-                return .none
-                
-            case .createNewWorkoutPlan:
-                var workoutCreation = WorkoutCreationFeature.State()
-                workoutCreation.phases = .init(
-                    arrayLiteral: .active(
-                        ActivePhase(
-                            id: UUID(),
-                            intervals: [
-                                .init(id: UUID(), name: "Warmup", type: .warmup, duration: 10.0),
-                                .init(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 40.0),
-                                .init(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 20.0),
-                                .init(id: UUID(), name: "Cooldown", type: .coolDown, duration: 30.0)
-                            ])))
-                state.workoutCreation = workoutCreation
-                return .none
-                
-            case let .workoutPlanSelected(workoutPlan):
-                state.performWorkout = PerformWorkoutFeature.State(workoutPlan: workoutPlan)
-                return .none
-                
-            case .workoutCreation(.presented(.dismiss(let newPlan))):
-                state.workoutPlans.append(newPlan)
-                state.workoutCreation = nil
-                return .none
-                
-            case .workoutCreation(.presented(.cancel)):
-                state.workoutCreation = nil
-                return .none
-                
-            case .workoutCreation:
-                return .none
-                
-            case .performWorkout(.presented(.dismiss)):
-                state.performWorkout = nil
-                return .none
-                
-            case let .addNewWorkoutPlan(newPlan):
-                state.workoutPlans.append(newPlan)
-                return .none
-                
-            case .performWorkout(.presented(.alert(.presented(.createNewRoutine)))):
-                guard let updatedPlan = state.performWorkout?.editWorkout?.workoutPlan else { return .none }
-                return .send(.addNewWorkoutPlan(updatedPlan))
-                
-            case .performWorkout:
-                return .none
-            
-            }
-        }
-        .ifLet(\.$workoutCreation, action: \.workoutCreation) {
-            WorkoutCreationFeature()
-        }
-        .ifLet(\.$performWorkout, action: \.performWorkout) {
-           PerformWorkoutFeature()
-        }
-    }
-}
-
-extension WorkoutCreationFeature.State {
-    func toWorkoutPlan() -> WorkoutPlan {
-        WorkoutPlan(
-            id: UUID(),
-            name: self.workoutName,
-            phases: Array(self.phases)
-        )
-    }
-}
 
 struct WorkoutPlansOverlay: View {
     let store: StoreOf<WorkoutPlansFeature>
@@ -310,3 +169,4 @@ struct WorkoutPlanCard: View {
         }.edgesIgnoringSafeArea(.bottom)
     }
 }
+
