@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DB019AB52CAA08D500C02FA9 /* CW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE852C8751940058FF39 /* CW_Feature.swift */; };
-		DB019AB82CAA0ABC00C02FA9 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AB72CAA0ABC00C02FA9 /* Auth.swift */; };
 		DB019ABD2CAA0B3300C02FA9 /* WS_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019ABC2CAA0B3300C02FA9 /* WS_View.swift */; };
 		DB019AC12CAA0B5B00C02FA9 /* CW_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AC02CAA0B5B00C02FA9 /* CW_View.swift */; };
 		DB019AC42CAA0BA800C02FA9 /* WP_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AC32CAA0BA800C02FA9 /* WP_View.swift */; };
@@ -133,7 +132,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DB019AB72CAA0ABC00C02FA9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		DB019ABC2CAA0B3300C02FA9 /* WS_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_View.swift; sourceTree = "<group>"; };
 		DB019AC02CAA0B5B00C02FA9 /* CW_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CW_View.swift; sourceTree = "<group>"; };
 		DB019AC32CAA0BA800C02FA9 /* WP_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WP_View.swift; sourceTree = "<group>"; };
@@ -491,7 +489,6 @@
 				DB3CAB7A2CA9EB3D00300322 /* CloudKit.swift */,
 				DB3CAB802CA9F10300300322 /* MusicKit.swift */,
 				DB3CAB762CA8E79700300322 /* HeathKit.swift */,
-				DB019AB72CAA0ABC00C02FA9 /* Auth.swift */,
 				DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */,
 				DBA02F4F2C913723001C7661 /* MusicPlayer.swift */,
 				DBD0BE892C8752630058FF39 /* Utilities.swift */,
@@ -811,7 +808,6 @@
 				DBA02F4C2C8FD7C2001C7661 /* EW_Feature.swift in Sources */,
 				DBD0BE8A2C8752630058FF39 /* Utilities.swift in Sources */,
 				DBADCEDD2C82C81F00E2AD15 /* Interval_TrainerApp.swift in Sources */,
-				DB019AB82CAA0ABC00C02FA9 /* Auth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
