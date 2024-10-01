@@ -13,32 +13,16 @@ import ComposableArchitecture
 struct AppFeature {
     @ObservableState
     struct State: Equatable {
-        var login = LoginFeature.State()
         var home = Home.State()
-        var isAuthenticated = false
     }
     
     enum Action {
-        case login(LoginFeature.Action)
         case home(Home.Action)
-        case setAuthenticated(Bool)
     }
     
     var body: some Reducer<State, Action> {
         Reduce { state, action in
-            switch action {
-            case .login(.loginResponse(.success)):
-                state.isAuthenticated = true
-                return .none
-            case .setAuthenticated(let isAuthenticated):
-                state.isAuthenticated = isAuthenticated
-                return .none
-            default:
-                return .none
-            }
-        }
-        Scope(state: \.login, action: \.login) {
-            LoginFeature()
+           return .none
         }
         Scope(state: \.home, action: \.home) {
             Home()

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		DB019AB52CAA08D500C02FA9 /* CW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE852C8751940058FF39 /* CW_Feature.swift */; };
 		DB019AB82CAA0ABC00C02FA9 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AB72CAA0ABC00C02FA9 /* Auth.swift */; };
-		DB019ABA2CAA0AE900C02FA9 /* L_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AB92CAA0AE900C02FA9 /* L_View.swift */; };
 		DB019ABD2CAA0B3300C02FA9 /* WS_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019ABC2CAA0B3300C02FA9 /* WS_View.swift */; };
 		DB019AC12CAA0B5B00C02FA9 /* CW_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AC02CAA0B5B00C02FA9 /* CW_View.swift */; };
 		DB019AC42CAA0BA800C02FA9 /* WP_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB019AC32CAA0BA800C02FA9 /* WP_View.swift */; };
@@ -73,7 +72,6 @@
 		DBC240262CAB51A400E62E5F /* WS_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WS_Feature.swift */; };
 		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
 		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
-		DBD0BE802C8750F60058FF39 /* L_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7F2C8750F60058FF39 /* L_Feature.swift */; };
 		DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE812C87511E0058FF39 /* H_Feature.swift */; };
 		DBD0BE842C87515A0058FF39 /* WS_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WS_Feature.swift */; };
 		DBD0BE862C8751940058FF39 /* CW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE852C8751940058FF39 /* CW_Feature.swift */; };
@@ -136,7 +134,6 @@
 
 /* Begin PBXFileReference section */
 		DB019AB72CAA0ABC00C02FA9 /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		DB019AB92CAA0AE900C02FA9 /* L_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L_View.swift; sourceTree = "<group>"; };
 		DB019ABC2CAA0B3300C02FA9 /* WS_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_View.swift; sourceTree = "<group>"; };
 		DB019AC02CAA0B5B00C02FA9 /* CW_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CW_View.swift; sourceTree = "<group>"; };
 		DB019AC32CAA0BA800C02FA9 /* WP_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WP_View.swift; sourceTree = "<group>"; };
@@ -189,7 +186,6 @@
 		DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITests.swift; sourceTree = "<group>"; };
 		DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
-		DBD0BE7F2C8750F60058FF39 /* L_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE812C87511E0058FF39 /* H_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE832C87515A0058FF39 /* WS_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE852C8751940058FF39 /* CW_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CW_Feature.swift; sourceTree = "<group>"; };
@@ -246,15 +242,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DB019ABB2CAA0B0900C02FA9 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				DBD0BE7F2C8750F60058FF39 /* L_Feature.swift */,
-				DB019AB92CAA0AE900C02FA9 /* L_View.swift */,
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
 		DB019ABE2CAA0B3900C02FA9 /* WorkoutSummary */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,14 +438,7 @@
 				DB25810C2CA4CED60073CB6E /* Interval-Trainer-Info.plist */,
 				DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */,
 				DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */,
-				DB3CAB7A2CA9EB3D00300322 /* CloudKit.swift */,
-				DB3CAB802CA9F10300300322 /* MusicKit.swift */,
-				DB3CAB762CA8E79700300322 /* HeathKit.swift */,
-				DB019AB72CAA0ABC00C02FA9 /* Auth.swift */,
-				DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */,
-				DBA02F4F2C913723001C7661 /* MusicPlayer.swift */,
-				DBD0BE892C8752630058FF39 /* Utilities.swift */,
-				DB019ABB2CAA0B0900C02FA9 /* Login */,
+				DBC240272CAB968D00E62E5F /* Dependencies */,
 				DB019ABE2CAA0B3900C02FA9 /* WorkoutSummary */,
 				DB019ABF2CAA0B4E00C02FA9 /* CompletedWorkouts */,
 				DB019AC22CAA0B9600C02FA9 /* WorkoutPlans */,
@@ -503,6 +483,20 @@
 				DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */,
 			);
 			path = "Interval TrainerUITests";
+			sourceTree = "<group>";
+		};
+		DBC240272CAB968D00E62E5F /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				DB3CAB7A2CA9EB3D00300322 /* CloudKit.swift */,
+				DB3CAB802CA9F10300300322 /* MusicKit.swift */,
+				DB3CAB762CA8E79700300322 /* HeathKit.swift */,
+				DB019AB72CAA0ABC00C02FA9 /* Auth.swift */,
+				DB3CAB732CA8C5CB00300322 /* WatchConnectivity.swift */,
+				DBA02F4F2C913723001C7661 /* MusicPlayer.swift */,
+				DBD0BE892C8752630058FF39 /* Utilities.swift */,
+			);
+			path = Dependencies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -795,14 +789,12 @@
 				DB3CAB772CA8E79700300322 /* HeathKit.swift in Sources */,
 				DBA02F402C8CD2B2001C7661 /* AP_Feature.swift in Sources */,
 				DB3CAB812CA9F10300300322 /* MusicKit.swift in Sources */,
-				DBD0BE802C8750F60058FF39 /* L_Feature.swift in Sources */,
 				DBA02F482C8DDE73001C7661 /* PW_Feature.swift in Sources */,
 				DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */,
 				DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */,
 				DB019AE22CAAB6AC00C02FA9 /* WCr_View.swift in Sources */,
 				DB019AC42CAA0BA800C02FA9 /* WP_View.swift in Sources */,
 				DBD0BE862C8751940058FF39 /* CW_Feature.swift in Sources */,
-				DB019ABA2CAA0AE900C02FA9 /* L_View.swift in Sources */,
 				DB019ADC2CAAB68B00C02FA9 /* H_View.swift in Sources */,
 				DB019AC12CAA0B5B00C02FA9 /* CW_View.swift in Sources */,
 				DBD0BE842C87515A0058FF39 /* WS_Feature.swift in Sources */,

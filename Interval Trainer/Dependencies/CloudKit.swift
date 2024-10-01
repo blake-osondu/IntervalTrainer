@@ -21,7 +21,7 @@ extension CloudKitClient: DependencyKey {
     }, fetchWorkoutPlans: {
         do {
             let plans = try await CloudKitManager.shared.fetchWorkoutPlans()
-            return .success(plans)
+            return .success(generateSamplePlans() + plans)
         } catch {
             return .failure(error)
         }
@@ -43,87 +43,12 @@ extension CloudKitClient: DependencyKey {
 }
 
 extension CloudKitClient: TestDependencyKey {
-    private static func generateSampleWorkouts() -> [CompletedWorkout] {
-        let calendar = Calendar.current
-        let now = Date()
-        let threeMonthsAgo = calendar.date(byAdding: .month, value: -3, to: now)!
-        
-        var workouts: [CompletedWorkout] = []
-        var currentDate = threeMonthsAgo
-        
-        while currentDate <= now {
-            let workoutsThisWeek = Int.random(in: 0...5)  // 0 to 5 workouts per week
-            
-            for _ in 0..<workoutsThisWeek {
-                let workoutDate = calendar.date(byAdding: .hour, value: Int.random(in: 0...23), to: currentDate)!
-                let workout = CompletedWorkout(
-                    id: UUID(),
-                    name: randomWorkoutName(),
-                    date: workoutDate,
-                    // 15 to 120 minutes
-                    duration: TimeInterval(Int.random(in: 15...120) * 60),
-                    caloriesBurned: Double.random(in: 100...500),
-                    rating: 5
-                )
-                workouts.append(workout)
-            }
-            
-            currentDate = calendar.date(byAdding: .day, value: 7, to: currentDate)!
-        }
-        
-        return workouts
-    }
-    
-    private static func randomWorkoutName() -> String {
-        let workoutTypes = ["Run", "Yoga", "HIIT", "Strength Training", "Cycling", "Swimming", "Pilates", "Boxing"]
-        let modifiers = ["Morning", "Evening", "Intense", "Relaxing", "Quick", "Extended"]
-        
-        let type = workoutTypes.randomElement()!
-        let modifier = modifiers.randomElement()!
-        
-        return "\(modifier) \(type)"
-    }
-    
     static let testValue: CloudKitClient = Self(
         saveWorkoutPlan: { workoutPlan in
             return .success(())
     }, fetchWorkoutPlans: {
         // Simulating async load
-        let plans = [
-            WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
-                ])),
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
-                ])),
-                .rest(RestPhase(id: UUID(), duration: 60)),
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
-                ])),
-                .rest(RestPhase(id: UUID(), duration: 60)),
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                ]))
-            ]),
-            WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
-                ])),
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
-                ])),
-                .rest(RestPhase(id: UUID(), duration: 90)),
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
-                ])),
-                .rest(RestPhase(id: UUID(), duration: 90)),
-                .active(ActivePhase(id: UUID(), intervals: [
-                    Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                ]))
-            ])
-        ]
-        return .success(plans)
+        return .success(generateSamplePlans())
     }, saveCompletedWorkout: { workout in
         return .success(())
     }, fetchCompletedWorkouts: {
@@ -243,4 +168,69 @@ extension CompletedWorkout: CloudKitConvertible {
         self.caloriesBurned = caloriesBurned
         self.rating = rating
     }
+}
+
+extension CloudKitClient {
+    private static func generateSampleWorkouts() -> [CompletedWorkout] {
+        let calendar = Calendar.current
+        let now = Date()
+        let threeMonthsAgo = calendar.date(byAdding: .month, value: -3, to: now)!
+        
+        var workouts: [CompletedWorkout] = []
+        var currentDate = threeMonthsAgo
+        
+        while currentDate <= now {
+            let workoutsThisWeek = Int.random(in: 0...5)  // 0 to 5 workouts per week
+            
+            for _ in 0..<workoutsThisWeek {
+                let workoutDate = calendar.date(byAdding: .hour, value: Int.random(in: 0...23), to: currentDate)!
+                let workout = CompletedWorkout(
+                    id: UUID(),
+                    name: randomWorkoutName(),
+                    date: workoutDate,
+                    // 15 to 120 minutes
+                    duration: TimeInterval(Int.random(in: 15...120) * 60),
+                    caloriesBurned: Double.random(in: 100...500),
+                    rating: 5
+                )
+                workouts.append(workout)
+            }
+            
+            currentDate = calendar.date(byAdding: .day, value: 7, to: currentDate)!
+        }
+        
+        return workouts
+    }
+    
+    private static func generateSamplePlans() -> [WorkoutPlan] {
+        [
+            WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
+                .active(ActivePhase(id: UUID(), intervals: [
+                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
+                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 50),
+                    Interval(id: UUID(), name: "Low Intensity", type: .highIntensity, duration: 10),
+                    Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                ]))
+            ]),
+            WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
+                .active(ActivePhase(id: UUID(), intervals: [
+                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
+                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 50),
+                    Interval(id: UUID(), name: "Low Intensity", type: .highIntensity, duration: 10),
+                    Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
+                ]))
+            ])
+        ]
+    }
+    
+    private static func randomWorkoutName() -> String {
+        let workoutTypes = ["Run", "Yoga", "HIIT", "Strength Training", "Cycling", "Swimming", "Pilates", "Boxing"]
+        let modifiers = ["Morning", "Evening", "Intense", "Relaxing", "Quick", "Extended"]
+        
+        let type = workoutTypes.randomElement()!
+        let modifier = modifiers.randomElement()!
+        
+        return "\(modifier) \(type)"
+    }
+   
 }
