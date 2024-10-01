@@ -34,9 +34,14 @@ struct WorkoutCompleteView: View {
                         }
                     }
                 }
-                
+            
                 Text("Total Time: \(viewStore.totalElapsedTime)")
                     .font(.title3)
+                
+                if viewStore.totalCaloriesBurned > 0 {
+                    Text("Calories Burned: \(viewStore.totalCaloriesBurned)")
+                        .font(.title3)
+                }
                 
                 HStack(spacing: 20) {
                     Button("Save Workout") {
@@ -64,7 +69,7 @@ struct WorkoutCompleteView: View {
 #Preview("Workout Complete") {
     WorkoutCompleteView(
         store: Store(
-            initialState: WorkoutCompleteFeature.State(totalElapsedTime: "5:00"),
+            initialState: WorkoutCompleteFeature.State(totalElapsedTime: "5:00", totalCaloriesBurned: 249),
             reducer: {
                 WorkoutCompleteFeature()
             }

@@ -69,6 +69,7 @@
 		DBADCEF92C82C82100E2AD15 /* Interval_TrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */; };
 		DBADCEFB2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */; };
 		DBC240262CAB51A400E62E5F /* WS_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WS_Feature.swift */; };
+		DBC240292CAC495500E62E5F /* Watch_WorkoutComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */; };
 		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
 		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
 		DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE812C87511E0058FF39 /* H_Feature.swift */; };
@@ -183,6 +184,7 @@
 		DBADCEF42C82C82100E2AD15 /* Interval TrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Interval TrainerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITests.swift; sourceTree = "<group>"; };
 		DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_WorkoutComplete.swift; sourceTree = "<group>"; };
 		DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		DBD0BE812C87511E0058FF39 /* H_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE832C87515A0058FF39 /* WS_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_Feature.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				DB9E73022CA7AFBA00B2981F /* ContentView.swift */,
 				DB9E732D2CA7B04600B2981F /* Watch_PerformWorkout.swift */,
 				DB9E732C2CA7B04600B2981F /* Watch_WorkoutPlans.swift */,
+				DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */,
 				DB9E73042CA7AFBA00B2981F /* Assets.xcassets */,
 				DB9E73062CA7AFBA00B2981F /* Preview Content */,
 			);
@@ -743,6 +746,7 @@
 				DB019AE82CAAB89900C02FA9 /* AP_Feature.swift in Sources */,
 				DB3CAB8D2CA9F26A00300322 /* WC_Feature.swift in Sources */,
 				DB019AE72CAAB89600C02FA9 /* EP_Feature.swift in Sources */,
+				DBC240292CAC495500E62E5F /* Watch_WorkoutComplete.swift in Sources */,
 				DB3CAB752CA8CD2100300322 /* WatchConnectivity.swift in Sources */,
 				DB3CAB782CA8E79700300322 /* HeathKit.swift in Sources */,
 				DB9E73012CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift in Sources */,

@@ -15,49 +15,46 @@ struct Watch_PerformWorkoutView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            if viewStore.isWorkoutComplete {
-                workoutCompleteView(viewStore: viewStore)
-            } else {
-                activeWorkoutView(viewStore: viewStore)
+            VStack {
+                Text(viewStore.workoutPlan.name)
+                    .font(.headline)
+                
+                Text(viewStore.currentInterval?.name ?? "")
+                    .font(.subheadline)
+                
+                Text(formatTime(viewStore.timeRemaining))
+                    .font(.system(size: 40, weight: .bold, design: .monospaced))
+                
+                Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
+
+                HStack {
+                    Button(action: { viewStore.send(.toggleRunning) }) {
+                        Image(systemName: viewStore.isRunning ? "pause.fill" : "play.fill")
+                    }
+                    
+                    Button(action: { viewStore.send(.skipInterval) }) {
+                        Image(systemName: "forward.fill")
+                    }
+                }
+                
+                Button("Stop") {
+                    viewStore.send(.stopWorkout)
+                }
+                .foregroundColor(.red)
+            }
+            .onAppear {
+                viewStore.send(.startWorkout)
+            }
+            .onDisappear {
+                viewStore.send(.endWorkout)
+            }
+            .sheet(
+                store: store.scope(state: \.$workoutComplete, action: \.workoutComplete)) { store in
+                    Watch_WorkoutCompleteView(store: store)
             }
         }
     }
     
-    private func activeWorkoutView(viewStore: ViewStore<PerformWorkoutFeature.State, PerformWorkoutFeature.Action>) -> some View {
-        VStack {
-            Text(viewStore.workoutPlan.name)
-                .font(.headline)
-            
-            Text(viewStore.currentInterval?.name ?? "")
-                .font(.subheadline)
-            
-            Text(formatTime(viewStore.timeRemaining))
-                .font(.system(size: 40, weight: .bold, design: .monospaced))
-            
-            Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
-
-            HStack {
-                Button(action: { viewStore.send(.toggleRunning) }) {
-                    Image(systemName: viewStore.isRunning ? "pause.fill" : "play.fill")
-                }
-                
-                Button(action: { viewStore.send(.skipInterval) }) {
-                    Image(systemName: "forward.fill")
-                }
-            }
-            
-            Button("Stop") {
-                viewStore.send(.stopWorkout)
-            }
-            .foregroundColor(.red)
-        }
-        .onAppear {
-            viewStore.send(.startWorkout)
-        }
-        .onDisappear {
-            viewStore.send(.endWorkout)
-        }
-    }
     
     private func workoutCompleteView(viewStore: ViewStore<PerformWorkoutFeature.State, PerformWorkoutFeature.Action>) -> some View {
         VStack {

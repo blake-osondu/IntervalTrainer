@@ -28,7 +28,6 @@ struct PerformWorkoutFeature {
         @Presents var workoutComplete: WorkoutCompleteFeature.State?
         var musicPlayer: MusicPlayerFeature.State = .init()
         var isSyncedWithCompanionDevice: Bool = false
-        var isWorkoutComplete: Bool = false
         var caloriesBurned: Double = 0
         var workoutStartTime: Date?
         #if os(watchOS)
@@ -187,7 +186,7 @@ struct PerformWorkoutFeature {
                 return .none
                 
             case .workoutCompleted:
-                state.workoutComplete = WorkoutCompleteFeature.State(totalElapsedTime: formatTime(state.totalElapsedTime))
+                state.workoutComplete = WorkoutCompleteFeature.State(totalElapsedTime: formatTime(state.totalElapsedTime), totalCaloriesBurned: Int(state.caloriesBurned))
                 state.isRunning = false
                 return .none
                 
@@ -286,18 +285,16 @@ struct PerformWorkoutFeature {
                             await send(.updateCalories(calories))
                         }
                     }
+                #else
+                    return .run { send in
+                        healthKitClient.getActiveEnergyBurned(startTime, Date(),  { calories in
+                            await send(.updateCalories(calories))
+                        })
+                    }
                 #endif
-                
-                return .run { send in
-                    healthKitClient.getActiveEnergyBurned(startTime, Date(),  { calories in
-                        await send(.updateCalories(calories))
-                    })
-                }
             
             case let .updateCalories(calories):
                 state.caloriesBurned = calories
-                return .none
-            default:
                 return .none
             }
         }

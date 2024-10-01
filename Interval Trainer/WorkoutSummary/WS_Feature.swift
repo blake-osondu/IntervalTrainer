@@ -48,7 +48,6 @@ struct WorkoutSummaryFeature {
                 return .none
             case let .completedWorkoutsLoaded(workouts):
                 state.isLoading = false
-         
                 // Simulating async load
                 let summary = State(
                     lastWorkoutDate: Date().addingTimeInterval(-86400), // Yesterday

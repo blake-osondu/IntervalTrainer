@@ -23,7 +23,7 @@ extension CloudKitClient: DependencyKey {
             let plans = try await CloudKitManager.shared.fetchWorkoutPlans()
             return .success(generateSamplePlans() + plans)
         } catch {
-            return .failure(error)
+            return .success(generateSamplePlans())
         }
     }, saveCompletedWorkout: { workout in
         do {

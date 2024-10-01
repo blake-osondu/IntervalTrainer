@@ -15,6 +15,7 @@ struct WorkoutCompleteFeature {
     struct State: Equatable {
         var workoutRating: Int = 0
         var totalElapsedTime: String
+        var totalCaloriesBurned: Int
     }
     
     @CasePathable
