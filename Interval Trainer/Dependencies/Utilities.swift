@@ -32,3 +32,39 @@ extension Array {
     }
 }
 
+
+func organizeWorkoutsByWeek(_ workouts: [CompletedWorkout]) -> [WeeklyWorkout] {
+    let calendar = Calendar.current
+    let groupedWorkouts = Dictionary(grouping: workouts) { workout in
+        calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: workout.date))!
+    }
+    
+    return groupedWorkouts.map { weekStart, workouts in
+        WeeklyWorkout(weekStart: weekStart, workouts: workouts.sorted(by: { $0.date > $1.date }))
+    }.sorted(by: { $0.weekStart > $1.weekStart })
+}
+
+func calculateStreak(workouts: [CompletedWorkout]) -> Int {
+    guard let lastWorkoutDate = workouts.first?.date else { return 0 }
+    let calendar = Calendar.current
+    var currentDate = calendar.startOfDay(for: Date())
+    var streak = 0
+    var daysBack = 0
+    
+    while true {
+        let workoutsOnThisDay = workouts.filter {
+            calendar.isDate($0.date, inSameDayAs: currentDate)
+        }
+        
+        if !workoutsOnThisDay.isEmpty {
+            streak += 1
+        } else if daysBack > 1 { // Allow for a 1-day gap
+            break
+        }
+        
+        daysBack += 1
+        currentDate = calendar.date(byAdding: .day, value: -1, to: currentDate)!
+    }
+    
+    return streak
+}

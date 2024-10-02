@@ -70,6 +70,8 @@
 		DBADCEFB2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */; };
 		DBC240262CAB51A400E62E5F /* WS_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE832C87515A0058FF39 /* WS_Feature.swift */; };
 		DBC240292CAC495500E62E5F /* Watch_WorkoutComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */; };
+		DBC2402B2CACD73B00E62E5F /* CalendarClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */; };
+		DBC2402C2CACD73B00E62E5F /* CalendarClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */; };
 		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
 		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
 		DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE812C87511E0058FF39 /* H_Feature.swift */; };
@@ -185,6 +187,7 @@
 		DBADCEF82C82C82100E2AD15 /* Interval_TrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITests.swift; sourceTree = "<group>"; };
 		DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_WorkoutComplete.swift; sourceTree = "<group>"; };
+		DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarClient.swift; sourceTree = "<group>"; };
 		DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		DBD0BE812C87511E0058FF39 /* H_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE832C87515A0058FF39 /* WS_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_Feature.swift; sourceTree = "<group>"; };
@@ -489,6 +492,7 @@
 		DBC240272CAB968D00E62E5F /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */,
 				DB3CAB7A2CA9EB3D00300322 /* CloudKit.swift */,
 				DB3CAB802CA9F10300300322 /* MusicKit.swift */,
 				DB3CAB762CA8E79700300322 /* HeathKit.swift */,
@@ -739,6 +743,7 @@
 				DB019AE62CAAB89300C02FA9 /* EI_Feature.swift in Sources */,
 				DB3CAB8B2CA9F26300300322 /* MusicKit.swift in Sources */,
 				DB9E73302CA7B04600B2981F /* Watch_PerformWorkout.swift in Sources */,
+				DBC2402C2CACD73B00E62E5F /* CalendarClient.swift in Sources */,
 				DB019AE32CAAB87600C02FA9 /* WCr_Feature.swift in Sources */,
 				DB9E732F2CA7B04600B2981F /* Watch_WorkoutPlans.swift in Sources */,
 				DB3CAB8E2CA9F26F00300322 /* Utilities.swift in Sources */,
@@ -781,6 +786,7 @@
 				DB3CAB742CA8C5CB00300322 /* WatchConnectivity.swift in Sources */,
 				DBD0BE8C2C8810D90058FF39 /* WCr_Feature.swift in Sources */,
 				DB019ADA2CAAB67E00C02FA9 /* EI_View.swift in Sources */,
+				DBC2402B2CACD73B00E62E5F /* CalendarClient.swift in Sources */,
 				DB019ACA2CAA0C5A00C02FA9 /* WC_View.swift in Sources */,
 				DBA02F3E2C8CCCF1001C7661 /* AI_Feature.swift in Sources */,
 				DB019AD82CAAB67100C02FA9 /* EP_View.swift in Sources */,

@@ -31,13 +31,8 @@ struct CompletedWorkoutsFeature {
             switch action {
             case .loadCompletedWorkouts:
                 return .run { send in
-                    do {
-                        let workouts = try await cloudKitClient.fetchCompletedWorkouts().get()
-                        await send(.completedWorkoutsLoaded(workouts))
-                        
-                    } catch {
-                        await send(.failedToLoadCompletedWorkouts(error))
-                     }
+                    let workouts = await cloudKitClient.fetchCompletedWorkouts()
+                    await send(.completedWorkoutsLoaded(workouts))
                 }
             
             case let .completedWorkoutsLoaded(workouts):
@@ -53,17 +48,6 @@ struct CompletedWorkoutsFeature {
                 return .none
             }
         }
-    }
-    
-    private func organizeWorkoutsByWeek(_ workouts: [CompletedWorkout]) -> [WeeklyWorkout] {
-        let calendar = Calendar.current
-        let groupedWorkouts = Dictionary(grouping: workouts) { workout in
-            calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: workout.date))!
-        }
-        
-        return groupedWorkouts.map { weekStart, workouts in
-            WeeklyWorkout(weekStart: weekStart, workouts: workouts.sorted(by: { $0.date > $1.date }))
-        }.sorted(by: { $0.weekStart > $1.weekStart })
     }
 }
 

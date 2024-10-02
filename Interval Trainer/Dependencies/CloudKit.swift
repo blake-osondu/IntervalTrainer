@@ -6,7 +6,7 @@ struct CloudKitClient {
     var saveWorkoutPlan: @Sendable (WorkoutPlan) async -> Result<Void, Error>
     var fetchWorkoutPlans: @Sendable () async -> Result<[WorkoutPlan], Error>
     var saveCompletedWorkout: @Sendable (CompletedWorkout) async -> Result<Void, Error>
-    var fetchCompletedWorkouts: @Sendable () async -> Result<[CompletedWorkout], Error>
+    var fetchCompletedWorkouts: @Sendable () async -> [CompletedWorkout]
 }
 
 extension CloudKitClient: DependencyKey {
@@ -35,9 +35,9 @@ extension CloudKitClient: DependencyKey {
     }, fetchCompletedWorkouts: {
         do {
             let workouts = try await CloudKitManager.shared.fetchCompletedWorkouts()
-            return .success(workouts)
+            return workouts
         } catch {
-            return .failure(error)
+            return generateSampleWorkouts()
         }
     })
 }
@@ -52,7 +52,7 @@ extension CloudKitClient: TestDependencyKey {
     }, saveCompletedWorkout: { workout in
         return .success(())
     }, fetchCompletedWorkouts: {
-        .success(generateSampleWorkouts())
+        generateSampleWorkouts()
     })
 }
 

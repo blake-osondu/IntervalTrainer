@@ -61,7 +61,8 @@ struct PerformWorkoutView: View {
                                 .font(.title)
                         }
                     }
-                    
+                    Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
+
                     Button("Stop Workout") {
                         viewStore.send(.stopWorkout)
                     }
@@ -76,7 +77,6 @@ struct PerformWorkoutView: View {
                             action: { .musicPlayer($0) }
                         )
                     )
-                    Text("Calories Burned: \(Int(viewStore.caloriesBurned))")
                 }
                 .navigationBarItems(
                     leading: Button("Cancel") { viewStore.send(.dismiss) },
