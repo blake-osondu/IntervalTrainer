@@ -3,35 +3,21 @@ import CloudKit
 import Dependencies
 
 struct CloudKitClient {
-    var saveWorkoutPlan: @Sendable (WorkoutPlan) async -> Result<Void, Error>
-    var fetchWorkoutPlans: @Sendable () async -> Result<[WorkoutPlan], Error>
-    var saveCompletedWorkout: @Sendable (CompletedWorkout) async -> Result<Void, Error>
+    var saveWorkoutPlan: @Sendable (WorkoutPlan) async throws -> Void
+    var fetchWorkoutPlans: @Sendable () async -> [WorkoutPlan]
+    var saveCompletedWorkout: @Sendable (CompletedWorkout) async throws -> Void
     var fetchCompletedWorkouts: @Sendable () async -> [CompletedWorkout]
 }
 
 extension CloudKitClient: DependencyKey {
     static let liveValue: CloudKitClient = Self(
         saveWorkoutPlan: { workoutPlan in
-            do {
-                let _ = try await CloudKitManager.shared.saveWorkoutPlan(workoutPlan)
-                return .success(())
-            } catch {
-                return .failure(error)
-            }
+            try await CloudKitManager.shared.saveWorkoutPlan(workoutPlan)
     }, fetchWorkoutPlans: {
-        do {
-            let plans = try await CloudKitManager.shared.fetchWorkoutPlans()
-            return .success(generateSamplePlans() + plans)
-        } catch {
-            return .success(generateSamplePlans())
-        }
+            let plans = (try? await CloudKitManager.shared.fetchWorkoutPlans()) ?? []
+            return generateSamplePlans() + plans
     }, saveCompletedWorkout: { workout in
-        do {
-            let _ = try await CloudKitManager.shared.saveCompletedWorkout(workout)
-            return .success(())
-        } catch {
-            return .failure(error)
-        }
+        try await CloudKitManager.shared.saveCompletedWorkout(workout)
     }, fetchCompletedWorkouts: {
         do {
             let workouts = try await CloudKitManager.shared.fetchCompletedWorkouts()
@@ -44,13 +30,12 @@ extension CloudKitClient: DependencyKey {
 
 extension CloudKitClient: TestDependencyKey {
     static let testValue: CloudKitClient = Self(
-        saveWorkoutPlan: { workoutPlan in
-            return .success(())
+        saveWorkoutPlan: { _ in
+            return
     }, fetchWorkoutPlans: {
-        // Simulating async load
-        return .success(generateSamplePlans())
-    }, saveCompletedWorkout: { workout in
-        return .success(())
+        generateSamplePlans()
+    }, saveCompletedWorkout: { _ in
+        return
     }, fetchCompletedWorkouts: {
         generateSampleWorkouts()
     })

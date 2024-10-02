@@ -49,14 +49,10 @@ struct WorkoutPlansFeature {
             case .loadWorkoutPlans:
                 state.isLoading = true
                 return .run { send in
-                    do {
-                        let plans = try await cloudKitClient.fetchWorkoutPlans().get()
-                        await send(.workoutPlansLoaded(plans))
-                    } catch {
-                        await send(.failedToLoadWorkoutPlans(error))
-                    }
+                    let plans = await cloudKitClient.fetchWorkoutPlans()
+                    await send(.workoutPlansLoaded(plans))
                 }
-                
+        
             case let .workoutPlansLoaded(plans):
                 state.isLoading = false
                 state.workoutPlans = plans
