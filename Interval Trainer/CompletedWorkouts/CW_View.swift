@@ -25,13 +25,18 @@ struct CompletedWorkoutsView: View {
                     
                 }
                 AddCompletedWorkoutButton(action: {
-                    viewStore.send(.addCompletedWorkoutTapped)
+                    viewStore.send(.addWorkoutButtonTapped)
                 })
             }
         }
         .onAppear(perform: {
             store.send(.loadCompletedWorkouts)
         })
+        .sheet(
+                store: store.scope(state: \.$addWorkout, action: { .addWorkout($0) })
+            ) { store in
+                AddCompletedWorkoutView(store: store)
+            }
     }
 }
 

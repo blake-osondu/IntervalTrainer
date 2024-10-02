@@ -260,7 +260,7 @@ struct PerformWorkoutFeature {
             case .startWorkout:
                 state.workoutStartTime = Date()
                 #if os(watchOS)
-                    if let session = try? await healthKitClient.startWorkout() {
+                    if let session = try? healthKitClient.startWorkout() {
                         state.workoutSession = session
                     }
                 #endif
@@ -297,7 +297,7 @@ struct PerformWorkoutFeature {
             WorkoutCompleteFeature()
         }
         
-        Scope(state: \.musicPlayer, action: /Action.musicPlayer) {
+        Scope(state: \.musicPlayer, action: \.musicPlayer) {
             MusicPlayerFeature()
         }
     }

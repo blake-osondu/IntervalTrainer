@@ -72,6 +72,9 @@
 		DBC240292CAC495500E62E5F /* Watch_WorkoutComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */; };
 		DBC2402B2CACD73B00E62E5F /* CalendarClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */; };
 		DBC2402C2CACD73B00E62E5F /* CalendarClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */; };
+		DBC2402F2CADCEB500E62E5F /* ACW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */; };
+		DBC240302CADCEB500E62E5F /* ACW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */; };
+		DBC240312CADCEB500E62E5F /* ACW_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402E2CADCEB500E62E5F /* ACW_View.swift */; };
 		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
 		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
 		DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE812C87511E0058FF39 /* H_Feature.swift */; };
@@ -188,6 +191,8 @@
 		DBADCEFA2C82C82100E2AD15 /* Interval_TrainerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interval_TrainerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DBC240282CAC495500E62E5F /* Watch_WorkoutComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_WorkoutComplete.swift; sourceTree = "<group>"; };
 		DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarClient.swift; sourceTree = "<group>"; };
+		DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACW_Feature.swift; sourceTree = "<group>"; };
+		DBC2402E2CADCEB500E62E5F /* ACW_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACW_View.swift; sourceTree = "<group>"; };
 		DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		DBD0BE812C87511E0058FF39 /* H_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE832C87515A0058FF39 /* WS_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_Feature.swift; sourceTree = "<group>"; };
@@ -445,6 +450,7 @@
 				DBC240272CAB968D00E62E5F /* Dependencies */,
 				DB019ABE2CAA0B3900C02FA9 /* WorkoutSummary */,
 				DB019ABF2CAA0B4E00C02FA9 /* CompletedWorkouts */,
+				DBC240332CADCEBE00E62E5F /* AddCompletedWorkout */,
 				DB019AC22CAA0B9600C02FA9 /* WorkoutPlans */,
 				DB019AC52CAA0C0E00C02FA9 /* PerformWorkout */,
 				DB019AC82CAA0C4A00C02FA9 /* WorkoutComplete */,
@@ -501,6 +507,15 @@
 				DBD0BE892C8752630058FF39 /* Utilities.swift */,
 			);
 			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		DBC240332CADCEBE00E62E5F /* AddCompletedWorkout */ = {
+			isa = PBXGroup;
+			children = (
+				DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */,
+				DBC2402E2CADCEB500E62E5F /* ACW_View.swift */,
+			);
+			path = AddCompletedWorkout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -745,6 +760,7 @@
 				DB9E73302CA7B04600B2981F /* Watch_PerformWorkout.swift in Sources */,
 				DBC2402C2CACD73B00E62E5F /* CalendarClient.swift in Sources */,
 				DB019AE32CAAB87600C02FA9 /* WCr_Feature.swift in Sources */,
+				DBC240302CADCEB500E62E5F /* ACW_Feature.swift in Sources */,
 				DB9E732F2CA7B04600B2981F /* Watch_WorkoutPlans.swift in Sources */,
 				DB3CAB8E2CA9F26F00300322 /* Utilities.swift in Sources */,
 				DBC240262CAB51A400E62E5F /* WS_Feature.swift in Sources */,
@@ -800,8 +816,10 @@
 				DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */,
 				DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */,
 				DB019AE22CAAB6AC00C02FA9 /* WCr_View.swift in Sources */,
+				DBC2402F2CADCEB500E62E5F /* ACW_Feature.swift in Sources */,
 				DB019AC42CAA0BA800C02FA9 /* WP_View.swift in Sources */,
 				DBD0BE862C8751940058FF39 /* CW_Feature.swift in Sources */,
+				DBC240312CADCEB500E62E5F /* ACW_View.swift in Sources */,
 				DB019ADC2CAAB68B00C02FA9 /* H_View.swift in Sources */,
 				DB019AC12CAA0B5B00C02FA9 /* CW_View.swift in Sources */,
 				DBD0BE842C87515A0058FF39 /* WS_Feature.swift in Sources */,

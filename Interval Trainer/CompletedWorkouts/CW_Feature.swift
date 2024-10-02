@@ -15,13 +15,21 @@ struct CompletedWorkoutsFeature {
     @ObservableState
     struct State: Equatable {
         var weeklyWorkouts: [WeeklyWorkout] = []
+        @Presents var addWorkout: AddCompletedWorkoutFeature.State?
+
     }
     
     enum Action {
         case loadCompletedWorkouts
         case completedWorkoutsLoaded([CompletedWorkout])
         case failedToLoadCompletedWorkouts(Error)
-        case addCompletedWorkoutTapped
+        case addWorkoutButtonTapped
+        case addWorkout(PresentationAction<AddCompletedWorkoutFeature.Action>)
+        case saveCompletedWorkout(CompletedWorkout)
+        case failedToSaveCompletedWorkout(Error)
+        case completedWorkoutSaved(CompletedWorkout)
+
+
     }
     
     @Dependency(\.cloudKitClient) var cloudKitClient
@@ -43,10 +51,47 @@ struct CompletedWorkoutsFeature {
                 // Handle errors (e.g., show an alert)
                 return .none
                 
-            case .addCompletedWorkoutTapped:
-                // Handle tapping the add completed workout button
+            case .addWorkoutButtonTapped:
+                state.addWorkout = AddCompletedWorkoutFeature.State()
+                return .none
+            
+            case .addWorkout(.presented(.saveWorkout)):
+                guard let newWorkout = state.addWorkout.map({
+                    CompletedWorkout(
+                        name: $0.workoutName,
+                        date: $0.date,
+                        duration: $0.duration * 60, // Convert minutes to seconds
+                        caloriesBurned: $0.caloriesBurned,
+                        rating: $0.rating
+                    )
+                }) else { return .none }
+                
+                return .send(.saveCompletedWorkout(newWorkout))
+            
+            case let .saveCompletedWorkout(workout):
+                return .run { send in
+                    do {
+                        try await cloudKitClient.saveCompletedWorkout(workout)
+                        await send(.completedWorkoutSaved(workout))
+                    } catch {
+                        await send(.failedToSaveCompletedWorkout(error))
+                    }
+                }
+            case .completedWorkoutSaved(let newWorkout):
+                var workouts = state.weeklyWorkouts.map { $0.workouts }.flatMap{ $0 }
+                workouts.append(newWorkout)
+                state.weeklyWorkouts = organizeWorkoutsByWeek(workouts)
+                return .none
+                
+            case .addWorkout:
+                return .none
+            case .failedToSaveCompletedWorkout(_):
+                // Handle errors (e.g., show an alert)
                 return .none
             }
+        }
+        .ifLet(\.$addWorkout, action: \.addWorkout) {
+            AddCompletedWorkoutFeature()
         }
     }
 }
