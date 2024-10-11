@@ -75,6 +75,31 @@
 		DBC2402F2CADCEB500E62E5F /* ACW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */; };
 		DBC240302CADCEB500E62E5F /* ACW_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */; };
 		DBC240312CADCEB500E62E5F /* ACW_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2402E2CADCEB500E62E5F /* ACW_View.swift */; };
+		DBC240362CADDAF800E62E5F /* S_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC240342CADDAF800E62E5F /* S_Feature.swift */; };
+		DBC240372CADDAF800E62E5F /* S_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC240342CADDAF800E62E5F /* S_Feature.swift */; };
+		DBC240382CADDAF800E62E5F /* S_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC240352CADDAF800E62E5F /* S_View.swift */; };
+		DBC2403C2CADDB3400E62E5F /* SubscriptionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2403B2CADDB3400E62E5F /* SubscriptionClient.swift */; };
+		DBC2403D2CADDB3400E62E5F /* SubscriptionClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC2403B2CADDB3400E62E5F /* SubscriptionClient.swift */; };
+		DBC240472CB347EF00E62E5F /* onboarding3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC2403E2CB347EE00E62E5F /* onboarding3.jpg */; };
+		DBC240482CB347EF00E62E5F /* onboarding3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC2403E2CB347EE00E62E5F /* onboarding3.jpg */; };
+		DBC240492CB347EF00E62E5F /* onboarding6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC2403F2CB347EE00E62E5F /* onboarding6.jpg */; };
+		DBC2404A2CB347EF00E62E5F /* onboarding6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC2403F2CB347EE00E62E5F /* onboarding6.jpg */; };
+		DBC2404B2CB347EF00E62E5F /* onboarding4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240402CB347EE00E62E5F /* onboarding4.jpg */; };
+		DBC2404C2CB347EF00E62E5F /* onboarding4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240402CB347EE00E62E5F /* onboarding4.jpg */; };
+		DBC2404D2CB347EF00E62E5F /* onboarding1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240412CB347EE00E62E5F /* onboarding1.jpg */; };
+		DBC2404E2CB347EF00E62E5F /* onboarding1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240412CB347EE00E62E5F /* onboarding1.jpg */; };
+		DBC2404F2CB347EF00E62E5F /* onboarding8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240422CB347EF00E62E5F /* onboarding8.jpg */; };
+		DBC240502CB347EF00E62E5F /* onboarding8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240422CB347EF00E62E5F /* onboarding8.jpg */; };
+		DBC240512CB347EF00E62E5F /* onboarding2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240432CB347EF00E62E5F /* onboarding2.jpg */; };
+		DBC240522CB347EF00E62E5F /* onboarding2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240432CB347EF00E62E5F /* onboarding2.jpg */; };
+		DBC240532CB347EF00E62E5F /* onboarding9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240442CB347EF00E62E5F /* onboarding9.jpg */; };
+		DBC240542CB347EF00E62E5F /* onboarding9.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240442CB347EF00E62E5F /* onboarding9.jpg */; };
+		DBC240552CB347EF00E62E5F /* onboarding7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240452CB347EF00E62E5F /* onboarding7.jpg */; };
+		DBC240562CB347EF00E62E5F /* onboarding7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240452CB347EF00E62E5F /* onboarding7.jpg */; };
+		DBC240572CB347EF00E62E5F /* onboarding5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240462CB347EF00E62E5F /* onboarding5.jpg */; };
+		DBC240582CB347EF00E62E5F /* onboarding5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DBC240462CB347EF00E62E5F /* onboarding5.jpg */; };
+		DBC2405C2CB7818800E62E5F /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = DBC2405B2CB7818800E62E5F /* appstore.png */; };
+		DBC2405D2CB7818800E62E5F /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = DBC2405B2CB7818800E62E5F /* appstore.png */; };
 		DBD0BE7C2C851D780058FF39 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0BE7B2C851D780058FF39 /* ComposableArchitecture */; };
 		DBD0BE7E2C8750CE0058FF39 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */; };
 		DBD0BE822C87511E0058FF39 /* H_Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD0BE812C87511E0058FF39 /* H_Feature.swift */; };
@@ -193,6 +218,20 @@
 		DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarClient.swift; sourceTree = "<group>"; };
 		DBC2402D2CADCEB500E62E5F /* ACW_Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACW_Feature.swift; sourceTree = "<group>"; };
 		DBC2402E2CADCEB500E62E5F /* ACW_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACW_View.swift; sourceTree = "<group>"; };
+		DBC240342CADDAF800E62E5F /* S_Feature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = S_Feature.swift; sourceTree = "<group>"; };
+		DBC240352CADDAF800E62E5F /* S_View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = S_View.swift; sourceTree = "<group>"; };
+		DBC2403B2CADDB3400E62E5F /* SubscriptionClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionClient.swift; sourceTree = "<group>"; };
+		DBC2403E2CB347EE00E62E5F /* onboarding3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding3.jpg; sourceTree = "<group>"; };
+		DBC2403F2CB347EE00E62E5F /* onboarding6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding6.jpg; sourceTree = "<group>"; };
+		DBC240402CB347EE00E62E5F /* onboarding4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding4.jpg; sourceTree = "<group>"; };
+		DBC240412CB347EE00E62E5F /* onboarding1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding1.jpg; sourceTree = "<group>"; };
+		DBC240422CB347EF00E62E5F /* onboarding8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding8.jpg; sourceTree = "<group>"; };
+		DBC240432CB347EF00E62E5F /* onboarding2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding2.jpg; sourceTree = "<group>"; };
+		DBC240442CB347EF00E62E5F /* onboarding9.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding9.jpg; sourceTree = "<group>"; };
+		DBC240452CB347EF00E62E5F /* onboarding7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding7.jpg; sourceTree = "<group>"; };
+		DBC240462CB347EF00E62E5F /* onboarding5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = onboarding5.jpg; sourceTree = "<group>"; };
+		DBC240592CB77C7B00E62E5F /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS10.5.sdk/System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = DEVELOPER_DIR; };
+		DBC2405B2CB7818800E62E5F /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appstore.png; sourceTree = "<group>"; };
 		DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		DBD0BE812C87511E0058FF39 /* H_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H_Feature.swift; sourceTree = "<group>"; };
 		DBD0BE832C87515A0058FF39 /* WS_Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WS_Feature.swift; sourceTree = "<group>"; };
@@ -370,6 +409,7 @@
 		DB3CAB662CA7B0E300300322 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBC240592CB77C7B00E62E5F /* CoreAudioTypes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -444,11 +484,22 @@
 		DBADCEDB2C82C81F00E2AD15 /* Interval Trainer */ = {
 			isa = PBXGroup;
 			children = (
+				DBC2405B2CB7818800E62E5F /* appstore.png */,
+				DBC240412CB347EE00E62E5F /* onboarding1.jpg */,
+				DBC240432CB347EF00E62E5F /* onboarding2.jpg */,
+				DBC2403E2CB347EE00E62E5F /* onboarding3.jpg */,
+				DBC240402CB347EE00E62E5F /* onboarding4.jpg */,
+				DBC240462CB347EF00E62E5F /* onboarding5.jpg */,
+				DBC2403F2CB347EE00E62E5F /* onboarding6.jpg */,
+				DBC240452CB347EF00E62E5F /* onboarding7.jpg */,
+				DBC240422CB347EF00E62E5F /* onboarding8.jpg */,
+				DBC240442CB347EF00E62E5F /* onboarding9.jpg */,
 				DB25810C2CA4CED60073CB6E /* Interval-Trainer-Info.plist */,
 				DBADCEDC2C82C81F00E2AD15 /* Interval_TrainerApp.swift */,
 				DBD0BE7D2C8750CE0058FF39 /* AppFeature.swift */,
 				DBC240272CAB968D00E62E5F /* Dependencies */,
 				DB019ABE2CAA0B3900C02FA9 /* WorkoutSummary */,
+				DBC2403A2CADDB0000E62E5F /* Subscription */,
 				DB019ABF2CAA0B4E00C02FA9 /* CompletedWorkouts */,
 				DBC240332CADCEBE00E62E5F /* AddCompletedWorkout */,
 				DB019AC22CAA0B9600C02FA9 /* WorkoutPlans */,
@@ -499,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC2402A2CACD73B00E62E5F /* CalendarClient.swift */,
+				DBC2403B2CADDB3400E62E5F /* SubscriptionClient.swift */,
 				DB3CAB7A2CA9EB3D00300322 /* CloudKit.swift */,
 				DB3CAB802CA9F10300300322 /* MusicKit.swift */,
 				DB3CAB762CA8E79700300322 /* HeathKit.swift */,
@@ -516,6 +568,15 @@
 				DBC2402E2CADCEB500E62E5F /* ACW_View.swift */,
 			);
 			path = AddCompletedWorkout;
+			sourceTree = "<group>";
+		};
+		DBC2403A2CADDB0000E62E5F /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				DBC240342CADDAF800E62E5F /* S_Feature.swift */,
+				DBC240352CADDAF800E62E5F /* S_View.swift */,
+			);
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -700,8 +761,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBC2404E2CB347EF00E62E5F /* onboarding1.jpg in Resources */,
+				DBC2405D2CB7818800E62E5F /* appstore.png in Resources */,
+				DBC240502CB347EF00E62E5F /* onboarding8.jpg in Resources */,
+				DBC240542CB347EF00E62E5F /* onboarding9.jpg in Resources */,
+				DBC240482CB347EF00E62E5F /* onboarding3.jpg in Resources */,
+				DBC240562CB347EF00E62E5F /* onboarding7.jpg in Resources */,
+				DBC240522CB347EF00E62E5F /* onboarding2.jpg in Resources */,
 				DB9E73082CA7AFBA00B2981F /* Preview Assets.xcassets in Resources */,
+				DBC2404C2CB347EF00E62E5F /* onboarding4.jpg in Resources */,
 				DB9E73052CA7AFBA00B2981F /* Assets.xcassets in Resources */,
+				DBC240582CB347EF00E62E5F /* onboarding5.jpg in Resources */,
+				DBC2404A2CB347EF00E62E5F /* onboarding6.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -723,9 +794,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBC240492CB347EF00E62E5F /* onboarding6.jpg in Resources */,
 				DBA02F3C2C8BEC33001C7661 /* Launch Screen.storyboard in Resources */,
 				DBADCEE42C82C82100E2AD15 /* Preview Assets.xcassets in Resources */,
+				DBC2404B2CB347EF00E62E5F /* onboarding4.jpg in Resources */,
+				DBC2405C2CB7818800E62E5F /* appstore.png in Resources */,
 				DBADCEE12C82C82100E2AD15 /* Assets.xcassets in Resources */,
+				DBC240552CB347EF00E62E5F /* onboarding7.jpg in Resources */,
+				DBC2404D2CB347EF00E62E5F /* onboarding1.jpg in Resources */,
+				DBC240472CB347EF00E62E5F /* onboarding3.jpg in Resources */,
+				DBC2404F2CB347EF00E62E5F /* onboarding8.jpg in Resources */,
+				DBC240572CB347EF00E62E5F /* onboarding5.jpg in Resources */,
+				DBC240532CB347EF00E62E5F /* onboarding9.jpg in Resources */,
+				DBC240512CB347EF00E62E5F /* onboarding2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -756,6 +837,7 @@
 				DB9E73032CA7AFBA00B2981F /* ContentView.swift in Sources */,
 				DB3CAB7E2CA9ED0B00300322 /* WP_Feature.swift in Sources */,
 				DB019AE62CAAB89300C02FA9 /* EI_Feature.swift in Sources */,
+				DBC2403D2CADDB3400E62E5F /* SubscriptionClient.swift in Sources */,
 				DB3CAB8B2CA9F26300300322 /* MusicKit.swift in Sources */,
 				DB9E73302CA7B04600B2981F /* Watch_PerformWorkout.swift in Sources */,
 				DBC2402C2CACD73B00E62E5F /* CalendarClient.swift in Sources */,
@@ -770,6 +852,7 @@
 				DBC240292CAC495500E62E5F /* Watch_WorkoutComplete.swift in Sources */,
 				DB3CAB752CA8CD2100300322 /* WatchConnectivity.swift in Sources */,
 				DB3CAB782CA8E79700300322 /* HeathKit.swift in Sources */,
+				DBC240372CADDAF800E62E5F /* S_Feature.swift in Sources */,
 				DB9E73012CA7AFBA00B2981F /* Interval_Trainer_WatchApp.swift in Sources */,
 				DB019AB52CAA08D500C02FA9 /* CW_Feature.swift in Sources */,
 				DB3CAB8F2CA9F27400300322 /* EW_Feature.swift in Sources */,
@@ -803,7 +886,10 @@
 				DBD0BE8C2C8810D90058FF39 /* WCr_Feature.swift in Sources */,
 				DB019ADA2CAAB67E00C02FA9 /* EI_View.swift in Sources */,
 				DBC2402B2CACD73B00E62E5F /* CalendarClient.swift in Sources */,
+				DBC240362CADDAF800E62E5F /* S_Feature.swift in Sources */,
+				DBC240382CADDAF800E62E5F /* S_View.swift in Sources */,
 				DB019ACA2CAA0C5A00C02FA9 /* WC_View.swift in Sources */,
+				DBC2403C2CADDB3400E62E5F /* SubscriptionClient.swift in Sources */,
 				DBA02F3E2C8CCCF1001C7661 /* AI_Feature.swift in Sources */,
 				DB019AD82CAAB67100C02FA9 /* EP_View.swift in Sources */,
 				DB019AE02CAAB6A000C02FA9 /* AI_View.swift in Sources */,
@@ -894,16 +980,21 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Interval Trainer Watch Watch App/Interval Trainer Watch Watch App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Interval Trainer Watch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = F367FQQ7Q2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 49S85J55Z4;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer Watch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kinnectus.intervaltrainer;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKWatchOnly = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -912,6 +1003,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Interval Trainer watchOS";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -929,16 +1022,21 @@
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Interval Trainer Watch Watch App/Interval Trainer Watch Watch App.entitlements";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Interval Trainer Watch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = F367FQQ7Q2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 49S85J55Z4;
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer Watch";
+				INFOPLIST_KEY_CFBundleDisplayName = "Interval Trainer";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.kinnectus.intervaltrainer;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				INFOPLIST_KEY_WKWatchOnly = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -947,6 +1045,8 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Interval Trainer watchOS";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -970,7 +1070,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer-Watch-Watch-AppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.Intervaltrainer.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -995,7 +1095,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer-Watch-Watch-AppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.Intervaltrainer.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1019,7 +1119,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer-Watch-Watch-AppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.Intervaltrainer.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -1043,7 +1143,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kinnectus.Interval-Trainer-Watch-Watch-AppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.Intervaltrainer.;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
@@ -1179,8 +1279,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Interval Trainer/Interval_Trainer.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Blake Rogers (943Q6N9M95)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Blake Rogers (943Q6N9M95)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1199,6 +1299,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1207,7 +1308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.kinnectus.intervaltrainer;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Interval Trainer iOS Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1223,8 +1324,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Interval Trainer/Interval_Trainer.entitlements";
-				CODE_SIGN_IDENTITY = "Apple Development: Blake Rogers (943Q6N9M95)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Blake Rogers (943Q6N9M95)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1243,6 +1344,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1251,7 +1353,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kinnectus.intervaltrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.kinnectus.intervaltrainer;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Interval Trainer iOS Ad Hoc";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;

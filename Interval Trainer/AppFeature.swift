@@ -14,10 +14,13 @@ struct AppFeature {
     @ObservableState
     struct State: Equatable {
         var home = Home.State()
+        var subscription = SubscriptionFeature.State()
+
     }
     
     enum Action {
         case home(Home.Action)
+        case subscription(SubscriptionFeature.Action)
     }
     
     var body: some Reducer<State, Action> {
@@ -26,6 +29,9 @@ struct AppFeature {
         }
         Scope(state: \.home, action: \.home) {
             Home()
+        }
+        Scope(state: \.subscription, action: \.subscription) {
+            SubscriptionFeature()
         }
         .onChange(of: \.home.workoutPlans.performWorkout) { oldValue, newValue in
             Reduce { state, _ in
@@ -55,6 +61,12 @@ struct ContentView: View {
     @Bindable var store: StoreOf<AppFeature>
     
     var body: some View {
-        HomeView(store: store.scope(state: \.home, action: \.home))
+        WithViewStore(store, observe: {$0 }) { viewStore in
+            if viewStore.subscription.isSubscribed {
+                HomeView(store: store.scope(state: \.home, action: \.home))
+            } else {
+                SubscriptionView(store: store.scope(state: \.subscription, action: \.subscription))
+            }
+        }
     }
 }

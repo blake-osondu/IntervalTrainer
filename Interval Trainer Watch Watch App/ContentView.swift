@@ -13,10 +13,12 @@ struct WatchAppFeature {
     @ObservableState
     struct State: Equatable {
         var workoutPlans = WorkoutPlansFeature.State()
+        var subscription = SubscriptionFeature.State()
     }
     
     enum Action {
         case workoutPlans(WorkoutPlansFeature.Action)
+        case subscription(SubscriptionFeature.Action)
     }
     
     @Dependency(\.watchConnectivity) var watchConnectivity
@@ -33,6 +35,9 @@ struct WatchAppFeature {
     var body: some Reducer<State, Action> {
         Scope(state: \.workoutPlans, action: \.workoutPlans) {
             WorkoutPlansFeature()
+        }
+        Scope(state: \.subscription, action: \.subscription) {
+            SubscriptionFeature()
         }
         .onChange(of: \.workoutPlans.performWorkout) { oldValue, newValue in
             Reduce { state, _ in
@@ -55,15 +60,19 @@ struct ContentView: View {
     
     var body: some View {
         WithViewStore(store, observe: { $0 }) { viewStore in
-            NavigationStack {
-                List {
-                    NavigationLink {
-                        Watch_WorkoutPlansView(store: store.scope(state: \.workoutPlans, action: \.workoutPlans))
-                    } label: {
-                        Text("Workout Plans")
+            if viewStore.subscription.isSubscribed {
+                NavigationStack {
+                    List {
+                        NavigationLink {
+                            Watch_WorkoutPlansView(store: store.scope(state: \.workoutPlans, action: \.workoutPlans))
+                        } label: {
+                            Text("Workout Plans")
+                        }
                     }
+                    .navigationTitle("Interval Trainer")
                 }
-                .navigationTitle("Interval Trainer")
+            } else {
+                Text("Subscribe to use this Feature")
             }
         }
     }
