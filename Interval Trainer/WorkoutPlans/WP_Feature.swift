@@ -60,16 +60,12 @@ struct WorkoutPlansFeature {
                 
             case .createNewWorkoutPlan:
                 var workoutCreation = WorkoutCreationFeature.State()
-                workoutCreation.phases = .init(
-                    arrayLiteral: .active(
-                        ActivePhase(
-                            id: UUID(),
-                            intervals: [
+                workoutCreation.intervals = [
                                 .init(id: UUID(), name: "Warmup", type: .warmup, duration: 10.0),
                                 .init(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 40.0),
                                 .init(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 20.0),
                                 .init(id: UUID(), name: "Cooldown", type: .coolDown, duration: 30.0)
-                            ])))
+                            ]
                 state.workoutCreation = workoutCreation
                 return .none
                 
@@ -140,7 +136,7 @@ extension WorkoutCreationFeature.State {
         WorkoutPlan(
             id: UUID(),
             name: self.workoutName,
-            phases: Array(self.phases)
+            intervals: Array(self.intervals)
         )
     }
 }
@@ -148,34 +144,6 @@ extension WorkoutCreationFeature.State {
 public struct WorkoutPlan: Identifiable, Equatable {
     public let id: UUID
     public var name: String
-    public var phases: [WorkoutPhase]
-    
-    public var totalDuration: TimeInterval {
-        phases.reduce(0) { $0 + $1.duration }
-    }
-}
-
-public enum WorkoutPhase: Identifiable, Equatable, Codable {
-    case active(ActivePhase)
-    case rest(RestPhase)
-    
-    public var id: UUID {
-        switch self {
-        case .active(let phase): return phase.id
-        case .rest(let phase): return phase.id
-        }
-    }
-    
-    public var duration: TimeInterval {
-        switch self {
-        case .active(let phase): return phase.totalDuration
-        case .rest(let phase): return phase.duration
-        }
-    }
-}
-
-public struct ActivePhase: Identifiable, Equatable, Codable {
-    public let id: UUID
     public var intervals: [Interval]
     
     public var totalDuration: TimeInterval {
@@ -183,10 +151,6 @@ public struct ActivePhase: Identifiable, Equatable, Codable {
     }
 }
 
-public struct RestPhase: Identifiable, Equatable, Codable {
-    public let id: UUID
-    public var duration: TimeInterval
-}
 
 // Ensure this struct is defined in your project
 public struct Interval: Identifiable, Equatable, Codable {

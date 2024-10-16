@@ -25,6 +25,14 @@ struct Home {
     }
     
     var body: some Reducer<State, Action> {
+        Reduce { state, action in
+            switch action {
+            case .completedWorkouts(.completedWorkoutSaved(let newWorkout)):
+                return .send(.workoutSummary(.loadCompletedWorkouts))
+            default:
+                return .none
+            }
+        }
         Scope(state: \.workoutSummary, action: \.workoutSummary) {
             WorkoutSummaryFeature()
         }

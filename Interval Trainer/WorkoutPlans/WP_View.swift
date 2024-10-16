@@ -127,37 +127,17 @@ struct WorkoutPlanCard: View {
                 store: Store(
                     initialState: WorkoutPlansFeature.State(
                         workoutPlans: [
-                            WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
-                                .active(ActivePhase(id: UUID(), intervals: [
-                                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
-                                ])),
-                                .active(ActivePhase(id: UUID(), intervals: [
-                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
-                                ])),
-                                .rest(RestPhase(id: UUID(), duration: 60)),
-                                .active(ActivePhase(id: UUID(), intervals: [
-                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30)
-                                ])),
-                                .rest(RestPhase(id: UUID(), duration: 60)),
-                                .active(ActivePhase(id: UUID(), intervals: [
+                            WorkoutPlan(id: UUID(), name: "HIIT Cardio", intervals: [
+                                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30),
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 30),
                                     Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                                ]))
                             ]),
-                            WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
-                                .active(ActivePhase(id: UUID(), intervals: [
-                                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300)
-                                ])),
-                                .active(ActivePhase(id: UUID(), intervals: [
-                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
-                                ])),
-                                .rest(RestPhase(id: UUID(), duration: 90)),
-                                .active(ActivePhase(id: UUID(), intervals: [
-                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60)
-                                ])),
-                                .rest(RestPhase(id: UUID(), duration: 90)),
-                                .active(ActivePhase(id: UUID(), intervals: [
+                            WorkoutPlan(id: UUID(), name: "Strength Training", intervals: [
+                                    Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
+                                    Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
                                     Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                                ]))
                             ])
                         ],
                         isExpanded: true

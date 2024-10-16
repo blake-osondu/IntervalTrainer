@@ -46,14 +46,13 @@ struct Watch_WorkoutPlansView: View {
         store: Store(
             initialState: WorkoutPlansFeature.State(
                 workoutPlans: [
-                    WorkoutPlan(id: UUID(), name: "HIIT Workout", phases: []),
-                    WorkoutPlan(id: UUID(), name: "Strength Training", phases: []),
-                    WorkoutPlan(id: UUID(), name: "Cardio Blast", phases: [])
+                    WorkoutPlan(id: UUID(), name: "HIIT Workout", intervals: []),
+                    WorkoutPlan(id: UUID(), name: "Strength Training", intervals: []),
+                    WorkoutPlan(id: UUID(), name: "Cardio Blast", intervals: [])
                 ]
             ),
             reducer: {
                 WorkoutPlansFeature()
-//                    .dependency(\.workoutPlanClient, .testValue)
             }
         )
     )

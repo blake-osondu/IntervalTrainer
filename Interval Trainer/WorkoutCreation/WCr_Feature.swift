@@ -14,9 +14,9 @@ struct WorkoutCreationFeature {
     @ObservableState
     struct State: Equatable {
         var workoutName: String = ""
-        var phases: IdentifiedArrayOf<WorkoutPhase> = []
-        @Presents var addPhase: AddPhaseFeature.State?
-        @Presents var editPhase: EditPhaseFeature.State?
+        var intervals: IdentifiedArrayOf<Interval> = []
+        @Presents var addInterval: AddIntervalFeature.State?
+        @Presents var editInterval: EditIntervalFeature.State?
     }
     
     @CasePathable
@@ -24,13 +24,13 @@ struct WorkoutCreationFeature {
         case cancel
         case dismiss(WorkoutPlan)
         case setWorkoutName(String)
-        case addPhaseTapped
-        case workoutPhaseSelected(WorkoutPhase)
-        case addPhase(PresentationAction<AddPhaseFeature.Action>)
-        case editPhase(PresentationAction<EditPhaseFeature.Action>)
-        case deletePhases(IndexSet)
-        case movePhases(IndexSet, Int)
+        case intervalSelected(Interval)
         case saveWorkoutPlan
+        case addIntervalTapped
+        case addInterval(PresentationAction<AddIntervalFeature.Action>)
+        case deleteInterval(IndexSet)
+        case moveInterval(IndexSet, Int)
+        case editInterval(PresentationAction<EditIntervalFeature.Action>)
     }
     
     var body: some Reducer<State, Action> {
@@ -40,84 +40,76 @@ struct WorkoutCreationFeature {
                 state.workoutName = name
                 return .none
                 
-            case .addPhaseTapped:
-                state.addPhase = AddPhaseFeature.State()
+            case .addIntervalTapped:
+                state.addInterval = AddIntervalFeature.State()
                 return .none
                 
-            case .addPhase(.presented(.save)):
-                guard let addPhase = state.addPhase else { return .none }
-                switch addPhase.phaseType {
-                case .active:
-                    let phase = WorkoutPhase.active(ActivePhase(id: UUID(), intervals: addPhase.intervals.elements))
-                    state.phases.append(phase)
-                case .rest:
-                    let phase = WorkoutPhase.rest(RestPhase(id: UUID(), duration: addPhase.restPhaseDuration))
-                    state.phases.append(phase)
+            case .addInterval(.presented(.save)):
+                guard let addInterval = state.addInterval else { return .none }
+                let interval = Interval(id: UUID(),
+                                        name: addInterval.name,
+                                        type: addInterval.type,
+                                        duration: addInterval.duration)
+                state.intervals.append(interval)
+                state.addInterval = nil
+                return .none
+                
+            case .addInterval(.dismiss):
+                state.addInterval = nil
+                return .none
+                
+            case let .deleteInterval(indexSet):
+                state.intervals.remove(atOffsets: indexSet)
+                return .none
+            
+            case .addInterval:
+                return .none
+            
+            case let .moveInterval(source, destination):
+                state.intervals.move(fromOffsets: source, toOffset: destination)
+                return .none
+            
+            case let .intervalSelected(interval):
+                state.editInterval = EditIntervalFeature.State(interval: interval)
+                return .none
+            
+            case .editInterval(.presented(.save)):
+                guard let interval = state.editInterval?.interval else { return .none }
+                if let index = state.intervals.firstIndex(where: { $0.id == interval.id }) {
+                    state.intervals[index] = interval
+                } else {
+                    state.intervals.append(interval)
                 }
-                state.addPhase = nil
+                state.editInterval = nil
                 return .none
                 
-            case .addPhase(.dismiss):
-                state.addPhase = nil
+            case .editInterval(.dismiss), .editInterval(.presented(.cancel)):
+                state.editInterval = nil
                 return .none
-                
-                
-            case let .workoutPhaseSelected(phase):
-                state.editPhase = EditPhaseFeature.State(phase: phase)
-                return .none
-                
-            case .editPhase(.presented(.save)):
-                guard let editPhase = state.editPhase else { return .none }
-                if let index = state.phases.firstIndex(where: { $0.id == editPhase.phase.id }) {
-                    switch editPhase.phase {
-                    case .active:
-                        state.phases[index] = .active(ActivePhase(
-                            id: editPhase.phase.id,
-                            intervals: Array(editPhase.intervals)
-                        ))
-                    case .rest:
-                        state.phases[index] = .rest(RestPhase(
-                            id: editPhase.phase.id,
-                            duration: editPhase.restPhaseDuration
-                        ))
-                    }
-                }
-                state.editPhase = nil
-                return .none
-                
-            case .editPhase(.dismiss):
-                state.editPhase = nil
-                return .none
-                
-            case let .deletePhases(indexSet):
-                state.phases.remove(atOffsets: indexSet)
-                return .none
+             
             case .cancel:
                 return .none
                 
             case .dismiss:    
-                return .none
-            case let .movePhases(source, destination):
-                state.phases.move(fromOffsets: source, toOffset: destination)
                 return .none
                 
             case .saveWorkoutPlan:
                 let newPlan = WorkoutPlan(
                     id: UUID(),
                     name: state.workoutName,
-                    phases: Array(state.phases)
+                    intervals: Array(state.intervals)
                 )
                 return .send(.dismiss(newPlan))
-                
-            case .addPhase, .editPhase:
+            
+            case .editInterval:
                 return .none
             }
         }
-        .ifLet(\.$addPhase, action: \.addPhase) {
-            AddPhaseFeature()
+        .ifLet(\.$addInterval, action: \.addInterval) {
+            AddIntervalFeature()
         }
-        .ifLet(\.$editPhase, action: \.editPhase) {
-            EditPhaseFeature()
+        .ifLet(\.$editInterval, action: \.editInterval) {
+            EditIntervalFeature()
         }
     }
 }

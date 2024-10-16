@@ -24,23 +24,23 @@ struct WorkoutCreationView: View {
                             ))
                         }
                         
-                        Section(header: Text("Phases")) {
-                            ForEach(viewStore.phases) { phase in
-                                PhaseRow(phase: phase)
+                        Section(header: Text("Intervals")) {
+                            ForEach(viewStore.intervals) { interval in
+                                IntervalRow(interval: interval)
                                     .onTapGesture {
-                                        viewStore.send(.workoutPhaseSelected(phase))
+                                        viewStore.send(.intervalSelected(interval))
                                     }
                             }
-                            .onDelete { viewStore.send(.deletePhases($0)) }
-                            .onMove { viewStore.send(.movePhases($0, $1)) }
+                            .onDelete { viewStore.send(.deleteInterval($0)) }
+                            .onMove { viewStore.send(.moveInterval($0, $1)) }
                         }
                     }
                     VStack {
                         Spacer()
                         Button(action: {
-                            viewStore.send(.addPhaseTapped)
+                            viewStore.send(.addIntervalTapped)
                         }) {
-                            Text("Add Workout Phase")
+                            Text("Add Interval")
                                 .font(.system(.headline, design: .rounded))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -49,7 +49,7 @@ struct WorkoutCreationView: View {
                                 .cornerRadius(12)
                         }
                         .padding(.horizontal)
-                        .padding(.vertical, 8)
+                        .padding(.top, 8)
                     }
                 }
                 .navigationTitle("Create Workout")
@@ -59,52 +59,52 @@ struct WorkoutCreationView: View {
                 )
             }
             .sheet(
-                store: store.scope(state: \.$addPhase, action: \.addPhase)
-            ) { addPhaseStore in
-                AddPhaseView(store: addPhaseStore)
+                store: store.scope(state: \.$addInterval, action: \.addInterval)
+            ) { addIntervalStore in
+                AddIntervalView(store: addIntervalStore)
             }
             .sheet(
-                store: store.scope(state: \.$editPhase, action: \.editPhase)
-            ) { editPhaseStore in
-                EditPhaseView(store: editPhaseStore)
+                store: store.scope(state: \.$editInterval, action: \.editInterval)
+            ) { editIntervalStore in
+                EditIntervalView(store: editIntervalStore)
             }
         }
     }
 }
 
-struct PhaseRow: View {
-    let phase: WorkoutPhase
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(phaseDetails)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            Spacer()
-            Text(formatDuration(phase.duration))
-                .font(.subheadline)
-        }
-    }
-    
-    private var phaseDetails: String {
-        switch phase {
-        case .active(let activePhase):
-            return "\(activePhase.intervals.count) intervals"
-        case .rest:
-            return "Rest phase"
-        }
-    }
-    
-    private func formatDuration(_ duration: TimeInterval) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.minute, .second]
-        formatter.unitsStyle = .positional
-        formatter.zeroFormattingBehavior = .pad
-        return formatter.string(from: duration) ?? ""
-    }
-}
+//struct PhaseRow: View {
+//    let phase: WorkoutPhase
+//    
+//    var body: some View {
+//        HStack {
+//            VStack(alignment: .leading) {
+//                Text(phaseDetails)
+//                    .font(.subheadline)
+//                    .foregroundColor(.secondary)
+//            }
+//            Spacer()
+//            Text(formatDuration(phase.duration))
+//                .font(.subheadline)
+//        }
+//    }
+//    
+//    private var phaseDetails: String {
+//        switch phase {
+//        case .active(let activePhase):
+//            return "\(activePhase.intervals.count) intervals"
+//        case .rest:
+//            return "Rest phase"
+//        }
+//    }
+//    
+//    private func formatDuration(_ duration: TimeInterval) -> String {
+//        let formatter = DateComponentsFormatter()
+//        formatter.allowedUnits = [.minute, .second]
+//        formatter.unitsStyle = .positional
+//        formatter.zeroFormattingBehavior = .pad
+//        return formatter.string(from: duration) ?? ""
+//    }
+//}
 
 // Implement AddPhaseFeature, EditPhaseFeature, AddPhaseView, and EditPhaseView
 
@@ -120,35 +120,20 @@ struct PhaseRow: View {
     )
 }
 
-#Preview("Workout with Phases") {
-    let samplePhases: IdentifiedArrayOf<WorkoutPhase> = [
-        .active(ActivePhase(
-            id: UUID(),
-            intervals: [
-                Interval(id: UUID(), name: "Light Jog", type: .warmup, duration: 300)
-            ]
-        )),
-        .active(ActivePhase(
-            id: UUID(),
-            intervals: [
+#Preview("Workout with Intervals") {
+    let sampleIntervals: IdentifiedArrayOf<Interval> = [
+        
+                Interval(id: UUID(), name: "Light Jog", type: .warmup, duration: 300),
                 Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 60),
-                Interval(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 120)
-            ]
-        )),
-        .rest(RestPhase(id: UUID(), duration: 60)),
-        .active(ActivePhase(
-            id: UUID(),
-            intervals: [
+                Interval(id: UUID(), name: "Low Intensity", type: .lowIntensity, duration: 120),
                 Interval(id: UUID(), name: "Stretching", type: .coolDown, duration: 300)
-            ]
-        ))
     ]
     
     return WorkoutCreationView(
         store: Store(
             initialState: WorkoutCreationFeature.State(
                 workoutName: "Sample HIIT Workout",
-                phases: samplePhases
+                intervals: sampleIntervals
             ),
             reducer: {
                 WorkoutCreationFeature()

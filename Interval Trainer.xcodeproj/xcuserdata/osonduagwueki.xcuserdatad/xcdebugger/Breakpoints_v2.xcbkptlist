@@ -7,63 +7,233 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8D727607-94BA-4327-8405-25A989E77119"
+            uuid = "496C3E9C-6BFB-4AA6-BB26-0047A167309C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/WorkoutPlans/WP_Feature.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "15FFF6A7-1A20-4983-BC8A-0F25149D62D2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/WorkoutPlans/WP_Feature.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "785FB36A-DCC4-475A-8B2B-02C499E38336"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/WorkoutPlans/WP_Feature.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "785FB36A-DCC4-475A-8B2B-02C499E38336 - 123b0e65d734bb22"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #2 @Sendable (ComposableArchitecture.Send&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt;) async -&gt; () in closure #1 (inout Interval_Trainer.WorkoutPlansFeature.State, Interval_Trainer.WorkoutPlansFeature.Action) -&gt; ComposableArchitecture.Effect&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt; in Interval_Trainer.WorkoutPlansFeature.body.getter : some"
+                  moduleName = "Interval Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osonduagwueki/Desktop/Desktop%20-%20Blake%E2%80%99s%20MacBook%20Pro/Development/Interval%20Trainer/Interval%20Trainer/WorkoutPlans/WP_Feature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86">
+               </Location>
+               <Location
+                  uuid = "785FB36A-DCC4-475A-8B2B-02C499E38336 - 4bd842bfcd815d21"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #2 @Sendable (ComposableArchitecture.Send&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt;) async -&gt; () in closure #1 (inout Interval_Trainer.WorkoutPlansFeature.State, Interval_Trainer.WorkoutPlansFeature.Action) -&gt; ComposableArchitecture.Effect&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt; in Interval_Trainer.WorkoutPlansFeature.body.getter : some"
+                  moduleName = "Interval Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osonduagwueki/Desktop/Desktop%20-%20Blake%E2%80%99s%20MacBook%20Pro/Development/Interval%20Trainer/Interval%20Trainer/WorkoutPlans/WP_Feature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86">
+               </Location>
+               <Location
+                  uuid = "785FB36A-DCC4-475A-8B2B-02C499E38336 - e1fd85f1c01dff20"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #2 @Sendable (ComposableArchitecture.Send&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt;) async -&gt; () in closure #1 (inout Interval_Trainer.WorkoutPlansFeature.State, Interval_Trainer.WorkoutPlansFeature.Action) -&gt; ComposableArchitecture.Effect&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt; in Interval_Trainer.WorkoutPlansFeature.body.getter : some"
+                  moduleName = "Interval Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osonduagwueki/Desktop/Desktop%20-%20Blake%E2%80%99s%20MacBook%20Pro/Development/Interval%20Trainer/Interval%20Trainer/WorkoutPlans/WP_Feature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4363FD06-F06D-41B1-A1EE-C43A7C651072"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/WorkoutPlans/WP_Feature.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "4363FD06-F06D-41B1-A1EE-C43A7C651072 - 5e6290e9da2364e2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 @Sendable (ComposableArchitecture.Send&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt;) async -&gt; () in closure #1 (inout Interval_Trainer.WorkoutPlansFeature.State, Interval_Trainer.WorkoutPlansFeature.Action) -&gt; ComposableArchitecture.Effect&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt; in Interval_Trainer.WorkoutPlansFeature.body.getter : some"
+                  moduleName = "Interval Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osonduagwueki/Desktop/Desktop%20-%20Blake%E2%80%99s%20MacBook%20Pro/Development/Interval%20Trainer/Interval%20Trainer/WorkoutPlans/WP_Feature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84">
+               </Location>
+               <Location
+                  uuid = "4363FD06-F06D-41B1-A1EE-C43A7C651072 - f407cb23d0b81ae5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #2 @Sendable (ComposableArchitecture.Send&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt;) async -&gt; () in closure #1 (inout Interval_Trainer.WorkoutPlansFeature.State, Interval_Trainer.WorkoutPlansFeature.Action) -&gt; ComposableArchitecture.Effect&lt;Interval_Trainer.WorkoutPlansFeature.Action&gt; in Interval_Trainer.WorkoutPlansFeature.body.getter : some"
+                  moduleName = "Interval Trainer"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/osonduagwueki/Desktop/Desktop%20-%20Blake%E2%80%99s%20MacBook%20Pro/Development/Interval%20Trainer/Interval%20Trainer/WorkoutPlans/WP_Feature.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "84"
+                  endingLineNumber = "84">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CF64714B-2F46-4552-961C-34E308DEC8D9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/Home/H_Feature.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D69BE4FD-CDBF-44F2-ADAB-292CCD6F5F8B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Interval Trainer/Dependencies/CloudKit.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "CloudKitClient"
-            landmarkType = "21">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74DDA43E-1E98-4E81-9F84-A692306A7066"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Interval Trainer/PerformWorkout/PW_Feature.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "326"
-            endingLineNumber = "326"
-            landmarkName = "advanceToNextInterval(_:)"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "init(from:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D19D55FF-47D4-485E-97DC-0B18FBDE418A"
+            uuid = "E85D2EDE-183F-4403-A1E9-EF2632D26157"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Interval Trainer/PerformWorkout/PW_Feature.swift"
+            filePath = "Interval Trainer/Dependencies/CloudKit.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
-            landmarkName = "advanceToNextInterval(_:)"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "init(from:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "64E4FC64-650C-4C2B-87CA-8576040AD177"
+            uuid = "EEC2843B-969A-4988-81F4-9AA518A43202"
             shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/Dependencies/CloudKit.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "init(from:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "679FA399-F55F-4F7C-8B7D-740675E3FE8A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Interval Trainer/Dependencies/CloudKit.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "cloudKitRecord()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "33B6F195-E138-4B89-84E0-48D984F01064"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Interval Trainer/PerformWorkout/PW_Feature.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "advanceToNextInterval(_:)"
             landmarkType = "7">
          </BreakpointContent>

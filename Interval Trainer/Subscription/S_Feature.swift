@@ -1,32 +1,47 @@
 import ComposableArchitecture
 import StoreKit
+import Foundation
 
 @Reducer
 struct SubscriptionFeature {
     @ObservableState
     struct State: Equatable {
         var isSubscribed = false
-        var availableSubscriptions: [Product] = []
+        var availableSubscriptions: [AppProduct] = []
         var isLoading = false
         var error: String?
+        var currentImageIndex = 0
+        var displayedImage: String {
+            "onboarding\(currentImageIndex + 1)"
+        }
     }
     
     enum Action {
+        case didAppear
         case checkSubscriptionStatus
         case subscriptionStatusUpdated(Bool)
         case loadProducts
-        case productsLoaded([Product])
-        case purchase(Product)
+        case productsLoaded([AppProduct])
+        case purchase(AppProduct)
         case purchaseCompleted
         case restorePurchases
         case setError(String?)
+        case timerTicked
     }
     
     @Dependency(\.subscriptionClient) var subscriptionClient
+    @Dependency(\.continuousClock) var clock
+    
     
     var body: some Reducer<State, Action> {
         Reduce { state, action in
             switch action {
+            case .didAppear:
+                return .run { send in
+                    for await _ in self.clock.timer(interval: .seconds(3)) {
+                        await send(.timerTicked)
+                    }
+                }
             case .checkSubscriptionStatus:
                 state.isLoading = true
                 return .run { send in
@@ -77,9 +92,13 @@ struct SubscriptionFeature {
                     }
                 }
                 
-            case let .setError(error):
-                state.error = error
+            case .setError:
+                state.error = "Sorry, there was an error with your transaction. Please try again."
                 state.isLoading = false
+                return .none
+                
+            case .timerTicked:
+                state.currentImageIndex = (state.currentImageIndex + 1) % 9
                 return .none
             }
         }

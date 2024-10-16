@@ -23,7 +23,7 @@ extension CloudKitClient: DependencyKey {
             let workouts = try await CloudKitManager.shared.fetchCompletedWorkouts()
             return workouts
         } catch {
-            return generateSampleWorkouts()
+            return []
         }
     })
 }
@@ -56,7 +56,7 @@ class CloudKitManager {
     private let privateDatabase: CKDatabase
     
     private init() {
-        container = CKContainer.default()
+        container = CKContainer.init(identifier: "iCloud.com.kinnectus.intervaltrainer.icloudcontainer")
         publicDatabase = container.publicCloudDatabase
         privateDatabase = container.privateCloudDatabase
     }
@@ -105,7 +105,7 @@ extension WorkoutPlan: CloudKitConvertible {
         let record = CKRecord(recordType: "WorkoutPlan")
         record["id"] = id.uuidString
         record["name"] = name
-        record["phases"] = try JSONEncoder().encode(phases)
+        record["intervals"] = try JSONEncoder().encode(intervals)
         return record
     }
     
@@ -113,13 +113,13 @@ extension WorkoutPlan: CloudKitConvertible {
         guard let idString = record["id"] as? String,
               let id = UUID(uuidString: idString),
               let name = record["name"] as? String,
-              let phasesData = record["phases"] as? Data,
-              let phases = try? JSONDecoder().decode([WorkoutPhase].self, from: phasesData) else {
+              let intervalsData = record["intervals"] as? Data,
+              let intervals = try? JSONDecoder().decode([Interval].self, from: intervalsData) else {
             throw NSError(domain: "WorkoutPlanError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid record data"])
         }
         self.id = id
         self.name = name
-        self.phases = phases
+        self.intervals = intervals
     }
 }
 
@@ -189,22 +189,18 @@ extension CloudKitClient {
     
     private static func generateSamplePlans() -> [WorkoutPlan] {
         [
-            WorkoutPlan(id: UUID(), name: "HIIT Cardio", phases: [
-                .active(ActivePhase(id: UUID(), intervals: [
+            WorkoutPlan(id: UUID(), name: "HIIT Cardio", intervals: [
                     Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
                     Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 50),
                     Interval(id: UUID(), name: "Low Intensity", type: .highIntensity, duration: 10),
                     Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                ]))
-            ]),
-            WorkoutPlan(id: UUID(), name: "Strength Training", phases: [
-                .active(ActivePhase(id: UUID(), intervals: [
+                ]),
+            WorkoutPlan(id: UUID(), name: "Strength Training", intervals: [
                     Interval(id: UUID(), name: "Warm Up", type: .warmup, duration: 300),
                     Interval(id: UUID(), name: "High Intensity", type: .highIntensity, duration: 50),
                     Interval(id: UUID(), name: "Low Intensity", type: .highIntensity, duration: 10),
                     Interval(id: UUID(), name: "Cool Down", type: .coolDown, duration: 300)
-                ]))
-            ])
+                ])
         ]
     }
     

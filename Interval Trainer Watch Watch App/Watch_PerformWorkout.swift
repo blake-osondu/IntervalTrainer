@@ -84,27 +84,11 @@ struct Watch_PerformWorkoutView: View {
                 workoutPlan: WorkoutPlan(
                     id: UUID(),
                     name: "HIIT Workout",
-                    phases: [
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
-                                Interval(id: UUID(), name: "Light Jog", type: .warmup, duration: 300)
-                            ]
-                        )),
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
+                    intervals: [
+                                Interval(id: UUID(), name: "Light Jog", type: .warmup, duration: 300),
                                 Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Rest", type: .lowIntensity, duration: 30)
-                            ]
-                        )),
-                        .rest(RestPhase(id: UUID(), duration: 60)),
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
+                                Interval(id: UUID(), name: "Rest", type: .lowIntensity, duration: 30),
                                 Interval(id: UUID(), name: "Stretching", type: .coolDown, duration: 300)
-                            ]
-                        ))
                     ]
                 )
             ),

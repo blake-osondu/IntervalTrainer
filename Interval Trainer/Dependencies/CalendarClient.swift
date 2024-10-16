@@ -28,8 +28,8 @@ extension CalendarClient: TestDependencyKey {
     } yearOf: { _ in
         Calendar.current.component(.year, from: Date())
     }
-
 }
+
 extension DependencyValues {
     var calendarClient: CalendarClient {
         get { self[CalendarClient.self] }

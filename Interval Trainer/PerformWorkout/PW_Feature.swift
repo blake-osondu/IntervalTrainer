@@ -15,7 +15,6 @@ struct PerformWorkoutFeature {
     @ObservableState
     struct State: Equatable {
         var workoutPlan: WorkoutPlan
-        var currentPhaseIndex: Int = 0
         var currentIntervalIndex: Int = 0
         var timeRemaining: TimeInterval = 0
         var isRunning: Bool = false
@@ -40,19 +39,8 @@ struct PerformWorkoutFeature {
             self.timeRemaining = currentInterval?.duration ?? 0
         }
         
-        var currentPhase: WorkoutPhase? {
-            workoutPlan.phases[safe: currentPhaseIndex]
-        }
-        
         var currentInterval: Interval? {
-            switch currentPhase {
-            case .active(let activePhase):
-                return activePhase.intervals[safe: currentIntervalIndex]
-            case .rest(let restPhase):
-                return Interval(id: UUID(), name: "Rest", type: .lowIntensity, duration: restPhase.duration)
-            case .none:
-                return nil
-            }
+            workoutPlan.intervals[safe: currentIntervalIndex]
         }
     }
     
@@ -131,7 +119,6 @@ struct PerformWorkoutFeature {
                 
             case .stopWorkout:
                 state.isRunning = false
-                state.currentPhaseIndex = 0
                 state.currentIntervalIndex = 0
                 state.timeRemaining = state.currentInterval?.duration ?? 0
                 return .none
@@ -165,7 +152,6 @@ struct PerformWorkoutFeature {
                 
             case let .updateCurrentRoutine(updatedPlan):
                 state.workoutPlan = updatedPlan
-                state.currentPhaseIndex = 0
                 state.currentIntervalIndex = 0
                 state.timeRemaining = state.currentInterval?.duration ?? 0
                 state.editWorkout = nil
@@ -189,6 +175,9 @@ struct PerformWorkoutFeature {
             case .workoutCompleted:
                 state.workoutComplete = WorkoutCompleteFeature.State(totalElapsedTime: formatTime(state.totalElapsedTime), totalCaloriesBurned: Int(state.caloriesBurned))
                 state.isRunning = false
+                state.totalElapsedTime = 0
+                state.currentIntervalIndex = 0
+                state.timeRemaining = state.currentInterval?.duration ?? 0
                 return .none
                 
             case .workoutComplete(.presented(.selectedSaveWorkout)):
@@ -239,7 +228,6 @@ struct PerformWorkoutFeature {
             case .syncWorkoutState:
                 let workoutState = WorkoutState(
                     isRunning: state.isRunning,
-                    currentPhaseIndex: state.currentPhaseIndex,
                     currentIntervalIndex: state.currentIntervalIndex,
                     timeRemaining: state.timeRemaining,
                     totalElapsedTime: state.totalElapsedTime
@@ -250,7 +238,6 @@ struct PerformWorkoutFeature {
                 
             case let .receivedWorkoutState(workoutState):
                 state.isRunning = workoutState.isRunning
-                state.currentPhaseIndex = workoutState.currentPhaseIndex
                 state.currentIntervalIndex = workoutState.currentIntervalIndex
                 state.timeRemaining = workoutState.timeRemaining
                 state.totalElapsedTime = workoutState.totalElapsedTime
@@ -311,22 +298,9 @@ struct PerformWorkoutFeature {
     private func advanceToNextInterval(_ state: inout State) -> Effect<Action> {
         state.totalElapsedTime += state.timeRemaining
 
-        switch state.currentPhase {
-        case .active(let activePhase):
-            if state.currentIntervalIndex < activePhase.intervals.count - 1 {
-                state.currentIntervalIndex += 1
-            } else {
-                state.currentPhaseIndex += 1
-                state.currentIntervalIndex = 0
-            }
-        case .rest:
-            state.currentPhaseIndex += 1
-            state.currentIntervalIndex = 0
-        case .none:
-            return .send(.stopWorkout)
-        }
-        
-        if state.currentPhaseIndex >= state.workoutPlan.phases.count {
+        if state.currentIntervalIndex < state.workoutPlan.intervals.count - 1 {
+            state.currentIntervalIndex += 1
+        } else if state.currentIntervalIndex == state.workoutPlan.intervals.count - 1 {
             return .send(.stopWorkout)
         }
         
@@ -338,16 +312,6 @@ struct PerformWorkoutFeature {
         state.totalElapsedTime = max(0, state.totalElapsedTime - state.timeRemaining)
         if state.currentIntervalIndex > 0 {
             state.currentIntervalIndex -= 1
-        } else if state.currentPhaseIndex > 0 {
-            state.currentPhaseIndex -= 1
-            switch state.currentPhase {
-            case .active(let activePhase):
-                state.currentIntervalIndex = activePhase.intervals.count - 1
-            case .rest:
-                state.currentIntervalIndex = 0
-            case .none:
-                break
-            }
         }
         
         state.timeRemaining = state.currentInterval?.duration ?? 0
@@ -357,7 +321,6 @@ struct PerformWorkoutFeature {
 
 public struct WorkoutState: Codable, Equatable {
     public var isRunning: Bool
-    public var currentPhaseIndex: Int
     public var currentIntervalIndex: Int
     public var timeRemaining: TimeInterval
     public var totalElapsedTime: TimeInterval

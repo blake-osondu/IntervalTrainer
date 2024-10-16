@@ -25,15 +25,15 @@ struct EditWorkoutView: View {
                             ))
                         }
                         
-                        Section(header: Text("Phases")) {
-                            ForEach(viewStore.workoutPlan.phases) { phase in
-                                PhaseRow(phase: phase)
+                        Section(header: Text("Intervals")) {
+                            ForEach(viewStore.workoutPlan.intervals) { interval in
+                                IntervalRow(interval: interval)
                                     .onTapGesture {
-                                        viewStore.send(.selectedPhase(phase))
+                                        viewStore.send(.intervalSelected(interval))
                                     }
                             }
-                            .onDelete { viewStore.send(.deletePhases($0)) }
-                            .onMove { viewStore.send(.movePhases($0, $1)) }
+                            .onDelete { viewStore.send(.deleteInterval($0)) }
+                            .onMove { viewStore.send(.moveInterval($0, $1)) }
                         }
                     }
                     .navigationTitle("Edit Workout")
@@ -44,9 +44,9 @@ struct EditWorkoutView: View {
                     VStack {
                         Spacer()
                         Button(action: {
-                            viewStore.send(.addPhaseTapped)
+                            viewStore.send(.addIntervalTapped)
                         }) {
-                            Text("Add Workout Phase")
+                            Text("Add Interval")
                                 .font(.system(.headline, design: .rounded))
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
@@ -55,14 +55,19 @@ struct EditWorkoutView: View {
                                 .cornerRadius(12)
                         }
                         .padding(.horizontal)
-                        .padding(.vertical, 8)
+                        .padding(.top, 8)
                     }
                 }
             }
             .sheet(
-                store: store.scope(state: \.$editPhase, action: \.editPhase)
-            ) { editPhaseStore in
-                EditPhaseView(store: editPhaseStore)
+                store: store.scope(state: \.$addInterval, action: \.addInterval)
+            ) { addIntervalStore in
+                AddIntervalView(store: addIntervalStore)
+            }
+            .sheet(
+                store: store.scope(state: \.$editInterval, action: \.editInterval)
+            ) { editIntervalStore in
+                EditIntervalView(store: editIntervalStore)
             }
         }
     }
@@ -78,17 +83,12 @@ struct EditWorkoutView: View {
                 workoutPlan: WorkoutPlan(
                     id: UUID(),
                     name: "HIIT Workout",
-                    phases: [
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
+                    intervals: [
                                 Interval(id: UUID(), name: "Light Jog", type: .warmup, duration: 300),
                                 Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
                                 Interval(id: UUID(), name: "Rest", type: .lowIntensity, duration: 30),
                                 Interval(id: UUID(), name: "Stretching", type: .coolDown, duration: 300)
                             ]
-                        ))
-                    ]
                 )
             ),
             reducer: {

@@ -51,7 +51,7 @@ struct WatchAppFeature {
 }
 
 extension WorkoutPlan {
-    static let placeholder = WorkoutPlan(id: UUID(), name: "Placeholder", phases: [])
+    static let placeholder = WorkoutPlan(id: UUID(), name: "Placeholder", intervals: [])
 }
 
 

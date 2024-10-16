@@ -14,8 +14,9 @@ struct EditWorkoutFeature {
     @ObservableState
     struct State: Equatable {
         var workoutPlan: WorkoutPlan
-        @Presents var editPhase: EditPhaseFeature.State?
-        
+        @Presents var addInterval: AddIntervalFeature.State?
+        @Presents var editInterval: EditIntervalFeature.State?
+
         init(workoutPlan: WorkoutPlan) {
             self.workoutPlan = workoutPlan
         }
@@ -24,11 +25,12 @@ struct EditWorkoutFeature {
     @CasePathable
     enum Action {
         case setWorkoutName(String)
-        case addPhaseTapped
-        case selectedPhase(WorkoutPhase)
-        case editPhase(PresentationAction<EditPhaseFeature.Action>)
-        case deletePhases(IndexSet)
-        case movePhases(IndexSet, Int)
+        case intervalSelected(Interval)
+        case addIntervalTapped
+        case addInterval(PresentationAction<AddIntervalFeature.Action>)
+        case deleteInterval(IndexSet)
+        case moveInterval(IndexSet, Int)
+        case editInterval(PresentationAction<EditIntervalFeature.Action>)
         case save
         case cancel
     }
@@ -40,45 +42,65 @@ struct EditWorkoutFeature {
                 state.workoutPlan.name = name
                 return .none
                 
-            case .addPhaseTapped:
-                state.editPhase = EditPhaseFeature.State(phase: .active(ActivePhase(id: UUID(), intervals: [])))
+            case .addIntervalTapped:
+                state.addInterval = AddIntervalFeature.State()
                 return .none
                 
-            case let .selectedPhase(phase):
-                state.editPhase = EditPhaseFeature.State(phase: phase)
+            case .addInterval(.presented(.save)):
+                guard let addInterval = state.addInterval else { return .none }
+                let interval = Interval(id: UUID(),
+                                        name: addInterval.name,
+                                        type: addInterval.type,
+                                        duration: addInterval.duration)
+                state.workoutPlan.intervals.append(interval)
+                state.addInterval = nil
                 return .none
                 
-            case .editPhase(.presented(.save)):
-                guard let phase = state.editPhase?.phase else { return .none }
-                if let index = state.workoutPlan.phases.firstIndex(where: { $0.id == phase.id }) {
-                    state.workoutPlan.phases[index] = phase
+            case .addInterval(.dismiss):
+                state.addInterval = nil
+                return .none
+                
+            case let .deleteInterval(indexSet):
+                state.workoutPlan.intervals.remove(atOffsets: indexSet)
+                return .none
+            
+            case .addInterval:
+                return .none
+            
+            case let .moveInterval(source, destination):
+                state.workoutPlan.intervals.move(fromOffsets: source, toOffset: destination)
+                return .none
+            
+            case let .intervalSelected(interval):
+                state.editInterval = EditIntervalFeature.State(interval: interval)
+                return .none
+            
+            case .editInterval(.presented(.save)):
+                guard let interval = state.editInterval?.interval else { return .none }
+                if let index = state.workoutPlan.intervals.firstIndex(where: { $0.id == interval.id }) {
+                    state.workoutPlan.intervals[index] = interval
                 } else {
-                    state.workoutPlan.phases.append(phase)
+                    state.workoutPlan.intervals.append(interval)
                 }
-                state.editPhase = nil
+                state.editInterval = nil
                 return .none
                 
-            case .editPhase(.dismiss), .editPhase(.presented(.cancel)):
-                state.editPhase = nil
-                return .none
-                
-            case let .deletePhases(indexSet):
-                state.workoutPlan.phases.remove(atOffsets: indexSet)
-                return .none
-                
-            case let .movePhases(source, destination):
-                state.workoutPlan.phases.move(fromOffsets: source, toOffset: destination)
+            case .editInterval(.dismiss), .editInterval(.presented(.cancel)):
+                state.editInterval = nil
                 return .none
                 
             case .save, .cancel:
                 return .none
                 
-            case .editPhase:
+            case .editInterval:
                 return .none
             }
         }
-        .ifLet(\.$editPhase, action: \.editPhase) {
-            EditPhaseFeature()
+        .ifLet(\.$editInterval, action: \.editInterval) {
+            EditIntervalFeature()
+        }
+        .ifLet(\.$addInterval, action: \.addInterval) {
+            AddIntervalFeature()
         }
     }
 }

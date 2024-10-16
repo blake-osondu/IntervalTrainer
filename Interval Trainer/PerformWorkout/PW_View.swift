@@ -122,10 +122,7 @@ extension PerformWorkoutView {
                 workoutPlan: WorkoutPlan(
                     id: UUID(),
                     name: "HIIT Workout",
-                    phases: [
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
+                    intervals: [
                                 Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
                                 Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
                                 Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
@@ -134,15 +131,8 @@ extension PerformWorkoutView {
                                 Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
                                 Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
                                 Interval(id: UUID(), name: "Sprint", type: .highIntensity, duration: 30),
-                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300)
-                            ]
-                        )),
-                        .active(ActivePhase(
-                            id: UUID(),
-                            intervals: [
+                                Interval(id: UUID(), name: "Light Jog", type: .lowIntensity, duration: 300),
                                 Interval(id: UUID(), name: "Stretching", type: .coolDown, duration: 300)
-                            ]
-                        ))
                     ]
                 )
             ),

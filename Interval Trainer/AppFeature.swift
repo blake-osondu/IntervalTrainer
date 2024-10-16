@@ -32,6 +32,7 @@ struct AppFeature {
         }
         Scope(state: \.subscription, action: \.subscription) {
             SubscriptionFeature()
+                .dependency(\.subscriptionClient, .testValue)
         }
         .onChange(of: \.home.workoutPlans.performWorkout) { oldValue, newValue in
             Reduce { state, _ in
